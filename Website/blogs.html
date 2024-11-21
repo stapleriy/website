@@ -28,12 +28,11 @@
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--background-green);
-            max-width: 1100px; /* Increased max-width */
+            max-width: 1100px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        /* Background Subtle Effect */
         body::before {
             content: '';
             position: fixed;
@@ -48,7 +47,6 @@
             z-index: -1;
         }
 
-        /* Navigation Styling */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -58,6 +56,7 @@
             margin-bottom: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
         .navbar-brand {
@@ -85,7 +84,87 @@
             background-color: var(--background-green);
         }
 
-        /* Header Styling */
+        .navbar-menu a.active {
+            color: var(--white);
+            background-color: var(--dark-green);
+        }
+
+        /* Hamburger Menu Styles */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1100;
+            width: 30px;
+            height: 20px;
+            justify-content: space-between;
+            transition: transform 0.3s ease;
+        }
+
+        .hamburger-line {
+            width: 100%;
+            height: 3px;
+            background-color: var(--dark-green);
+            transition: 0.3s ease;
+            transform-origin: center;
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Compact Mobile Menu Styles */
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 250px;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            flex-direction: column;
+            padding: 15px 0;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-20px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .mobile-menu a {
+            color: var(--dark-green);
+            text-decoration: none;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            background-color: var(--background-green);
+            color: var(--medium-green);
+        }
+
+        .mobile-menu a.active {
+            background-color: var(--dark-green);
+            color: var(--white);
+        }
+
         header {
             text-align: center;
             padding: 20px 0;
@@ -104,7 +183,6 @@
             font-weight: 500;
         }
 
-        /* Section Styling */
         section {
             background-color: var(--white);
             margin: 30px 0;
@@ -163,15 +241,21 @@
         }
 
         @media (max-width: 600px) {
-            .navbar {
-                flex-direction: column;
-                text-align: center;
+            .navbar-menu {
+                display: none;
             }
 
-            .navbar-menu {
-                margin-top: 10px;
-                flex-direction: column;
-                align-items: center;
+            .hamburger-menu {
+                display: flex;
+            }
+
+            .mobile-menu {
+                width: 100%;
+                position: fixed;
+                top: 80px;
+                right: 10px;
+                width: calc(100% - 20px);
+                max-width: 300px;
             }
 
             #skills ul {
@@ -194,7 +278,20 @@
         <div class="navbar-menu">
             <a href="/Website/index.html">Home</a>
             <a href="/Website/portfolio.html">Portfolio</a>
-            <a href="/Website/blogs.html">Blog</a>
+            <a href="/Website/blogs.html" class="active">Blog</a>
+            <a href="#contact">Contact</a>
+        </div>
+        
+        <div class="hamburger-menu" id="hamburger">
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+        </div>
+
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="/Website/index.html">Home</a>
+            <a href="/Website/portfolio.html">Portfolio</a>
+            <a href="/Website/blogs.html" class="active">Blog</a>
             <a href="#contact">Contact</a>
         </div>
     </nav>
@@ -203,8 +300,6 @@
         <h1>HI! <br> Welcome to the blog</h1>
         <p class="subtitle">Inbetween Inkstains</p>
     </header>
-
- 
 
     <section id="writing-samples">
         <h2>Recent Blogs</h2>
@@ -219,12 +314,43 @@
         <p><em>Note: This section will grow as I gain more writing experience</em></p>
     </section>
 
-    
-
     <section id="contact">
         <h2>Contact Me</h2>
         <p>Email: simranscribes@gmail.com</p>
         <a href="#" class="cta-button">Let's Connect</a>
     </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            hamburger.addEventListener('click', (event) => {
+                event.stopPropagation();
+                mobileMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (event) => {
+                if (!hamburger.contains(event.target) && 
+                    !mobileMenu.contains(event.target)) {
+                    mobileMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                }
+            });
+
+            // Prevent event propagation when clicking inside the menu
+            mobileMenu.addEventListener('click', (event) => {
+                event.stopPropagation();
+                
+                // Close menu when a link is clicked
+                if (event.target.tagName === 'A') {
+                    mobileMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
