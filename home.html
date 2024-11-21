@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montaga&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Simran - Content Writer</title>
+    <style>
+        section {
+            background-color: var(--white);
+            margin: 30px 0;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        section h2 {
+            color: var(--dark-green);
+            border-bottom: 2px solid var(--light-green);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        :root {
+            --dark-green: #1e4d2b;
+            --medium-green: #2d6e40;
+            --light-green: #4a8f5f;
+            --background-green: #f0f4f1;
+            --text-color: #2c3e50;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-green);
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(135deg, rgba(77, 144, 95, 0.05) 0%, transparent 20%),
+                linear-gradient(225deg, rgba(30, 77, 43, 0.03) 0%, transparent 20%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--white);
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+       
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--dark-green);
+        }
+
+        .navbar-menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar-menu a {
+            text-decoration: none;
+            color: var(--medium-green);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+
+        .navbar-menu a:hover {
+            color: var(--dark-green);
+            background-color: var(--background-green);
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            background-color: var(--white);
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-content h1 {
+            color: var(--dark-green);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            color: var(--medium-green);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--dark-green);
+            color: var(--white);
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .cta-button:hover {
+            background-color: var(--medium-green);
+        }
+
+        .cta-button-outline {
+            display: inline-block;
+            border: 2px solid var(--dark-green);
+            color: var(--dark-green);
+            padding: 10px 23px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button-outline:hover {
+            background-color: var(--dark-green);
+            color: var(--white);
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .navbar-menu {
+                margin-top: 10px;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero {
+                flex-direction: column;
+                padding: 30px;
+                text-align: center;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">Simran</div>
+        <div class="navbar-menu">
+            <a href="home.html">Home</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blogs.html">Blog</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <main class="hero">
+        <div class="hero-content">
+            <h1>Transforming Ideas into Compelling Stories</h1>
+            <p>Hi, I'm Simran – a passionate content writer dedicated to crafting engaging narratives that connect, inform, and inspire. Whether you need captivating blog posts, informative articles, or creative content, I'm here to bring your ideas to life.</p>
+            <div class="cta-buttons">
+                <a href="portfolio.html" class="cta-button">View Portfolio</a>
+                <a href="#contact" class="cta-button-outline">Let's Connect</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="/api/placeholder/500/500" alt="Simran - Content Writer">
+        </div>
+    </main>
+
+    <section style="background-color: var(--white); padding: 40px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <h2 style="color: var(--dark-green); margin-bottom: 20px; text-align: center;">What I Offer</h2>
+        <div style="display: flex; gap: 20px; justify-content: space-between;">
+            <div style="flex: 1; background-color: var(--background-green); padding: 20px; border-radius: 8px; text-align: center;">
+                <h3 style="color: var(--medium-green); margin-bottom: 10px;">Content Writing</h3>
+                <p>Engaging blog posts, articles, and long-form content that captures your audience's attention.</p>
+            </div>
+            <div style="flex: 1; background-color: var(--background-green); padding: 20px; border-radius: 8px; text-align: center;">
+                <h3 style="color: var(--medium-green); margin-bottom: 10px;">SEO Optimization</h3>
+                <p>Content strategically crafted to improve search engine rankings and drive organic traffic.</p>
+            </div>
+            <div style="flex: 1; background-color: var(--background-green); padding: 20px; border-radius: 8px; text-align: center;">
+                <h3 style="color: var(--medium-green); margin-bottom: 10px;">Storytelling</h3>
+                <p>Narratives that resonate, connect emotionally, and leave a lasting impact on your readers.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <p>Email: simranscribes@gmail.com</p>
+        <a href="#" class="cta-button">Let's Connect</a>
+    </section>
+    
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montaga&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Simran's Writing Portfolio</title>
+    <style>
+        :root {
+            --dark-green: #1e4d2b;  /* Deep foresty green */
+            --medium-green: #2d6e40;
+            --light-green: #4a8f5f;
+            --background-green: #f0f4f1;
+            --text-color: #2c3e50;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-green);
+            max-width: 1100px; /* Increased max-width */
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Background Subtle Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(135deg, rgba(77, 144, 95, 0.05) 0%, transparent 20%),
+                linear-gradient(225deg, rgba(30, 77, 43, 0.03) 0%, transparent 20%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Navigation Styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--white);
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--dark-green);
+        }
+
+        .navbar-menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar-menu a {
+            text-decoration: none;
+            color: var(--medium-green);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+
+        .navbar-menu a:hover {
+            color: var(--dark-green);
+            background-color: var(--background-green);
+        }
+
+        /* Header Styling */
+        header {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: var(--dark-green);
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .subtitle {
+            color: var(--medium-green);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        /* Section Styling */
+        section {
+            background-color: var(--white);
+            margin: 30px 0;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        section h2 {
+            color: var(--dark-green);
+            border-bottom: 2px solid var(--light-green);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .writing-sample {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: var(--background-green);
+            border-radius: 8px;
+        }
+
+        .writing-sample h3 {
+            color: var(--medium-green);
+            margin-bottom: 5px;
+        }
+
+        #skills ul {
+            list-style-type: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        #skills li {
+            background-color: var(--background-green);
+            padding: 5px 10px;
+            border-radius: 20px;
+            color: var(--dark-green);
+            font-weight: 500;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--dark-green);
+            color: var(--white);
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: var(--medium-green);
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .navbar-menu {
+                margin-top: 10px;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            #skills ul {
+                justify-content: center;
+            }
+
+            body {
+                padding: 10px;
+            }
+
+            section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">Simran</div>
+        <div class="navbar-menu">
+            <a href="home.html">Home</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blogs.html">Blog</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>HI! <br> I'm Simran.</h1>
+        <p class="subtitle">Content Writer</p>
+    </header>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>I'm a content writer eager to create compelling stories and informative content. I'm currently developing my skills and building my portfolio, focusing on delivering clear, engaging writing.</p>
+    </section>
+
+    <section id="writing-samples">
+        <h2>Writing Samples</h2>
+        <div class="writing-sample">
+            <h3>Sample 1: [Topic]</h3>
+            <p>Brief description of the writing piece. (Will be updated)</p>
+        </div>
+        <div class="writing-sample">
+            <h3>Sample 2: [Topic]</h3>
+            <p>Another writing sample description. (To be added)</p>
+        </div>
+        <p><em>Note: This section will grow as I gain more writing experience</em></p>
+    </section>
+
+    <section id="skills">
+        <h2>Skills</h2>
+        <ul>
+            <li>Content Writing</li>
+            <li>Research</li>
+            <li>Adaptable Writing Styles</li>
+            <li>SEO Writing</li>
+            <li>Storytelling</li>
+        </ul>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <p>Email: simranscribes@gmail.com</p>
+        <a href="#" class="cta-button">Let's Connect</a>
+    </section>
+</body>
+</html>
