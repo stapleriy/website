@@ -43,19 +43,15 @@
       line-height: 1.85;
     }
 
-    /* ── CANVAS BACKGROUND ───────────────────────────────
-       A single full-page canvas sits behind everything.
-       JS draws slow-drifting ink bleed circles on it.
-    ──────────────────────────────────────────────────── */
+    /* canvas bg */
     #bg-canvas {
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       width: 100%; height: 100%;
       pointer-events: none;
       z-index: 0;
     }
 
-    /* grain on top of canvas */
+    /* grain */
     body::before {
       content: '';
       position: fixed; inset: 0;
@@ -64,7 +60,6 @@
       z-index: 1;
     }
 
-    /* all sections sit above canvas */
     nav, section, footer { position: relative; z-index: 2; }
 
     /* ══════════════════════════
@@ -134,8 +129,24 @@
     nav a:hover { opacity: 1; color: var(--cream); }
     nav a:hover::after { width: 100%; }
 
+    /* mobile nav — shrink font and gap so all four fit */
+    @media (max-width: 600px) {
+      nav {
+        padding: 1.1rem 4vw;
+        gap: 0.9rem;
+      }
+      nav a {
+        font-size: 0.5rem;
+        letter-spacing: 0.08em;
+      }
+    }
+    @media (max-width: 360px) {
+      nav a { font-size: 0.44rem; letter-spacing: 0.05em; }
+      nav { gap: 0.6rem; }
+    }
+
     /* ══════════════════════════
-       CENTRED CONTAINER
+       CONTAINER
     ══════════════════════════ */
     .wrap {
       max-width: var(--max);
@@ -149,7 +160,7 @@
     .eyebrow {
       font-family: 'Space Mono', monospace;
       font-size: 0.58rem;
-      letter-spacing: 0.28em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--pink);
       opacity: 0.75;
@@ -160,20 +171,11 @@
     section {
       padding: 8rem 6vw;
       border-bottom: 1px solid var(--rule);
-      /* sections are semi-transparent so canvas bleeds through subtly */
-      background: transparent;
     }
 
-    /* tinted section backgrounds via pseudo */
-    #landing  { background: rgba(14,11,22,0.82); min-height: 100svh; display:flex; align-items:center; padding-top:0; padding-bottom:0; }
-    #commonplace::after, #portfolio::after, #about::after, #contact::after {
-      content: '';
-      position: absolute; inset: 0;
-      pointer-events: none;
-      z-index: -1;
-    }
-    #commonplace { background: rgba(11,8,18,0.88); }
-    #portfolio   { background: rgba(17,14,26,0.90); }
+    #landing     { background: rgba(14,11,22,0.82);  min-height: 100svh; display:flex; align-items:center; padding-top:0; padding-bottom:0; }
+    #portfolio   { background: rgba(11,8,18,0.88); }
+    #commonplace { background: rgba(17,14,26,0.90); }
     #about       { background: rgba(14,11,22,0.85); }
     #contact     { background: rgba(11,8,18,0.88); }
 
@@ -265,84 +267,8 @@
     }
 
     /* ══════════════════════════
-       § 2 SO...
+       § 2 PORTFOLIO
     ══════════════════════════ */
-    .quotes-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--rule);
-      margin-bottom: 1px;
-    }
-    .quote-block {
-      background: rgba(11,8,18,0.7);
-      padding: 3rem 2.5rem;
-      transition: background 0.3s;
-    }
-    .quote-block:hover { background: rgba(212,198,245,0.06); }
-    .quote-block blockquote {
-      font-family: 'EB Garamond', serif;
-      font-style: italic;
-      font-size: clamp(1.25rem, 1.7vw, 1.45rem);
-      line-height: 1.7;
-      color: var(--cream);
-      border-left: 2px solid var(--lime);
-      padding-left: 1.4rem;
-      margin-bottom: 1rem;
-    }
-    .quote-attr {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.54rem;
-      letter-spacing: 0.13em;
-      color: var(--lavender);
-      opacity: 0.6;
-      text-transform: uppercase;
-      padding-left: 1.4rem;
-    }
-
-    .currently-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--rule);
-    }
-    .curr-block {
-      background: rgba(11,8,18,0.7);
-      padding: 2.8rem 2.5rem;
-      transition: background 0.3s;
-    }
-    .curr-block:hover { background: rgba(212,198,245,0.06); }
-    .curr-type {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.52rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--lavender);
-      opacity: 0.6;
-      margin-bottom: 0.8rem;
-      display: block;
-    }
-    .curr-val {
-      font-family: 'EB Garamond', serif;
-      font-size: 1.3rem;
-      color: var(--cream);
-      line-height: 1.6;
-      margin-bottom: 0.7rem;
-    }
-    .curr-aside {
-      font-family: 'Gochi Hand', cursive;
-      font-size: 1.1rem;
-      color: var(--lavender);
-      opacity: 0.82;
-      display: block;
-      line-height: 1.55;
-    }
-
-    /* ══════════════════════════
-       § 3 PORTFOLIO
-    ══════════════════════════ */
-
-    /* "Professionally Speaking..." — same size, one block */
     .port-heading {
       font-family: 'Playfair Display SC', serif;
       font-weight: 900;
@@ -354,7 +280,6 @@
     .port-heading .speaking {
       font-family: 'Gochi Hand', cursive;
       font-weight: 400;
-      /* same computed size as the SC heading */
       font-size: 1em;
       color: var(--pink);
       display: inline;
@@ -478,7 +403,81 @@
     }
 
     /* ══════════════════════════
-       § 4 ABOUT
+       § 3 WHAT'S THAT?
+    ══════════════════════════ */
+    .quotes-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--rule);
+      margin-bottom: 1px;
+    }
+    .quote-block {
+      background: rgba(17,14,26,0.75);
+      padding: 3rem 2.5rem;
+      transition: background 0.3s;
+    }
+    .quote-block:hover { background: rgba(212,198,245,0.06); }
+    .quote-block blockquote {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.25rem, 1.7vw, 1.45rem);
+      line-height: 1.7;
+      color: var(--cream);
+      border-left: 2px solid var(--lime);
+      padding-left: 1.4rem;
+      margin-bottom: 1rem;
+    }
+    .quote-attr {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.54rem;
+      letter-spacing: 0.13em;
+      color: var(--lavender);
+      opacity: 0.6;
+      text-transform: uppercase;
+      padding-left: 1.4rem;
+    }
+
+    .currently-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--rule);
+    }
+    .curr-block {
+      background: rgba(17,14,26,0.75);
+      padding: 2.8rem 2.5rem;
+      transition: background 0.3s;
+    }
+    .curr-block:hover { background: rgba(212,198,245,0.06); }
+    .curr-type {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--lavender);
+      opacity: 0.6;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+    .curr-val {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--cream);
+      line-height: 1.6;
+      margin-bottom: 0.7rem;
+    }
+    .curr-aside {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 1.1rem;
+      color: var(--lavender);
+      opacity: 0.82;
+      display: block;
+      line-height: 1.55;
+    }
+
+    /* ══════════════════════════
+       § 4 WAIT, WHO?
     ══════════════════════════ */
     .about-hl {
       font-family: 'Playfair Display SC', serif;
@@ -548,7 +547,7 @@
       margin-bottom: 2.5rem;
     }
     .obs-card {
-      background: rgba(14,11,22,0.7);
+      background: rgba(14,11,22,0.75);
       padding: 1.8rem 2rem;
       transition: background 0.3s, padding-left 0.3s;
     }
@@ -739,8 +738,6 @@
     ══════════════════════════ */
     @media (max-width: 700px) {
       body { font-size: 18px; }
-      nav { gap: 1rem; padding: 1.1rem 4vw; }
-      nav a { font-size: 0.56rem; letter-spacing: 0.1em; }
       section { padding: 6rem 5vw; }
       .quotes-row { grid-template-columns: 1fr; }
       .currently-grid { grid-template-columns: 1fr; }
@@ -748,14 +745,10 @@
       .cv-year { padding-top: 0; opacity: 0.45; }
       .obs-grid { grid-template-columns: 1fr; }
     }
-    @media (max-width: 400px) {
-      nav a:nth-child(3) { display: none; }
-    }
   </style>
 </head>
 <body>
 
-  <!-- BACKGROUND CANVAS -->
   <canvas id="bg-canvas"></canvas>
 
   <!-- CURSOR -->
@@ -767,10 +760,10 @@
     </svg>
   </div>
 
-  <!-- NAV -->
+  <!-- NAV — new order: portfolio / what's that? / wait, who? / hello or hi. -->
   <nav>
-    <a href="#commonplace">So...</a>
     <a href="#portfolio">portfolio</a>
+    <a href="#commonplace">what's that?</a>
     <a href="#about">wait, who?</a>
     <a href="#contact">Hello or Hi.</a>
   </nav>
@@ -795,55 +788,11 @@
     </div>
   </section>
 
-  <!-- § 2 SO... -->
-  <section id="commonplace">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">§ ii — so...</span>
-        <h2 class="section-h">not a journal.<br>not not a journal.</h2>
-        <span class="section-sub">(as clichéd as quotes are, these ones just stayed.)</span>
-      </div>
-
-      <div class="quotes-row">
-        <div class="quote-block">
-          <blockquote>Everyone is an artist until rent is due.</blockquote>
-          <p class="quote-attr">— anonymous. painfully accurate.</p>
-        </div>
-        <div class="quote-block">
-          <blockquote>Start where you are. Use what you have. Do what you can.</blockquote>
-          <p class="quote-attr">— Arthur Ashe. genuinely changed something.</p>
-        </div>
-      </div>
-
-      <div class="currently-grid">
-        <div class="curr-block">
-          <span class="curr-type">listening</span>
-          <p class="curr-val">Hozier, mostly.</p>
-          <span class="curr-aside">musically tasteless, except for this. open to be attacked with playlists of self-proclaimed musically tasteful human beans.</span>
-        </div>
-        <div class="curr-block">
-          <span class="curr-type">thinking about</span>
-          <p class="curr-val">most likely something philosophical that's beyond my intellectual comprehension.</p>
-          <span class="curr-aside">(this is not a bit, unfortunately.)</span>
-        </div>
-        <div class="curr-block">
-          <span class="curr-type">watching</span>
-          <p class="curr-val">anything science fiction..., you know, like, Doraemon.</p>
-        </div>
-        <div class="curr-block">
-          <span class="curr-type">writing</span>
-          <p class="curr-val">fragments on the notes app that exist in a state of becoming.</p>
-          <span class="curr-aside">(may never become anything. we persist.)</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- § 3 PROFESSIONALLY SPEAKING -->
+  <!-- § 2 PORTFOLIO -->
   <section id="portfolio">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">§ iii — portfolio</span>
+        <span class="eyebrow">↯ portfolio</span>
         <h2 class="port-heading">Professionally <span class="speaking">Speaking...</span></h2>
         <span class="section-sub">(the "serious" portion of this website)</span>
       </div>
@@ -898,15 +847,59 @@
     </div>
   </section>
 
+  <!-- § 3 WHAT'S THAT? -->
+  <section id="commonplace">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">↯ what's that?</span>
+        <h2 class="section-h">not a journal.<br>not not a journal.</h2>
+        <span class="section-sub">(as clichéd as quotes are, these ones just stayed.)</span>
+      </div>
+
+      <div class="quotes-row">
+        <div class="quote-block">
+          <blockquote>Everyone is an artist until rent is due.</blockquote>
+          <p class="quote-attr">— anonymous. painfully accurate.</p>
+        </div>
+        <div class="quote-block">
+          <blockquote>Start where you are. Use what you have. Do what you can.</blockquote>
+          <p class="quote-attr">— Arthur Ashe. genuinely changed something.</p>
+        </div>
+      </div>
+
+      <div class="currently-grid">
+        <div class="curr-block">
+          <span class="curr-type">listening</span>
+          <p class="curr-val">Hozier, mostly.</p>
+          <span class="curr-aside">musically tasteless, except for this. open to be attacked with playlists of self-proclaimed musically tasteful human beans.</span>
+        </div>
+        <div class="curr-block">
+          <span class="curr-type">thinking about</span>
+          <p class="curr-val">most likely something philosophical that's beyond my intellectual comprehension.</p>
+          <span class="curr-aside">(this is not a bit, unfortunately.)</span>
+        </div>
+        <div class="curr-block">
+          <span class="curr-type">watching</span>
+          <p class="curr-val">anything science fiction..., you know, like, Doraemon.</p>
+        </div>
+        <div class="curr-block">
+          <span class="curr-type">writing</span>
+          <p class="curr-val">fragments on the notes app that exist in a state of becoming.</p>
+          <span class="curr-aside">(may never become anything. we persist.)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- § 4 WAIT, WHO? -->
   <section id="about">
     <div class="wrap" style="position:relative; z-index:1;">
-      <span class="eyebrow">§ iv — wait, who?</span>
+      <span class="eyebrow">↯ wait, who?</span>
       <span style="font-family:'Gochi Hand',cursive; font-size:1.5rem; color:var(--pink); display:block; transform:rotate(-1deg); margin-bottom:0.9rem; opacity:0.9;">why, me, of course.</span>
       <h2 class="about-hl">
-        I contain
+        I contain<br>
         <em>multitudes.</em><br>
-        <span class="obv">(Obviously.)</span>
+        <span class="obv">(obviously.)</span>
       </h2>
 
       <div class="about-body">
@@ -929,7 +922,7 @@
       <hr class="obs-divider"/>
 
       <span class="obs-lbl">
-        I write. Well, kind of.
+        I write. Well, kind of.<br>
         I mean, not really. But, you know. Anyway...
       </span>
 
@@ -975,9 +968,10 @@
     </div>
   </section>
 
-  <!-- § 5 CONTACT -->
+  <!-- § 5 HELLO OR HI. -->
   <section id="contact">
     <div class="wrap" style="position:relative; z-index:2;">
+      <span class="eyebrow">↯ hello or hi.</span>
       <span class="contact-open">well, since you made it to the end —</span>
       <h2 class="contact-h">
         let's talk<br>
@@ -1020,67 +1014,48 @@
   </footer>
 
   <script>
-    /* ── BACKGROUND CANVAS ─────────────────────────────
-       Slow-drifting ink bleed orbs. Each orb is a radial
-       gradient blob that wanders gently and never fully
-       fades — like ink dropped in water, held in stasis.
-    ──────────────────────────────────────────────────── */
+    /* BACKGROUND CANVAS */
     (function () {
       const canvas = document.getElementById('bg-canvas');
       const ctx = canvas.getContext('2d');
-
       const ORBS = [
-        { x: 0.15, y: 0.2,  r: 0.38, color: '100,70,180',  a: 0.055, vx: 0.00008, vy: 0.00012 },
-        { x: 0.80, y: 0.15, r: 0.32, color: '180,50,130',  a: 0.045, vx: -0.00010, vy: 0.00008 },
-        { x: 0.50, y: 0.65, r: 0.45, color: '80,50,160',   a: 0.05,  vx: 0.00006, vy: -0.00009 },
-        { x: 0.85, y: 0.80, r: 0.30, color: '160,90,220',  a: 0.04,  vx: -0.00007, vy: -0.00011 },
-        { x: 0.20, y: 0.75, r: 0.28, color: '200,64,160',  a: 0.035, vx: 0.00009, vy: 0.00007  },
+        { x:0.15, y:0.20, r:0.38, color:'100,70,180',  a:0.055, vx:0.00008,  vy:0.00012  },
+        { x:0.80, y:0.15, r:0.32, color:'180,50,130',  a:0.045, vx:-0.00010, vy:0.00008  },
+        { x:0.50, y:0.65, r:0.45, color:'80,50,160',   a:0.05,  vx:0.00006,  vy:-0.00009 },
+        { x:0.85, y:0.80, r:0.30, color:'160,90,220',  a:0.04,  vx:-0.00007, vy:-0.00011 },
+        { x:0.20, y:0.75, r:0.28, color:'200,64,160',  a:0.035, vx:0.00009,  vy:0.00007  },
       ];
-
-      function resize() {
-        canvas.width  = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
+      function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
       resize();
       window.addEventListener('resize', resize);
-
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        // deep base
         ctx.fillStyle = '#0e0b16';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-
         ORBS.forEach(o => {
-          // drift
-          o.x += o.vx;
-          o.y += o.vy;
-          // soft bounce
+          o.x += o.vx; o.y += o.vy;
           if (o.x < 0 || o.x > 1) o.vx *= -1;
           if (o.y < 0 || o.y > 1) o.vy *= -1;
-
           const cx = o.x * canvas.width;
           const cy = o.y * canvas.height;
           const r  = o.r * Math.max(canvas.width, canvas.height);
-
-          const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-          grad.addColorStop(0,   `rgba(${o.color}, ${o.a})`);
-          grad.addColorStop(0.5, `rgba(${o.color}, ${o.a * 0.4})`);
-          grad.addColorStop(1,   `rgba(${o.color}, 0)`);
-
+          const g  = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+          g.addColorStop(0,   `rgba(${o.color},${o.a})`);
+          g.addColorStop(0.5, `rgba(${o.color},${o.a*0.4})`);
+          g.addColorStop(1,   `rgba(${o.color},0)`);
           ctx.beginPath();
-          ctx.arc(cx, cy, r, 0, Math.PI * 2);
-          ctx.fillStyle = grad;
+          ctx.arc(cx, cy, r, 0, Math.PI*2);
+          ctx.fillStyle = g;
           ctx.fill();
         });
-
         requestAnimationFrame(draw);
       }
       draw();
     })();
 
-    /* ── CURSOR ─────────────────────────────────────── */
+    /* CURSOR */
     const ring = document.getElementById('cursor-ring');
-    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+    let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2;
     let curX = mouseX, curY = mouseY;
     let idleTimer = null;
 
@@ -1090,19 +1065,17 @@
       clearTimeout(idleTimer);
       idleTimer = setTimeout(() => ring.classList.add('idle'), 1400);
     });
-
     document.addEventListener('click', () => {
       ring.classList.remove('clicked');
       void ring.offsetWidth;
       ring.classList.add('clicked');
       setTimeout(() => ring.classList.remove('clicked'), 450);
     });
-
     function tick() {
       curX += (mouseX - curX) * 0.14;
       curY += (mouseY - curY) * 0.14;
       const speed = Math.abs(mouseX - curX) + Math.abs(mouseY - curY);
-      ring.style.transform = `translate(${curX - 18}px, ${curY - 18}px)`;
+      ring.style.transform = `translate(${curX-18}px, ${curY-18}px)`;
       speed > 8 ? ring.classList.add('fast') : ring.classList.remove('fast');
       requestAnimationFrame(tick);
     }
