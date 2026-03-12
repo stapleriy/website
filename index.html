@@ -10,22 +10,22 @@
 
   <style>
     :root {
-      --bg:        #110d1a;
-      --bg-alt:    #0d0916;
-      --bg-sec:    #140f20;
+      --bg:        #0e0b16;
+      --bg-alt:    #0b0812;
+      --bg-sec:    #110e1a;
 
-      --cream:     #f0e6d3;
-      --lavender:  #c9b8f0;
-      --lav-dim:   rgba(201,184,240,0.07);
-      --lav-mid:   rgba(201,184,240,0.28);
+      --cream:     #f2e8d6;
+      --lavender:  #d4c6f5;
+      --lav-dim:   rgba(212,198,245,0.09);
+      --lav-mid:   rgba(212,198,245,0.35);
 
       --lime:      #c8f03a;
-      --lime-dim:  rgba(200,240,58,0.07);
+      --lime-dim:  rgba(200,240,58,0.08);
 
       --pink:      #e040a0;
 
-      --rule:      rgba(201,184,240,0.1);
-      --rule-hi:   rgba(201,184,240,0.2);
+      --rule:      rgba(212,198,245,0.12);
+      --rule-hi:   rgba(212,198,245,0.24);
 
       --max:       900px;
     }
@@ -39,18 +39,33 @@
       color: var(--cream);
       font-family: 'EB Garamond', Georgia, serif;
       overflow-x: hidden;
-      font-size: 19px;
+      font-size: 20px;
       line-height: 1.85;
     }
 
-    /* grain */
+    /* ── CANVAS BACKGROUND ───────────────────────────────
+       A single full-page canvas sits behind everything.
+       JS draws slow-drifting ink bleed circles on it.
+    ──────────────────────────────────────────────────── */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* grain on top of canvas */
     body::before {
       content: '';
       position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
       pointer-events: none;
-      z-index: 9998;
+      z-index: 1;
     }
+
+    /* all sections sit above canvas */
+    nav, section, footer { position: relative; z-index: 2; }
 
     /* ══════════════════════════
        CURSOR
@@ -93,8 +108,8 @@
       justify-content: flex-end;
       align-items: center;
       gap: 2rem;
-      background: linear-gradient(to bottom, rgba(17,13,26,0.97), transparent);
-      backdrop-filter: blur(3px);
+      background: linear-gradient(to bottom, rgba(14,11,22,0.97), transparent);
+      backdrop-filter: blur(4px);
     }
     nav a {
       font-family: 'Space Mono', monospace;
@@ -103,7 +118,7 @@
       text-transform: uppercase;
       color: var(--pink);
       text-decoration: none;
-      opacity: 0.82;
+      opacity: 0.85;
       position: relative;
       transition: color 0.2s, opacity 0.2s;
       white-space: nowrap;
@@ -138,57 +153,66 @@
       text-transform: uppercase;
       color: var(--pink);
       opacity: 0.75;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem;
       display: block;
     }
 
     section {
       padding: 8rem 6vw;
       border-bottom: 1px solid var(--rule);
-      position: relative;
-      overflow: hidden;
+      /* sections are semi-transparent so canvas bleeds through subtly */
+      background: transparent;
+    }
+
+    /* tinted section backgrounds via pseudo */
+    #landing  { background: rgba(14,11,22,0.82); min-height: 100svh; display:flex; align-items:center; padding-top:0; padding-bottom:0; }
+    #commonplace::after, #portfolio::after, #about::after, #contact::after {
+      content: '';
+      position: absolute; inset: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+    #commonplace { background: rgba(11,8,18,0.88); }
+    #portfolio   { background: rgba(17,14,26,0.90); }
+    #about       { background: rgba(14,11,22,0.85); }
+    #contact     { background: rgba(11,8,18,0.88); }
+
+    .section-head { margin-bottom: 4rem; }
+    .section-h {
+      font-family: 'Playfair Display SC', serif;
+      font-weight: 900;
+      font-size: clamp(2.4rem, 4.2vw, 3.8rem);
+      line-height: 1.0;
+      color: var(--cream);
+      margin-bottom: 0.6rem;
+    }
+    .section-sub {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 1.2rem;
+      color: var(--lavender);
+      opacity: 0.78;
+      display: inline-block;
+      margin-top: 0.5rem;
     }
 
     /* ══════════════════════════
        § 1 LANDING
     ══════════════════════════ */
-    #landing {
-      background: var(--bg);
-      min-height: 100svh;
-      display: flex;
-      align-items: center;
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-
-    .landing-ghost {
-      position: absolute;
-      bottom: -6rem; right: -2vw;
-      font-family: 'Playfair Display SC', serif;
-      font-weight: 900;
-      font-size: clamp(10rem, 22vw, 20rem);
-      line-height: 1;
-      color: rgba(201,184,240,0.03);
-      pointer-events: none; user-select: none;
-      white-space: nowrap;
-    }
     .edge-line {
       position: absolute;
       left: 0; top: 15%; bottom: 15%;
       width: 2px;
       background: linear-gradient(to bottom, transparent, var(--lime) 40%, var(--pink) 70%, transparent);
-      opacity: 0.4;
+      opacity: 0.45;
     }
-
     .landing-inner {
       position: relative; z-index: 2;
       padding: 7rem 0 5rem;
       width: 100%;
     }
-
     .landing-hello {
       font-family: 'Gochi Hand', cursive;
-      font-size: 1.45rem;
+      font-size: 1.55rem;
       color: var(--lime);
       margin-bottom: 1rem;
       display: inline-block;
@@ -212,18 +236,19 @@
     .landing-desc {
       margin-top: 2.8rem;
       font-family: 'EB Garamond', serif;
-      font-size: clamp(1.1rem, 1.5vw, 1.25rem);
-      color: var(--lavender);
+      font-size: clamp(1.2rem, 1.6vw, 1.4rem);
+      color: var(--cream);
       border-left: 2px solid var(--lav-mid);
-      padding-left: 1.4rem;
+      padding-left: 1.5rem;
       max-width: 560px;
       line-height: 1.9;
+      opacity: 0.88;
     }
-    .landing-desc em { font-style: italic; color: var(--cream); }
+    .landing-desc em { font-style: italic; color: var(--lavender); }
     .landing-scroll {
       margin-top: 3rem;
       font-family: 'Gochi Hand', cursive;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       color: var(--lime);
       transform: rotate(-1deg);
       display: inline-flex;
@@ -242,51 +267,23 @@
     /* ══════════════════════════
        § 2 SO...
     ══════════════════════════ */
-    #commonplace { background: var(--bg-alt); }
-    #commonplace::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: radial-gradient(circle, rgba(201,184,240,0.05) 1px, transparent 1px);
-      background-size: 30px 30px;
-      pointer-events: none;
-    }
-
-    .section-head { margin-bottom: 4rem; }
-    .section-h {
-      font-family: 'Playfair Display SC', serif;
-      font-weight: 900;
-      font-size: clamp(2.2rem, 4vw, 3.5rem);
-      line-height: 1.0;
-      color: var(--cream);
-      margin-bottom: 0.6rem;
-    }
-    .section-sub {
-      font-family: 'Gochi Hand', cursive;
-      font-size: 1.1rem;
-      color: var(--lavender);
-      opacity: 0.7;
-      display: inline-block;
-      margin-top: 0.4rem;
-    }
-
-    /* quotes — full width, side by side, separated by a line */
     .quotes-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1px;
       background: var(--rule);
-      margin-bottom: 3rem;
+      margin-bottom: 1px;
     }
     .quote-block {
-      background: var(--bg-alt);
+      background: rgba(11,8,18,0.7);
       padding: 3rem 2.5rem;
       transition: background 0.3s;
     }
-    .quote-block:hover { background: var(--lav-dim); }
+    .quote-block:hover { background: rgba(212,198,245,0.06); }
     .quote-block blockquote {
       font-family: 'EB Garamond', serif;
       font-style: italic;
-      font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+      font-size: clamp(1.25rem, 1.7vw, 1.45rem);
       line-height: 1.7;
       color: var(--cream);
       border-left: 2px solid var(--lime);
@@ -298,12 +295,11 @@
       font-size: 0.54rem;
       letter-spacing: 0.13em;
       color: var(--lavender);
-      opacity: 0.5;
+      opacity: 0.6;
       text-transform: uppercase;
       padding-left: 1.4rem;
     }
 
-    /* currently — 2×2 */
     .currently-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -311,33 +307,33 @@
       background: var(--rule);
     }
     .curr-block {
-      background: var(--bg-alt);
-      padding: 2.5rem 2.5rem;
+      background: rgba(11,8,18,0.7);
+      padding: 2.8rem 2.5rem;
       transition: background 0.3s;
     }
-    .curr-block:hover { background: var(--lav-dim); }
+    .curr-block:hover { background: rgba(212,198,245,0.06); }
     .curr-type {
       font-family: 'Space Mono', monospace;
       font-size: 0.52rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--lavender);
-      opacity: 0.5;
-      margin-bottom: 0.7rem;
+      opacity: 0.6;
+      margin-bottom: 0.8rem;
       display: block;
     }
     .curr-val {
       font-family: 'EB Garamond', serif;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       color: var(--cream);
-      line-height: 1.55;
-      margin-bottom: 0.6rem;
+      line-height: 1.6;
+      margin-bottom: 0.7rem;
     }
     .curr-aside {
       font-family: 'Gochi Hand', cursive;
-      font-size: 1rem;
+      font-size: 1.1rem;
       color: var(--lavender);
-      opacity: 0.65;
+      opacity: 0.82;
       display: block;
       line-height: 1.55;
     }
@@ -345,12 +341,26 @@
     /* ══════════════════════════
        § 3 PORTFOLIO
     ══════════════════════════ */
-    #portfolio { background: var(--bg-sec); }
-    #portfolio::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: repeating-linear-gradient(-55deg,transparent,transparent 55px,rgba(201,184,240,0.012) 55px,rgba(201,184,240,0.012) 56px);
-      pointer-events: none;
+
+    /* "Professionally Speaking..." — same size, one block */
+    .port-heading {
+      font-family: 'Playfair Display SC', serif;
+      font-weight: 900;
+      font-size: clamp(2.4rem, 4.2vw, 3.8rem);
+      line-height: 1.0;
+      color: var(--cream);
+      margin-bottom: 0.6rem;
+    }
+    .port-heading .speaking {
+      font-family: 'Gochi Hand', cursive;
+      font-weight: 400;
+      /* same computed size as the SC heading */
+      font-size: 1em;
+      color: var(--pink);
+      display: inline;
+      letter-spacing: 0;
+      position: relative;
+      top: 0.05em;
     }
 
     .cv-section { margin-bottom: 3.5rem; }
@@ -369,7 +379,7 @@
     .cv-section-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
 
     .cv-entry {
-      padding: 2rem 0;
+      padding: 2.2rem 0;
       border-bottom: 1px solid var(--rule);
       display: grid;
       grid-template-columns: 7rem 1fr;
@@ -384,7 +394,7 @@
       font-family: 'Space Mono', monospace;
       font-size: 0.6rem;
       color: var(--lavender);
-      opacity: 0.5;
+      opacity: 0.6;
       letter-spacing: 0.07em;
       white-space: nowrap;
       padding-top: 0.3rem;
@@ -393,7 +403,7 @@
     .cv-title {
       font-family: 'Playfair Display SC', serif;
       font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       color: var(--cream);
       line-height: 1.25;
       margin-bottom: 0.4rem;
@@ -401,28 +411,28 @@
     .cv-sub {
       font-family: 'EB Garamond', serif;
       font-style: italic;
-      font-size: 1.05rem;
-      color: var(--lavender);
-      opacity: 0.75;
+      font-size: 1.15rem;
+      color: var(--cream);
+      opacity: 0.78;
       line-height: 1.7;
     }
     .thesis-title {
       font-family: 'EB Garamond', serif;
       font-style: italic;
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       color: var(--cream);
       line-height: 1.75;
       margin-top: 0.6rem;
       padding: 0.9rem 1.2rem;
       border-left: 2px solid var(--lavender);
-      background: rgba(201,184,240,0.04);
+      background: rgba(212,198,245,0.05);
     }
     .pdf-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
       margin-top: 1rem;
-      padding: 0.6rem 1.2rem;
+      padding: 0.65rem 1.3rem;
       background: var(--lime-dim);
       border: 1.5px solid var(--lime);
       color: var(--lime);
@@ -433,7 +443,7 @@
       text-decoration: none;
       transition: background 0.25s, color 0.25s;
     }
-    .pdf-btn:hover { background: var(--lime); color: #0d0916; }
+    .pdf-btn:hover { background: var(--lime); color: #0b0812; }
     .pdf-btn::before { content: '↓'; font-size: 0.8rem; }
 
     .cv-btn {
@@ -441,7 +451,7 @@
       align-items: center;
       gap: 0.6rem;
       margin-top: 1rem;
-      padding: 0.6rem 1.2rem;
+      padding: 0.65rem 1.3rem;
       background: transparent;
       border: 1.5px solid var(--lavender);
       color: var(--lavender);
@@ -452,17 +462,17 @@
       text-decoration: none;
       transition: background 0.25s, color 0.25s;
     }
-    .cv-btn:hover { background: var(--lavender); color: #0d0916; }
+    .cv-btn:hover { background: var(--lavender); color: #0b0812; }
     .cv-btn::before { content: '↓'; font-size: 0.8rem; }
 
     .open-list {
       font-family: 'EB Garamond', serif;
       font-style: italic;
-      font-size: 1.05rem;
-      color: var(--lavender);
-      opacity: 0.8;
+      font-size: 1.15rem;
+      color: var(--cream);
+      opacity: 0.78;
       line-height: 2;
-      margin-top: 0.4rem;
+      margin-top: 0.5rem;
       padding-left: 1rem;
       border-left: 1px solid var(--rule-hi);
     }
@@ -470,25 +480,6 @@
     /* ══════════════════════════
        § 4 ABOUT
     ══════════════════════════ */
-    #about { background: var(--bg); }
-    #about::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 85% 15%, rgba(201,184,240,0.04) 0%, transparent 55%),
-                  radial-gradient(ellipse at 15% 85%, rgba(224,64,160,0.03) 0%, transparent 50%);
-      pointer-events: none;
-    }
-    .about-ghost {
-      position: absolute;
-      top: -4rem; right: -2vw;
-      font-family: 'Playfair Display SC', serif;
-      font-weight: 900;
-      font-size: clamp(16rem, 30vw, 28rem);
-      line-height: 1;
-      color: rgba(201,184,240,0.02);
-      pointer-events: none; user-select: none;
-    }
-
     .about-hl {
       font-family: 'Playfair Display SC', serif;
       font-weight: 900;
@@ -508,7 +499,7 @@
     .about-hl .obv {
       display: block;
       font-family: 'Gochi Hand', cursive;
-      font-size: 2.4rem;
+      font-size: 2.5rem;
       font-weight: 400;
       color: var(--pink);
       font-style: normal;
@@ -518,20 +509,16 @@
       margin-top: 0.12rem;
     }
 
-    .about-body {
-      max-width: var(--max);
-    }
-
     .about-body p {
       font-family: 'EB Garamond', serif;
       font-style: italic;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       line-height: 1.95;
-      color: var(--lavender);
-      opacity: 0.9;
+      color: var(--cream);
+      opacity: 0.88;
       margin-bottom: 1.6rem;
     }
-    .about-body p strong { font-style: normal; font-weight: 500; color: var(--cream); }
+    .about-body p strong { font-style: normal; font-weight: 500; color: var(--cream); opacity: 1; }
     .about-body p:first-child::first-letter {
       font-family: 'Playfair Display SC', serif;
       font-size: 3.8rem; font-weight: 900;
@@ -540,22 +527,19 @@
       color: var(--lavender);
     }
 
-    /* obsessions — stacked below body text */
     .obs-divider {
       margin: 3.5rem 0 2rem;
       border: none;
       border-top: 1px solid var(--rule);
     }
-
     .obs-lbl {
       font-family: 'Gochi Hand', cursive;
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       color: var(--pink);
       margin-bottom: 1.5rem;
       display: block;
       line-height: 1.55;
     }
-
     .obs-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -564,27 +548,27 @@
       margin-bottom: 2.5rem;
     }
     .obs-card {
-      background: var(--bg);
-      padding: 1.6rem 1.8rem;
+      background: rgba(14,11,22,0.7);
+      padding: 1.8rem 2rem;
       transition: background 0.3s, padding-left 0.3s;
     }
-    .obs-card:hover { background: var(--lav-dim); padding-left: 2.2rem; }
+    .obs-card:hover { background: var(--lav-dim); padding-left: 2.4rem; }
     .obs-card.lime:hover { background: var(--lime-dim); }
     .obs-title {
       font-family: 'Playfair Display SC', serif;
       font-weight: 400;
-      font-size: 1rem;
+      font-size: 1.05rem;
       color: var(--lavender);
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.35rem;
     }
     .obs-card.lime .obs-title { color: var(--lime); }
     .obs-txt {
       font-family: 'EB Garamond', serif;
       font-style: italic;
-      font-size: 1rem;
-      line-height: 1.7;
-      color: var(--lavender);
-      opacity: 0.62;
+      font-size: 1.1rem;
+      line-height: 1.75;
+      color: var(--cream);
+      opacity: 0.72;
     }
 
     .unwhimsical-link {
@@ -604,7 +588,7 @@
     .unwhimsical-link:hover { background: var(--lav-dim); border-color: var(--lavender); color: var(--cream); }
     .unwhimsical-link::after { content: '→'; }
 
-    /* QUIRKS TICKER */
+    /* TICKER */
     .quirks-strip {
       margin-top: 5rem;
       border-top: 1px solid var(--rule);
@@ -612,8 +596,6 @@
       padding: 0.9rem 0;
       overflow: hidden;
       white-space: nowrap;
-      position: relative; z-index: 1;
-      /* full bleed — break out of wrap */
       margin-left: calc(-50vw + 50%);
       margin-right: calc(-50vw + 50%);
     }
@@ -628,9 +610,9 @@
     }
     .quirk {
       font-family: 'Gochi Hand', cursive;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       color: var(--lavender);
-      opacity: 0.78;
+      opacity: 0.82;
       padding: 0 2rem;
       display: inline-flex;
       align-items: center;
@@ -644,27 +626,9 @@
     /* ══════════════════════════
        § 5 CONTACT
     ══════════════════════════ */
-    #contact { background: var(--bg-alt); }
-    #contact::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 10% 80%, rgba(201,184,240,0.05) 0%, transparent 55%);
-      pointer-events: none;
-    }
-    .contact-ghost {
-      position: absolute;
-      bottom: -7rem; right: -2vw;
-      font-family: 'Playfair Display SC', serif;
-      font-weight: 900;
-      font-size: clamp(16rem, 32vw, 28rem);
-      line-height: 1;
-      color: rgba(201,184,240,0.022);
-      pointer-events: none; user-select: none;
-    }
-
     .contact-open {
       font-family: 'Gochi Hand', cursive;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       color: var(--pink);
       display: block;
       margin-bottom: 1.4rem;
@@ -688,16 +652,16 @@
     .contact-body {
       font-family: 'EB Garamond', serif;
       font-style: italic;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       line-height: 1.95;
-      color: var(--lavender);
+      color: var(--cream);
       opacity: 0.85;
       border-left: 2px solid var(--lav-mid);
       padding-left: 1.4rem;
       margin-bottom: 3.5rem;
-      max-width: 600px;
+      max-width: 620px;
     }
-    .contact-body em { font-style: normal; color: var(--cream); }
+    .contact-body em { font-style: normal; color: var(--lavender); }
 
     .clinks { display: flex; flex-direction: column; }
     .clink {
@@ -715,7 +679,7 @@
     .clink-name {
       font-family: 'Playfair Display SC', serif;
       font-weight: 400;
-      font-size: 1.6rem;
+      font-size: 1.65rem;
       color: var(--cream);
       transition: color 0.2s;
     }
@@ -724,9 +688,9 @@
     .clink:nth-child(3):hover .clink-name { color: var(--pink); }
     .clink-meta {
       font-family: 'Gochi Hand', cursive;
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: var(--lavender);
-      opacity: 0.5;
+      opacity: 0.55;
       transition: opacity 0.2s;
       white-space: nowrap;
     }
@@ -736,27 +700,27 @@
       margin-top: 3.5rem;
       font-family: 'EB Garamond', serif;
       font-style: italic;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       color: var(--lavender);
-      opacity: 0.72;
+      opacity: 0.78;
       line-height: 1.9;
     }
     .signoff strong {
       font-family: 'EB Garamond', serif;
       font-style: italic;
       font-weight: 400;
-      font-size: 1.55rem;
+      font-size: 1.65rem;
       color: var(--lavender);
       display: block;
       margin-top: 0.2rem;
-      opacity: 0.9;
+      opacity: 0.92;
     }
 
     /* ══════════════════════════
        FOOTER
     ══════════════════════════ */
     footer {
-      background: var(--bg);
+      background: rgba(11,8,18,0.95);
       border-top: 1px solid var(--rule);
       padding: 1.6rem 6vw;
       display: flex;
@@ -764,10 +728,11 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 1rem;
+      position: relative; z-index: 2;
     }
-    .foot-l { font-family: 'Gochi Hand', cursive; font-size: 1rem; color: var(--lavender); opacity: 0.45; }
-    .foot-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--lime); opacity: 0.6; flex-shrink: 0; }
-    .foot-r { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(201,184,240,0.2); }
+    .foot-l { font-family: 'Gochi Hand', cursive; font-size: 1rem; color: var(--lavender); opacity: 0.5; }
+    .foot-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--lime); opacity: 0.7; flex-shrink: 0; }
+    .foot-r { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(212,198,245,0.25); }
 
     /* ══════════════════════════
        RESPONSIVE
@@ -780,9 +745,8 @@
       .quotes-row { grid-template-columns: 1fr; }
       .currently-grid { grid-template-columns: 1fr; }
       .cv-entry { grid-template-columns: 1fr; gap: 0.4rem; }
-      .cv-year { padding-top: 0; opacity: 0.4; }
+      .cv-year { padding-top: 0; opacity: 0.45; }
       .obs-grid { grid-template-columns: 1fr; }
-      .about-ghost { display: none; }
     }
     @media (max-width: 400px) {
       nav a:nth-child(3) { display: none; }
@@ -791,14 +755,15 @@
 </head>
 <body>
 
+  <!-- BACKGROUND CANVAS -->
+  <canvas id="bg-canvas"></canvas>
+
   <!-- CURSOR -->
   <div id="cursor-ring" aria-hidden="true">
     <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="18" cy="18" r="3" fill="#c8f03a"/>
       <circle class="pulse-circle" cx="18" cy="18" r="10" stroke="#c8f03a" stroke-width="1.5" fill="none"/>
-      <g class="orb">
-        <circle cx="18" cy="18" r="3.5" fill="#e040a0"/>
-      </g>
+      <g class="orb"><circle cx="18" cy="18" r="3.5" fill="#e040a0"/></g>
     </svg>
   </div>
 
@@ -812,7 +777,6 @@
 
   <!-- § 1 LANDING -->
   <section id="landing">
-    <div class="landing-ghost">Poudel</div>
     <div class="edge-line"></div>
     <div class="wrap">
       <div class="landing-inner">
@@ -836,8 +800,8 @@
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">§ ii — so...</span>
-        <h2 class="section-h">as clichéd as quotes are,<br>these ones just stayed.</h2>
-        <span class="section-sub">(not a journal. not not a journal.)</span>
+        <h2 class="section-h">not a journal.<br>not not a journal.</h2>
+        <span class="section-sub">(as clichéd as quotes are, these ones just stayed.)</span>
       </div>
 
       <div class="quotes-row">
@@ -880,10 +844,7 @@
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">§ iii — portfolio</span>
-        <h2 class="section-h">
-          Professionally
-          <span style="font-family:'Gochi Hand',cursive; font-size:0.54em; color:var(--pink); display:block; transform:rotate(-1.5deg); margin-top:0.3rem; letter-spacing:0; line-height:1.3;">Speaking...</span>
-        </h2>
+        <h2 class="port-heading">Professionally <span class="speaking">Speaking...</span></h2>
         <span class="section-sub">(the "serious" portion of this website)</span>
       </div>
 
@@ -939,10 +900,9 @@
 
   <!-- § 4 WAIT, WHO? -->
   <section id="about">
-    <div class="about-ghost">S</div>
     <div class="wrap" style="position:relative; z-index:1;">
       <span class="eyebrow">§ iv — wait, who?</span>
-<span style="font-family:'Gochi Hand',cursive; font-size:1.3rem; color:var(--pink); display:block; transform:rotate(-1deg); margin-bottom:0.8rem; opacity:0.85;">why, me, of course.</span>
+      <span style="font-family:'Gochi Hand',cursive; font-size:1.5rem; color:var(--pink); display:block; transform:rotate(-1deg); margin-bottom:0.9rem; opacity:0.9;">why, me, of course.</span>
       <h2 class="about-hl">
         I contain<br>
         <em>multitudes.</em><br>
@@ -1017,7 +977,6 @@
 
   <!-- § 5 CONTACT -->
   <section id="contact">
-    <div class="contact-ghost">&</div>
     <div class="wrap" style="position:relative; z-index:2;">
       <span class="contact-open">well, since you made it to the end —</span>
       <h2 class="contact-h">
@@ -1060,8 +1019,66 @@
     <span class="foot-r">made with obsessive vision and excellent life choices</span>
   </footer>
 
-  <!-- CURSOR JS -->
   <script>
+    /* ── BACKGROUND CANVAS ─────────────────────────────
+       Slow-drifting ink bleed orbs. Each orb is a radial
+       gradient blob that wanders gently and never fully
+       fades — like ink dropped in water, held in stasis.
+    ──────────────────────────────────────────────────── */
+    (function () {
+      const canvas = document.getElementById('bg-canvas');
+      const ctx = canvas.getContext('2d');
+
+      const ORBS = [
+        { x: 0.15, y: 0.2,  r: 0.38, color: '100,70,180',  a: 0.055, vx: 0.00008, vy: 0.00012 },
+        { x: 0.80, y: 0.15, r: 0.32, color: '180,50,130',  a: 0.045, vx: -0.00010, vy: 0.00008 },
+        { x: 0.50, y: 0.65, r: 0.45, color: '80,50,160',   a: 0.05,  vx: 0.00006, vy: -0.00009 },
+        { x: 0.85, y: 0.80, r: 0.30, color: '160,90,220',  a: 0.04,  vx: -0.00007, vy: -0.00011 },
+        { x: 0.20, y: 0.75, r: 0.28, color: '200,64,160',  a: 0.035, vx: 0.00009, vy: 0.00007  },
+      ];
+
+      function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // deep base
+        ctx.fillStyle = '#0e0b16';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ORBS.forEach(o => {
+          // drift
+          o.x += o.vx;
+          o.y += o.vy;
+          // soft bounce
+          if (o.x < 0 || o.x > 1) o.vx *= -1;
+          if (o.y < 0 || o.y > 1) o.vy *= -1;
+
+          const cx = o.x * canvas.width;
+          const cy = o.y * canvas.height;
+          const r  = o.r * Math.max(canvas.width, canvas.height);
+
+          const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+          grad.addColorStop(0,   `rgba(${o.color}, ${o.a})`);
+          grad.addColorStop(0.5, `rgba(${o.color}, ${o.a * 0.4})`);
+          grad.addColorStop(1,   `rgba(${o.color}, 0)`);
+
+          ctx.beginPath();
+          ctx.arc(cx, cy, r, 0, Math.PI * 2);
+          ctx.fillStyle = grad;
+          ctx.fill();
+        });
+
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    /* ── CURSOR ─────────────────────────────────────── */
     const ring = document.getElementById('cursor-ring');
     let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
     let curX = mouseX, curY = mouseY;
