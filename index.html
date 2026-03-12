@@ -6,26 +6,28 @@
   <title>Simran, I presume?</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>꩜</text></svg>"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Gochi+Hand&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Gochi+Hand&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg:         #110d1a;
-      --bg-alt:     #0d0916;
-      --bg-section: #140f20;
+      --bg:        #110d1a;
+      --bg-alt:    #0d0916;
+      --bg-sec:    #140f20;
 
-      --cream:      #f0e6d3;
-      --lavender:   #c9b8f0;
-      --lav-dim:    rgba(201,184,240,0.08);
-      --lav-mid:    rgba(201,184,240,0.3);
+      --cream:     #f0e6d3;
+      --lavender:  #c9b8f0;
+      --lav-dim:   rgba(201,184,240,0.07);
+      --lav-mid:   rgba(201,184,240,0.28);
 
-      --lime:       #c8f03a;
-      --lime-dim:   rgba(200,240,58,0.07);
+      --lime:      #c8f03a;
+      --lime-dim:  rgba(200,240,58,0.07);
 
-      --pink:       #e040a0;
+      --pink:      #e040a0;
 
-      --rule:       rgba(201,184,240,0.1);
-      --rule-hi:    rgba(201,184,240,0.22);
+      --rule:      rgba(201,184,240,0.1);
+      --rule-hi:   rgba(201,184,240,0.2);
+
+      --max:       900px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,12 +37,13 @@
     body {
       background: var(--bg);
       color: var(--cream);
-      font-family: 'Libre Baskerville', Georgia, serif;
+      font-family: 'EB Garamond', Georgia, serif;
       overflow-x: hidden;
-      font-size: 18px;
+      font-size: 19px;
       line-height: 1.85;
     }
 
+    /* grain */
     body::before {
       content: '';
       position: fixed; inset: 0;
@@ -50,7 +53,7 @@
     }
 
     /* ══════════════════════════
-       CURSOR — orbiting dot
+       CURSOR
     ══════════════════════════ */
     #cursor-ring {
       position: fixed;
@@ -60,30 +63,21 @@
       width: 36px; height: 36px;
       will-change: transform;
     }
-    #cursor-ring svg {
-      width: 36px; height: 36px;
-      overflow: visible;
-    }
-    /* the orbiting dot */
+    #cursor-ring svg { width: 36px; height: 36px; overflow: visible; }
+
     @keyframes orbit {
       from { transform: rotate(0deg)   translateX(14px) rotate(0deg); }
       to   { transform: rotate(360deg) translateX(14px) rotate(-360deg); }
     }
-    #cursor-ring.fast  .orb { animation-duration: 0.45s; }
-    #cursor-ring.idle  .orb { animation-duration: 2.2s; opacity: 0.4; }
-    .orb {
-      transform-origin: 18px 18px;
-      animation: orbit 0.9s linear infinite;
-    }
-    /* click pulse */
+    .orb { transform-origin: 18px 18px; animation: orbit 0.9s linear infinite; }
+    #cursor-ring.fast .orb { animation-duration: 0.4s; }
+    #cursor-ring.idle .orb { animation-duration: 2.4s; opacity: 0.35; }
+
     @keyframes pulse-ring {
       0%   { r: 10; opacity: 0.7; }
       100% { r: 22; opacity: 0; }
     }
-    .pulse-circle {
-      transform-origin: 18px 18px;
-      opacity: 0;
-    }
+    .pulse-circle { transform-origin: 18px 18px; opacity: 0; }
     #cursor-ring.clicked .pulse-circle {
       animation: pulse-ring 0.45s ease-out forwards;
     }
@@ -104,7 +98,7 @@
     }
     nav a {
       font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--pink);
@@ -126,11 +120,20 @@
     nav a:hover::after { width: 100%; }
 
     /* ══════════════════════════
+       CENTRED CONTAINER
+    ══════════════════════════ */
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* ══════════════════════════
        SHARED
     ══════════════════════════ */
     .eyebrow {
       font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
+      font-size: 0.58rem;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--pink);
@@ -139,26 +142,31 @@
       display: block;
     }
 
-    /* ══════════════════════════
-       § 1 LANDING
-    ══════════════════════════ */
-    #landing {
-      min-height: 100svh;
-      background: var(--bg);
-      padding: 0 6vw 5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    section {
+      padding: 8rem 6vw;
       border-bottom: 1px solid var(--rule);
       position: relative;
       overflow: hidden;
     }
+
+    /* ══════════════════════════
+       § 1 LANDING
+    ══════════════════════════ */
+    #landing {
+      background: var(--bg);
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
     .landing-ghost {
       position: absolute;
-      bottom: -8rem; right: -2vw;
+      bottom: -6rem; right: -2vw;
       font-family: 'Playfair Display SC', serif;
       font-weight: 900;
-      font-size: clamp(12rem, 26vw, 22rem);
+      font-size: clamp(10rem, 22vw, 20rem);
       line-height: 1;
       color: rgba(201,184,240,0.03);
       pointer-events: none; user-select: none;
@@ -171,13 +179,16 @@
       background: linear-gradient(to bottom, transparent, var(--lime) 40%, var(--pink) 70%, transparent);
       opacity: 0.4;
     }
+
     .landing-inner {
       position: relative; z-index: 2;
-      padding-top: 5rem;
+      padding: 7rem 0 5rem;
+      width: 100%;
     }
+
     .landing-hello {
       font-family: 'Gochi Hand', cursive;
-      font-size: 1.5rem;
+      font-size: 1.45rem;
       color: var(--lime);
       margin-bottom: 1rem;
       display: inline-block;
@@ -186,7 +197,7 @@
     .landing-name {
       font-family: 'Playfair Display SC', serif;
       font-weight: 900;
-      font-size: clamp(4rem, 13vw, 11rem);
+      font-size: clamp(4rem, 12vw, 10rem);
       line-height: 0.88;
       letter-spacing: -0.02em;
       color: var(--cream);
@@ -195,17 +206,17 @@
       display: block;
       font-weight: 400;
       color: var(--lavender);
-      padding-left: 5vw;
-      font-size: clamp(3rem, 9vw, 8rem);
+      padding-left: 4vw;
+      font-size: clamp(3rem, 8.5vw, 7.5rem);
     }
     .landing-desc {
       margin-top: 2.8rem;
-      font-family: 'Libre Baskerville', serif;
-      font-size: clamp(1.05rem, 1.5vw, 1.22rem);
+      font-family: 'EB Garamond', serif;
+      font-size: clamp(1.1rem, 1.5vw, 1.25rem);
       color: var(--lavender);
       border-left: 2px solid var(--lav-mid);
       padding-left: 1.4rem;
-      max-width: 540px;
+      max-width: 560px;
       line-height: 1.9;
     }
     .landing-desc em { font-style: italic; color: var(--cream); }
@@ -218,7 +229,6 @@
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
-      position: relative; z-index: 2;
     }
     .landing-scroll::before {
       content: '';
@@ -232,107 +242,100 @@
     /* ══════════════════════════
        § 2 SO...
     ══════════════════════════ */
-    #commonplace {
-      background: var(--bg-alt);
-      padding: 8rem 6vw;
-      border-bottom: 1px solid var(--rule);
-      position: relative;
-      overflow: hidden;
-    }
+    #commonplace { background: var(--bg-alt); }
     #commonplace::before {
       content: '';
       position: absolute; inset: 0;
-      background-image: radial-gradient(circle, rgba(201,184,240,0.055) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(201,184,240,0.05) 1px, transparent 1px);
       background-size: 30px 30px;
       pointer-events: none;
     }
-    .common-head { margin-bottom: 4rem; position: relative; z-index: 1; }
-    .common-h {
+
+    .section-head { margin-bottom: 4rem; }
+    .section-h {
       font-family: 'Playfair Display SC', serif;
       font-weight: 900;
-      font-size: clamp(2.4rem, 4.5vw, 4rem);
-      line-height: 1;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      line-height: 1.0;
       color: var(--cream);
-      margin-bottom: 0.7rem;
+      margin-bottom: 0.6rem;
     }
-    .common-sub {
+    .section-sub {
       font-family: 'Gochi Hand', cursive;
       font-size: 1.1rem;
       color: var(--lavender);
       opacity: 0.7;
       display: inline-block;
-      margin-top: 0.5rem;
+      margin-top: 0.4rem;
     }
 
+    /* quotes — full width, side by side, separated by a line */
     .quotes-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1px;
       background: var(--rule);
-      margin-bottom: 1px;
-      position: relative; z-index: 1;
+      margin-bottom: 3rem;
     }
     .quote-block {
       background: var(--bg-alt);
-      padding: 3.2rem 3rem;
+      padding: 3rem 2.5rem;
       transition: background 0.3s;
     }
     .quote-block:hover { background: var(--lav-dim); }
-
     .quote-block blockquote {
-      font-family: 'Playfair Display SC', serif;
-      font-weight: 400;
-      font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.15rem, 1.6vw, 1.35rem);
       line-height: 1.7;
       color: var(--cream);
       border-left: 2px solid var(--lime);
-      padding-left: 1.5rem;
-      margin-bottom: 1.1rem;
+      padding-left: 1.4rem;
+      margin-bottom: 1rem;
     }
     .quote-attr {
       font-family: 'Space Mono', monospace;
-      font-size: 0.56rem;
+      font-size: 0.54rem;
       letter-spacing: 0.13em;
       color: var(--lavender);
       opacity: 0.5;
       text-transform: uppercase;
-      padding-left: 1.5rem;
+      padding-left: 1.4rem;
     }
 
-    .currently-row {
+    /* currently — 2×2 */
+    .currently-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 1px;
       background: var(--rule);
-      position: relative; z-index: 1;
     }
     .curr-block {
       background: var(--bg-alt);
-      padding: 2.8rem 2.2rem;
+      padding: 2.5rem 2.5rem;
       transition: background 0.3s;
     }
     .curr-block:hover { background: var(--lav-dim); }
     .curr-type {
       font-family: 'Space Mono', monospace;
-      font-size: 0.54rem;
+      font-size: 0.52rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--lavender);
       opacity: 0.5;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.7rem;
       display: block;
     }
     .curr-val {
-      font-family: 'Playfair Display SC', serif;
-      font-weight: 400;
-      font-size: 1.05rem;
+      font-family: 'EB Garamond', serif;
+      font-size: 1.2rem;
       color: var(--cream);
       line-height: 1.55;
-      margin-bottom: 0.7rem;
+      margin-bottom: 0.6rem;
     }
     .curr-aside {
       font-family: 'Gochi Hand', cursive;
-      font-size: 0.98rem;
+      font-size: 1rem;
       color: var(--lavender);
       opacity: 0.65;
       display: block;
@@ -340,60 +343,20 @@
     }
 
     /* ══════════════════════════
-       § 3 PROFESSIONALLY SPEAKING
+       § 3 PORTFOLIO
     ══════════════════════════ */
-    #portfolio {
-      background: var(--bg-section);
-      padding: 8rem 6vw;
-      border-bottom: 1px solid var(--rule);
-      position: relative;
-      overflow: hidden;
-    }
+    #portfolio { background: var(--bg-sec); }
     #portfolio::before {
       content: '';
       position: absolute; inset: 0;
-      background-image: repeating-linear-gradient(-55deg,transparent,transparent 55px,rgba(201,184,240,0.013) 55px,rgba(201,184,240,0.013) 56px);
+      background-image: repeating-linear-gradient(-55deg,transparent,transparent 55px,rgba(201,184,240,0.012) 55px,rgba(201,184,240,0.012) 56px);
       pointer-events: none;
-    }
-    .port-layout {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 8vw;
-      align-items: start;
-      position: relative; z-index: 1;
-    }
-    .port-left { position: sticky; top: 7rem; }
-    .port-h {
-      font-family: 'Playfair Display SC', serif;
-      font-weight: 900;
-      font-size: clamp(2.4rem, 4vw, 3.8rem);
-      line-height: 1;
-      color: var(--cream);
-    }
-    .port-h .pro {
-      font-family: 'Gochi Hand', cursive;
-      font-weight: 400;
-      font-size: 0.54em;
-      color: var(--pink);
-      display: block;
-      transform: rotate(-1.5deg);
-      margin-top: 0.35rem;
-      letter-spacing: 0;
-      line-height: 1.3;
-    }
-    .port-sub {
-      font-family: 'Libre Baskerville', serif;
-      font-style: italic;
-      font-size: 0.95rem;
-      color: var(--lavender);
-      opacity: 0.6;
-      margin-top: 1.1rem;
     }
 
     .cv-section { margin-bottom: 3.5rem; }
     .cv-section-label {
       font-family: 'Space Mono', monospace;
-      font-size: 0.56rem;
+      font-size: 0.54rem;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--pink);
@@ -406,11 +369,11 @@
     .cv-section-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
 
     .cv-entry {
-      padding: 2.2rem 0;
+      padding: 2rem 0;
       border-bottom: 1px solid var(--rule);
       display: grid;
       grid-template-columns: 7rem 1fr;
-      gap: 2rem;
+      gap: 2.5rem;
       align-items: start;
       transition: background 0.3s, padding-left 0.3s;
     }
@@ -419,7 +382,7 @@
 
     .cv-year {
       font-family: 'Space Mono', monospace;
-      font-size: 0.62rem;
+      font-size: 0.6rem;
       color: var(--lavender);
       opacity: 0.5;
       letter-spacing: 0.07em;
@@ -430,27 +393,27 @@
     .cv-title {
       font-family: 'Playfair Display SC', serif;
       font-weight: 700;
-      font-size: 1.12rem;
+      font-size: 1.1rem;
       color: var(--cream);
       line-height: 1.25;
       margin-bottom: 0.4rem;
     }
     .cv-sub {
-      font-family: 'Libre Baskerville', serif;
+      font-family: 'EB Garamond', serif;
       font-style: italic;
-      font-size: 0.95rem;
+      font-size: 1.05rem;
       color: var(--lavender);
       opacity: 0.75;
       line-height: 1.7;
     }
     .thesis-title {
-      font-family: 'Libre Baskerville', serif;
+      font-family: 'EB Garamond', serif;
       font-style: italic;
-      font-size: 0.95rem;
+      font-size: 1.05rem;
       color: var(--cream);
-      line-height: 1.72;
+      line-height: 1.75;
       margin-top: 0.6rem;
-      padding: 0.9rem 1.1rem;
+      padding: 0.9rem 1.2rem;
       border-left: 2px solid var(--lavender);
       background: rgba(201,184,240,0.04);
     }
@@ -459,47 +422,47 @@
       align-items: center;
       gap: 0.6rem;
       margin-top: 1rem;
-      padding: 0.65rem 1.3rem;
-      background: rgba(200,240,58,0.07);
+      padding: 0.6rem 1.2rem;
+      background: var(--lime-dim);
       border: 1.5px solid var(--lime);
       color: var(--lime);
       font-family: 'Space Mono', monospace;
-      font-size: 0.56rem;
+      font-size: 0.54rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       text-decoration: none;
       transition: background 0.25s, color 0.25s;
     }
     .pdf-btn:hover { background: var(--lime); color: #0d0916; }
-    .pdf-btn::before { content: '↓'; font-size: 0.85rem; }
+    .pdf-btn::before { content: '↓'; font-size: 0.8rem; }
 
     .cv-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
       margin-top: 1rem;
-      padding: 0.65rem 1.3rem;
+      padding: 0.6rem 1.2rem;
       background: transparent;
       border: 1.5px solid var(--lavender);
       color: var(--lavender);
       font-family: 'Space Mono', monospace;
-      font-size: 0.56rem;
+      font-size: 0.54rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       text-decoration: none;
       transition: background 0.25s, color 0.25s;
     }
     .cv-btn:hover { background: var(--lavender); color: #0d0916; }
-    .cv-btn::before { content: '↓'; font-size: 0.85rem; }
+    .cv-btn::before { content: '↓'; font-size: 0.8rem; }
 
     .open-list {
-      font-family: 'Libre Baskerville', serif;
+      font-family: 'EB Garamond', serif;
       font-style: italic;
-      font-size: 0.95rem;
+      font-size: 1.05rem;
       color: var(--lavender);
       opacity: 0.8;
       line-height: 2;
-      margin-top: 0.5rem;
+      margin-top: 0.4rem;
       padding-left: 1rem;
       border-left: 1px solid var(--rule-hi);
     }
@@ -507,18 +470,12 @@
     /* ══════════════════════════
        § 4 ABOUT
     ══════════════════════════ */
-    #about {
-      background: var(--bg);
-      padding: 8rem 6vw;
-      border-bottom: 1px solid var(--rule);
-      position: relative;
-      overflow: hidden;
-    }
+    #about { background: var(--bg); }
     #about::before {
       content: '';
       position: absolute; inset: 0;
       background: radial-gradient(ellipse at 85% 15%, rgba(201,184,240,0.04) 0%, transparent 55%),
-                  radial-gradient(ellipse at 15% 85%, rgba(224,64,160,0.035) 0%, transparent 50%);
+                  radial-gradient(ellipse at 15% 85%, rgba(224,64,160,0.03) 0%, transparent 50%);
       pointer-events: none;
     }
     .about-ghost {
@@ -526,20 +483,12 @@
       top: -4rem; right: -2vw;
       font-family: 'Playfair Display SC', serif;
       font-weight: 900;
-      font-size: clamp(18rem, 34vw, 30rem);
+      font-size: clamp(16rem, 30vw, 28rem);
       line-height: 1;
       color: rgba(201,184,240,0.02);
       pointer-events: none; user-select: none;
     }
-    .about-layout {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 8vw;
-      align-items: start;
-      position: relative; z-index: 1;
-    }
 
-    /* tighter heading stack */
     .about-hl {
       font-family: 'Playfair Display SC', serif;
       font-weight: 900;
@@ -547,16 +496,15 @@
       line-height: 0.9;
       letter-spacing: -0.025em;
       color: var(--cream);
-      margin-bottom: 2.5rem;
+      margin-bottom: 2.8rem;
     }
     .about-hl em {
       font-weight: 400;
       color: var(--lavender);
       display: block;
       font-style: normal;
-      line-height: 0.9;
+      line-height: 0.92;
     }
-    /* obviously — no extra margin, sits right under multitudes */
     .about-hl .obv {
       display: block;
       font-family: 'Gochi Hand', cursive;
@@ -567,19 +515,24 @@
       transform: rotate(-2deg);
       line-height: 1.05;
       letter-spacing: 0;
-      margin-top: 0.1rem;
+      margin-top: 0.12rem;
     }
 
-    .about-paras p {
+    .about-body {
+      max-width: var(--max);
+    }
+
+    .about-body p {
+      font-family: 'EB Garamond', serif;
       font-style: italic;
-      font-size: 1.08rem;
-      line-height: 2;
+      font-size: 1.2rem;
+      line-height: 1.95;
       color: var(--lavender);
       opacity: 0.9;
       margin-bottom: 1.6rem;
     }
-    .about-paras p strong { font-style: normal; font-weight: 700; color: var(--cream); }
-    .about-paras p:first-child::first-letter {
+    .about-body p strong { font-style: normal; font-weight: 500; color: var(--cream); }
+    .about-body p:first-child::first-letter {
       font-family: 'Playfair Display SC', serif;
       font-size: 3.8rem; font-weight: 900;
       float: left; line-height: 0.78;
@@ -587,15 +540,61 @@
       color: var(--lavender);
     }
 
+    /* obsessions — stacked below body text */
+    .obs-divider {
+      margin: 3.5rem 0 2rem;
+      border: none;
+      border-top: 1px solid var(--rule);
+    }
+
+    .obs-lbl {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 1.25rem;
+      color: var(--pink);
+      margin-bottom: 1.5rem;
+      display: block;
+      line-height: 1.55;
+    }
+
+    .obs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--rule);
+      margin-bottom: 2.5rem;
+    }
+    .obs-card {
+      background: var(--bg);
+      padding: 1.6rem 1.8rem;
+      transition: background 0.3s, padding-left 0.3s;
+    }
+    .obs-card:hover { background: var(--lav-dim); padding-left: 2.2rem; }
+    .obs-card.lime:hover { background: var(--lime-dim); }
+    .obs-title {
+      font-family: 'Playfair Display SC', serif;
+      font-weight: 400;
+      font-size: 1rem;
+      color: var(--lavender);
+      margin-bottom: 0.3rem;
+    }
+    .obs-card.lime .obs-title { color: var(--lime); }
+    .obs-txt {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--lavender);
+      opacity: 0.62;
+    }
+
     .unwhimsical-link {
       display: inline-flex;
       align-items: center;
       gap: 0.8rem;
-      margin-top: 2rem;
       padding: 0.9rem 1.4rem;
       border: 1px solid var(--rule-hi);
       font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
+      font-size: 0.58rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--lavender);
@@ -604,42 +603,6 @@
     }
     .unwhimsical-link:hover { background: var(--lav-dim); border-color: var(--lavender); color: var(--cream); }
     .unwhimsical-link::after { content: '→'; }
-
-    /* right column */
-    .about-right { position: sticky; top: 7rem; }
-
-    .obs-lbl {
-      font-family: 'Gochi Hand', cursive;
-      font-size: 1.25rem;
-      color: var(--pink);
-      margin-bottom: 1.3rem;
-      display: block;
-      line-height: 1.55;
-    }
-
-    .obs-card {
-      padding: 1.5rem 1.7rem;
-      border-bottom: 1px solid var(--rule);
-      transition: background 0.3s, padding-left 0.3s;
-    }
-    .obs-card:first-of-type { border-top: 1px solid var(--rule); }
-    .obs-card:hover { background: var(--lav-dim); padding-left: 2rem; }
-    .obs-card.lime:hover { background: var(--lime-dim); }
-    .obs-title {
-      font-family: 'Playfair Display SC', serif;
-      font-weight: 400;
-      font-size: 1.05rem;
-      color: var(--lavender);
-      margin-bottom: 0.35rem;
-    }
-    .obs-card.lime .obs-title { color: var(--lime); }
-    .obs-txt {
-      font-size: 0.95rem;
-      font-style: italic;
-      line-height: 1.75;
-      color: var(--lavender);
-      opacity: 0.65;
-    }
 
     /* QUIRKS TICKER */
     .quirks-strip {
@@ -650,6 +613,9 @@
       overflow: hidden;
       white-space: nowrap;
       position: relative; z-index: 1;
+      /* full bleed — break out of wrap */
+      margin-left: calc(-50vw + 50%);
+      margin-right: calc(-50vw + 50%);
     }
     .quirks-inner {
       display: inline-flex;
@@ -678,36 +644,24 @@
     /* ══════════════════════════
        § 5 CONTACT
     ══════════════════════════ */
-    #contact {
-      background: var(--bg-alt);
-      padding: 8rem 6vw 7rem;
-      position: relative;
-      overflow: hidden;
-    }
+    #contact { background: var(--bg-alt); }
     #contact::before {
       content: '';
       position: absolute; inset: 0;
       background: radial-gradient(ellipse at 10% 80%, rgba(201,184,240,0.05) 0%, transparent 55%);
       pointer-events: none;
     }
-    #contact::after {
-      content: '&';
+    .contact-ghost {
       position: absolute;
       bottom: -7rem; right: -2vw;
       font-family: 'Playfair Display SC', serif;
       font-weight: 900;
-      font-size: clamp(18rem, 36vw, 30rem);
+      font-size: clamp(16rem, 32vw, 28rem);
       line-height: 1;
       color: rgba(201,184,240,0.022);
       pointer-events: none; user-select: none;
     }
-    .contact-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8vw;
-      align-items: start;
-      position: relative; z-index: 2;
-    }
+
     .contact-open {
       font-family: 'Gochi Hand', cursive;
       font-size: 1.1rem;
@@ -719,11 +673,11 @@
     .contact-h {
       font-family: 'Playfair Display SC', serif;
       font-weight: 900;
-      font-size: clamp(2.8rem, 5vw, 4.8rem);
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
       line-height: 0.92;
       letter-spacing: -0.025em;
       color: var(--cream);
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
     }
     .contact-h em {
       font-weight: 400;
@@ -732,17 +686,19 @@
       font-style: normal;
     }
     .contact-body {
+      font-family: 'EB Garamond', serif;
       font-style: italic;
-      font-size: 1.05rem;
-      line-height: 2;
+      font-size: 1.2rem;
+      line-height: 1.95;
       color: var(--lavender);
       opacity: 0.85;
       border-left: 2px solid var(--lav-mid);
       padding-left: 1.4rem;
+      margin-bottom: 3.5rem;
+      max-width: 600px;
     }
     .contact-body em { font-style: normal; color: var(--cream); }
 
-    .contact-right { padding-top: 1rem; }
     .clinks { display: flex; flex-direction: column; }
     .clink {
       display: flex;
@@ -778,18 +734,18 @@
 
     .signoff {
       margin-top: 3.5rem;
-      font-family: 'Libre Baskerville', serif;
+      font-family: 'EB Garamond', serif;
       font-style: italic;
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       color: var(--lavender);
       opacity: 0.72;
       line-height: 1.9;
     }
     .signoff strong {
-      font-family: 'Libre Baskerville', serif;
+      font-family: 'EB Garamond', serif;
       font-style: italic;
       font-weight: 400;
-      font-size: 1.5rem;
+      font-size: 1.55rem;
       color: var(--lavender);
       display: block;
       margin-top: 0.2rem;
@@ -811,35 +767,24 @@
     }
     .foot-l { font-family: 'Gochi Hand', cursive; font-size: 1rem; color: var(--lavender); opacity: 0.45; }
     .foot-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--lime); opacity: 0.6; flex-shrink: 0; }
-    .foot-r { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(201,184,240,0.2); }
+    .foot-r { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(201,184,240,0.2); }
 
     /* ══════════════════════════
        RESPONSIVE
     ══════════════════════════ */
-    @media (max-width: 960px) {
-      .quotes-row       { grid-template-columns: 1fr; }
-      .currently-row    { grid-template-columns: 1fr 1fr; }
-      .port-layout      { grid-template-columns: 1fr; }
-      .port-left        { position: static; margin-bottom: 3rem; }
-      .about-layout     { grid-template-columns: 1fr; }
-      .about-right      { position: static; margin-top: 3.5rem; }
-      .contact-layout   { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 600px) {
-      body { font-size: 17px; }
+    @media (max-width: 700px) {
+      body { font-size: 18px; }
       nav { gap: 1rem; padding: 1.1rem 4vw; }
-      nav a { font-size: 0.58rem; letter-spacing: 0.1em; }
-      #landing,#commonplace,#portfolio,#about,#contact { padding-left: 5vw; padding-right: 5vw; }
-      #landing { padding-bottom: 4rem; }
-      .landing-inner { padding-top: 5.5rem; }
-      .currently-row { grid-template-columns: 1fr; }
+      nav a { font-size: 0.56rem; letter-spacing: 0.1em; }
+      section { padding: 6rem 5vw; }
+      .quotes-row { grid-template-columns: 1fr; }
+      .currently-grid { grid-template-columns: 1fr; }
       .cv-entry { grid-template-columns: 1fr; gap: 0.4rem; }
       .cv-year { padding-top: 0; opacity: 0.4; }
+      .obs-grid { grid-template-columns: 1fr; }
       .about-ghost { display: none; }
-      .contact-layout { gap: 3rem; }
-      .clink-meta { font-size: 0.82rem; }
     }
-    @media (max-width: 380px) {
+    @media (max-width: 400px) {
       nav a:nth-child(3) { display: none; }
     }
   </style>
@@ -849,11 +794,8 @@
   <!-- CURSOR -->
   <div id="cursor-ring" aria-hidden="true">
     <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- static centre dot -->
       <circle cx="18" cy="18" r="3" fill="#c8f03a"/>
-      <!-- pulse ring on click -->
       <circle class="pulse-circle" cx="18" cy="18" r="10" stroke="#c8f03a" stroke-width="1.5" fill="none"/>
-      <!-- orbiting dot -->
       <g class="orb">
         <circle cx="18" cy="18" r="3.5" fill="#e040a0"/>
       </g>
@@ -872,123 +814,123 @@
   <section id="landing">
     <div class="landing-ghost">Poudel</div>
     <div class="edge-line"></div>
-    <div class="landing-inner">
-      <span class="landing-hello">twinkle, twinkle little star —</span>
-      <h1 class="landing-name">
-        Simran
-        <span class="name-2">Poudel.</span>
-      </h1>
-      <p class="landing-desc">
-        can <em>almost</em> write things. studied microbiology and completed a research project
-        (lab, thesis, and all) without RTIs. now doing MA in English literature
-        to back up a pretentious personality. authentic enough?
-      </p>
-      <span class="landing-scroll">keep scrolling, it gets weirder</span>
+    <div class="wrap">
+      <div class="landing-inner">
+        <span class="landing-hello">twinkle twinkle little star —</span>
+        <h1 class="landing-name">
+          Simran
+          <span class="name-2">Poudel.</span>
+        </h1>
+        <p class="landing-desc">
+          can <em>almost</em> write things. studied microbiology and completed a research project
+          (lab, thesis, and all) without RTIs. now doing MA in English literature
+          to back up a pretentious personality. authentic enough?
+        </p>
+        <span class="landing-scroll">keep scrolling, it gets weirder</span>
+      </div>
     </div>
   </section>
 
   <!-- § 2 SO... -->
   <section id="commonplace">
-    <div class="common-head">
-      <span class="eyebrow">§ ii — so...</span>
-      <h2 class="common-h">as clichéd as quotes are,<br>these ones just stayed.</h2>
-      <span class="common-sub">(not a journal. not not a journal.)</span>
-    </div>
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">§ ii — so...</span>
+        <h2 class="section-h">as clichéd as quotes are,<br>these ones just stayed.</h2>
+        <span class="section-sub">(not a journal. not not a journal.)</span>
+      </div>
 
-    <div class="quotes-row">
-      <div class="quote-block">
-        <blockquote>Everyone is an artist until rent is due.</blockquote>
-        <p class="quote-attr">— anonymous. painfully accurate.</p>
+      <div class="quotes-row">
+        <div class="quote-block">
+          <blockquote>Everyone is an artist until rent is due.</blockquote>
+          <p class="quote-attr">— anonymous. painfully accurate.</p>
+        </div>
+        <div class="quote-block">
+          <blockquote>Start where you are. Use what you have. Do what you can.</blockquote>
+          <p class="quote-attr">— Arthur Ashe. genuinely changed something.</p>
+        </div>
       </div>
-      <div class="quote-block">
-        <blockquote>Start where you are. Use what you have. Do what you can.</blockquote>
-        <p class="quote-attr">— Arthur Ashe. genuinely changed something.</p>
-      </div>
-    </div>
 
-    <div class="currently-row">
-      <div class="curr-block">
-        <span class="curr-type">listening</span>
-        <p class="curr-val">Hozier, mostly.</p>
-        <span class="curr-aside">musically tasteless, except for this. open to be attacked with playlists of self-proclaimed musically tasteful human beans.</span>
-      </div>
-      <div class="curr-block">
-        <span class="curr-type">thinking about</span>
-        <p class="curr-val">most likely something philosophical that's beyond my intellectual comprehension.</p>
-        <span class="curr-aside">(this is not a bit, unfortunately.)</span>
-      </div>
-      <div class="curr-block">
-        <span class="curr-type">watching</span>
-        <p class="curr-val">anything science fiction..., you know, like, Doraemon.</p>
-      </div>
-      <div class="curr-block">
-        <span class="curr-type">writing</span>
-        <p class="curr-val">fragments on the notes app that exist in a state of becoming.</p>
-        <span class="curr-aside">(may never become anything. we persist.)</span>
+      <div class="currently-grid">
+        <div class="curr-block">
+          <span class="curr-type">listening</span>
+          <p class="curr-val">Hozier, mostly.</p>
+          <span class="curr-aside">musically tasteless, except for this. open to be attacked with playlists of self-proclaimed musically tasteful human beans.</span>
+        </div>
+        <div class="curr-block">
+          <span class="curr-type">thinking about</span>
+          <p class="curr-val">most likely something philosophical that's beyond my intellectual comprehension.</p>
+          <span class="curr-aside">(this is not a bit, unfortunately.)</span>
+        </div>
+        <div class="curr-block">
+          <span class="curr-type">watching</span>
+          <p class="curr-val">anything science fiction..., you know, like, Doraemon.</p>
+        </div>
+        <div class="curr-block">
+          <span class="curr-type">writing</span>
+          <p class="curr-val">fragments on the notes app that exist in a state of becoming.</p>
+          <span class="curr-aside">(may never become anything. we persist.)</span>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- § 3 PROFESSIONALLY SPEAKING -->
   <section id="portfolio">
-    <div class="port-layout">
-      <div class="port-left">
+    <div class="wrap">
+      <div class="section-head">
         <span class="eyebrow">§ iii — portfolio</span>
-        <h2 class="port-h">
+        <h2 class="section-h">
           Professionally
-          <span class="pro">Speaking...</span>
+          <span style="font-family:'Gochi Hand',cursive; font-size:0.54em; color:var(--pink); display:block; transform:rotate(-1.5deg); margin-top:0.3rem; letter-spacing:0; line-height:1.3;">Speaking...</span>
         </h2>
-        <p class="port-sub">(the "serious" portion of this website)</p>
+        <span class="section-sub">(the "serious" portion of this website)</span>
       </div>
 
-      <div>
-        <div class="cv-section">
-          <p class="cv-section-label">Education</p>
-          <div class="cv-entry">
-            <span class="cv-year">ongoing</span>
-            <div>
-              <p class="cv-title">MA in English Literature</p>
-              <p class="cv-sub">Tribhuvan University, Nepal</p>
-            </div>
-          </div>
-          <div class="cv-entry">
-            <span class="cv-year">2020 – 2024</span>
-            <div>
-              <p class="cv-title">B.Sc. Microbiology</p>
-              <p class="cv-sub">Tri-Chandra Multiple Campus,<br>Tribhuvan University, Nepal</p>
-            </div>
+      <div class="cv-section">
+        <p class="cv-section-label">Education</p>
+        <div class="cv-entry">
+          <span class="cv-year">ongoing</span>
+          <div>
+            <p class="cv-title">MA in English Literature</p>
+            <p class="cv-sub">Tribhuvan University, Nepal</p>
           </div>
         </div>
-
-        <div class="cv-section">
-          <p class="cv-section-label">Research</p>
-          <div class="cv-entry">
-            <span class="cv-year">2025<br>BSc thesis</span>
-            <div>
-              <p class="cv-title">Undergraduate Research Project</p>
-              <div class="thesis-title">
-                Bacterial Contamination and Prevalence of Pathogens on Elevator Buttons
-                Across Various Establishments in Kathmandu
-              </div>
-              <!-- Replace with your Google Drive PDF link -->
-              <a href="YOUR_GOOGLE_DRIVE_THESIS_LINK" target="_blank" class="pdf-btn">view thesis PDF</a>
-            </div>
+        <div class="cv-entry">
+          <span class="cv-year">2020 – 2024</span>
+          <div>
+            <p class="cv-title">B.Sc. Microbiology</p>
+            <p class="cv-sub">Tri-Chandra Multiple Campus, Tribhuvan University, Nepal</p>
           </div>
         </div>
+      </div>
 
-        <div class="cv-section">
-          <p class="cv-section-label">Open To</p>
-          <div class="cv-entry">
-            <span class="cv-year">now</span>
-            <div>
-              <p class="cv-title">Remote Work — Research &amp; Writing</p>
-              <p class="open-list">
-                Research assistance · Science communication ·
-                Writing and editorial · Science &amp; environment
-              </p>
-              <!-- Replace with your CV Google Drive link -->
-              <a href="YOUR_GOOGLE_DRIVE_CV_LINK" target="_blank" class="cv-btn">download CV</a>
+      <div class="cv-section">
+        <p class="cv-section-label">Research</p>
+        <div class="cv-entry">
+          <span class="cv-year">2025<br>BSc thesis</span>
+          <div>
+            <p class="cv-title">Undergraduate Research Project</p>
+            <div class="thesis-title">
+              Bacterial Contamination and Prevalence of Pathogens on Elevator Buttons
+              Across Various Establishments in Kathmandu
             </div>
+            <a href="YOUR_GOOGLE_DRIVE_THESIS_LINK" target="_blank" class="pdf-btn">view thesis PDF</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="cv-section">
+        <p class="cv-section-label">Open To</p>
+        <div class="cv-entry">
+          <span class="cv-year">now</span>
+          <div>
+            <p class="cv-title">Remote Work — Research &amp; Writing</p>
+            <p class="open-list">
+              Research assistance · Science communication ·
+              Writing and editorial · Science &amp; environment
+            </p>
+            <a href="YOUR_GOOGLE_DRIVE_CV_LINK" target="_blank" class="cv-btn">download CV</a>
           </div>
         </div>
       </div>
@@ -998,41 +940,39 @@
   <!-- § 4 WAIT, WHO? -->
   <section id="about">
     <div class="about-ghost">S</div>
-    <div class="about-layout">
-      <div>
-        <span class="eyebrow">§ iv — wait, who?</span>
-        <h2 class="about-hl">
-          Me, of couse. <br> 
-          I contain<br>
-          <em>multitudes.</em><br>
-          <span class="obv">(obviously.)</span>
-        </h2>
+    <div class="wrap" style="position:relative; z-index:1;">
+      <span class="eyebrow">§ iv — wait, who?</span>
+      <h2 class="about-hl">
+        I contain<br>
+        <em>multitudes.</em><br>
+        <span class="obv">(obviously.)</span>
+      </h2>
 
-        <div class="about-paras">
-          <p>
-            Growth and development included: a <strong>defendable number of hours</strong>
-            watching Doraemon. I also despise LinkedIn like a person with a soul would.
-          </p>
-          <p>
-            I love all forms of art — to consume, not necessarily to produce.
-            Theatre, film, painting, someone's niche embroidery account at 2am.
-            <strong>I am simply trying to be alive</strong> and sometimes that means
-            crying at a well-composed shot and calling it a cultural experience.
-          </p>
-          <p>
-            I do not have a personal brand. I have a <strong>personality.</strong>
-            There is a difference and I feel strongly about it.
-          </p>
-        </div>
-
-        <a href="#portfolio" class="unwhimsical-link">for un-whimsical humans</a>
+      <div class="about-body">
+        <p>
+          Growth and development included: a <strong>defendable number of hours</strong>
+          watching Doraemon. I also despise LinkedIn like a person with a soul would.
+        </p>
+        <p>
+          I love all forms of art — to consume, not necessarily to produce.
+          Theatre, film, painting, someone's niche embroidery account at 2am.
+          <strong>I am simply trying to be alive</strong> and sometimes that means
+          crying at a well-composed shot and calling it a cultural experience.
+        </p>
+        <p>
+          I do not have a personal brand. I have a <strong>personality.</strong>
+          There is a difference and I feel strongly about it.
+        </p>
       </div>
 
-      <div class="about-right">
-        <span class="obs-lbl">
-          I write. Well, kind of.<br>
-          I mean, not really. But, you know. Anyway...
-        </span>
+      <hr class="obs-divider"/>
+
+      <span class="obs-lbl">
+        I write. Well, kind of.<br>
+        I mean, not really. But, you know. Anyway...
+      </span>
+
+      <div class="obs-grid">
         <div class="obs-card">
           <p class="obs-title">The essay as a form</p>
           <p class="obs-txt">Montaigne. Baldwin. Dillard. The essay that wanders deliberately and admits it doesn't know where it's going.</p>
@@ -1050,65 +990,65 @@
           <p class="obs-txt">Shows finished. Plants tended. The genuinely radical act of doing one thing at its own pace.</p>
         </div>
       </div>
-    </div>
 
-    <div class="quirks-strip">
-      <div class="quirks-inner">
-        <span class="quirk">unfinished knitting projects: several</span>
-        <span class="quirk">simply trying to be alive</span>
-        <span class="quirk">chamomile tea is genuinely good</span>
-        <span class="quirk">texts with lots of commas</span>
-        <span class="quirk">normalise correcting people's grammar!</span>
-        <span class="quirk">pretentious, just because.</span>
-        <span class="quirk">musically tasteless (except Hozier)</span>
-        <span class="quirk">unfinished knitting projects: several</span>
-        <span class="quirk">simply trying to be alive</span>
-        <span class="quirk">chamomile tea is genuinely good</span>
-        <span class="quirk">texts with lots of commas</span>
-        <span class="quirk">normalise correcting people's grammar!</span>
-        <span class="quirk">pretentious, just because.</span>
-        <span class="quirk">musically tasteless (except Hozier)</span>
+      <a href="#portfolio" class="unwhimsical-link">for un-whimsical humans</a>
+
+      <div class="quirks-strip">
+        <div class="quirks-inner">
+          <span class="quirk">unfinished knitting projects: several</span>
+          <span class="quirk">simply trying to be alive</span>
+          <span class="quirk">chamomile tea is genuinely good</span>
+          <span class="quirk">texts with lots of commas</span>
+          <span class="quirk">normalise correcting people's grammar!</span>
+          <span class="quirk">pretentious, just because.</span>
+          <span class="quirk">musically tasteless (except Hozier)</span>
+          <span class="quirk">unfinished knitting projects: several</span>
+          <span class="quirk">simply trying to be alive</span>
+          <span class="quirk">chamomile tea is genuinely good</span>
+          <span class="quirk">texts with lots of commas</span>
+          <span class="quirk">normalise correcting people's grammar!</span>
+          <span class="quirk">pretentious, just because.</span>
+          <span class="quirk">musically tasteless (except Hozier)</span>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- § 5 CONTACT -->
   <section id="contact">
-    <div class="contact-layout">
-      <div>
-        <span class="contact-open">well, since you made it to the end —</span>
-        <h2 class="contact-h">
-          let's talk<br>
-          <em>about something?</em>
-        </h2>
-        <p class="contact-body">
-          About books, shows, bacteria, writing, or whatever makes sense (or not).
-          I will probably respond if it is written by a <em>real</em> human
-          and doesn't make me anxious. I might also... not respond,
-          you know, depending on the content and context.
-        </p>
+    <div class="contact-ghost">&</div>
+    <div class="wrap" style="position:relative; z-index:2;">
+      <span class="contact-open">well, since you made it to the end —</span>
+      <h2 class="contact-h">
+        let's talk<br>
+        <em>about something?</em>
+      </h2>
+      <p class="contact-body">
+        About books, shows, bacteria, writing, or whatever makes sense (or not).
+        I will probably respond if it is written by a <em>real</em> human
+        and doesn't make me anxious. I might also... not respond,
+        you know, depending on the content and context.
+      </p>
+
+      <div class="clinks">
+        <a href="mailto:your@email.com" class="clink">
+          <span class="clink-name">Email</span>
+          <span class="clink-meta">for humans →</span>
+        </a>
+        <a href="https://linkedin.com/in/simranpoudel" target="_blank" class="clink">
+          <span class="clink-name">LinkedIn</span>
+          <span class="clink-meta">for un-whimsical humans →</span>
+        </a>
+        <a href="https://substack.com/@simranpoudel" target="_blank" class="clink">
+          <span class="clink-name">Substack</span>
+          <span class="clink-meta">for whimsical humans →</span>
+        </a>
       </div>
 
-      <div class="contact-right">
-        <div class="clinks">
-          <a href="mailto:your@email.com" class="clink">
-            <span class="clink-name">Email</span>
-            <span class="clink-meta">for humans →</span>
-          </a>
-          <a href="https://linkedin.com/in/simranpoudel" target="_blank" class="clink">
-            <span class="clink-name">LinkedIn</span>
-            <span class="clink-meta">for un-whimsical humans →</span>
-          </a>
-          <a href="https://substack.com/@simranpoudel" target="_blank" class="clink">
-            <span class="clink-name">Substack</span>
-            <span class="clink-meta">for whimsical humans →</span>
-          </a>
-        </div>
-        <p class="signoff">
-          Midst mischief and metaphors,
-          <strong>Sim</strong>
-        </p>
-      </div>
+      <p class="signoff">
+        Midst mischief and metaphors,
+        <strong>Sim</strong>
+      </p>
     </div>
   </section>
 
@@ -1122,16 +1062,12 @@
   <!-- CURSOR JS -->
   <script>
     const ring = document.getElementById('cursor-ring');
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
+    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
     let curX = mouseX, curY = mouseY;
-    let prevX = mouseX;
-    let speed = 0;
     let idleTimer = null;
 
     document.addEventListener('mousemove', e => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+      mouseX = e.clientX; mouseY = e.clientY;
       ring.classList.remove('idle');
       clearTimeout(idleTimer);
       idleTimer = setTimeout(() => ring.classList.add('idle'), 1400);
@@ -1139,7 +1075,7 @@
 
     document.addEventListener('click', () => {
       ring.classList.remove('clicked');
-      void ring.offsetWidth; // reflow to restart animation
+      void ring.offsetWidth;
       ring.classList.add('clicked');
       setTimeout(() => ring.classList.remove('clicked'), 450);
     });
@@ -1147,19 +1083,13 @@
     function tick() {
       curX += (mouseX - curX) * 0.14;
       curY += (mouseY - curY) * 0.14;
-      speed = Math.abs(mouseX - curX) + Math.abs(mouseY - curY);
-
+      const speed = Math.abs(mouseX - curX) + Math.abs(mouseY - curY);
       ring.style.transform = `translate(${curX - 18}px, ${curY - 18}px)`;
-
-      if (speed > 8) ring.classList.add('fast');
-      else           ring.classList.remove('fast');
-
-      prevX = curX;
+      speed > 8 ? ring.classList.add('fast') : ring.classList.remove('fast');
       requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
 
-    // restore cursor on touch
     window.addEventListener('touchstart', () => {
       ring.style.display = 'none';
       const s = document.createElement('style');
