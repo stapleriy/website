@@ -3,57 +3,77 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Simran Poudel</title>
+  <title>Simran, I presume?</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>꩜</text></svg>"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400;1,6..96,700;1,6..96,900&family=Caveat:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Gochi+Hand&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg-landing:   #0a0610;
-      --bg-common:    #0f0b18;
-      --bg-portfolio: #09060e;
-      --bg-about:     #0d0a14;
-      --bg-contact:   #130e1c;
-      --bg-card:      rgba(13,10,20,0.8);
+      --bg:         #110d1a;
+      --bg-alt:     #0d0916;
+      --bg-card:    rgba(20,15,32,0.85);
+      --bg-section: #140f20;
 
-      --cream:        #ede4d4;
-      --cream-lo:     rgba(237,228,212,0.45);
+      --cream:      #f0e6d3;
+      --cream-dim:  rgba(240,230,211,0.6);
 
-      --lavender:     #c4b4e8;
-      --lav-mid:      rgba(196,180,232,0.35);
-      --lav-dim:      rgba(196,180,232,0.07);
+      --lavender:   #c9b8f0;
+      --lav-dim:    rgba(201,184,240,0.08);
+      --lav-mid:    rgba(201,184,240,0.3);
 
-      --lime:         #c8f03a;
-      --lime-dim:     rgba(200,240,58,0.08);
-      --lime-glow:    rgba(200,240,58,0.15);
+      --lime:       #c8f03a;
+      --lime-dim:   rgba(200,240,58,0.07);
 
-      --pink:         #e040a0;
-      --pink-dim:     rgba(224,64,160,0.09);
+      --pink:       #e040a0;
+      --pink-dim:   rgba(224,64,160,0.08);
 
-      --rule:         rgba(196,180,232,0.11);
-      --rule-hi:      rgba(196,180,232,0.25);
+      --rule:       rgba(201,184,240,0.1);
+      --rule-hi:    rgba(201,184,240,0.22);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
+    /* CUSTOM CURSOR — hide default */
+    * { cursor: none !important; }
+
     body {
-      background: var(--bg-landing);
+      background: var(--bg);
       color: var(--cream);
-      font-family: 'Bodoni Moda', Georgia, serif;
+      font-family: 'Libre Baskerville', Georgia, serif;
       overflow-x: hidden;
-      font-size: 17px;
-      line-height: 1.7;
+      font-size: 16px;
+      line-height: 1.8;
     }
 
-    /* grain */
+    /* grain overlay */
     body::before {
       content: '';
       position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
       pointer-events: none;
-      z-index: 9999;
+      z-index: 9998;
     }
+
+    /* ══════════════════════════
+       RUNNING FIGURE CURSOR
+    ══════════════════════════ */
+    #cursor-figure {
+      position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      font-size: 1.4rem;
+      line-height: 1;
+      transition: transform 0.05s linear;
+      user-select: none;
+      top: 0; left: 0;
+      transform: translate(-50%, -50%);
+      filter: drop-shadow(0 0 6px rgba(200,240,58,0.4));
+    }
+    #cursor-figure.flipped { transform: translate(-50%, -50%) scaleX(-1); }
+    #cursor-figure.tripped { transform: translate(-50%, -50%) rotate(90deg); }
+    #cursor-figure.flipped.tripped { transform: translate(-50%, -50%) scaleX(-1) rotate(90deg); }
 
     /* ══════════════════════════
        NAV
@@ -61,19 +81,22 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0;
       z-index: 200;
-      padding: 1.5rem 6vw;
+      padding: 1.4rem 6vw;
       display: flex;
       justify-content: flex-end;
-      gap: 2.5rem;
+      gap: 2.2rem;
+      background: linear-gradient(to bottom, rgba(17,13,26,0.95) 0%, transparent 100%);
+      backdrop-filter: blur(2px);
     }
     nav a {
       font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.16em;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(237,228,212,0.5);
+      color: var(--pink);
       text-decoration: none;
-      transition: color 0.2s;
+      transition: color 0.2s, opacity 0.2s;
+      opacity: 0.75;
       position: relative;
     }
     nav a::after {
@@ -84,40 +107,37 @@
       background: var(--lime);
       transition: width 0.25s ease;
     }
-    nav a:hover { color: var(--cream); }
+    nav a:hover { opacity: 1; color: var(--cream); }
     nav a:hover::after { width: 100%; }
 
     /* ══════════════════════════
-       SHARED
+       SHARED UTILS
     ══════════════════════════ */
     .eyebrow {
       font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.26em;
+      font-size: 0.55rem;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: var(--lavender);
-      opacity: 0.6;
+      color: var(--pink);
+      opacity: 0.7;
       margin-bottom: 1.2rem;
       display: block;
     }
 
-    .lime-tag {
-      display: inline-block;
-      border: 1.5px solid var(--lime);
-      color: var(--lime);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.56rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.3rem 0.8rem;
+    .gochi {
+      font-family: 'Gochi Hand', cursive;
     }
+
+    .lime { color: var(--lime); }
+    .pink { color: var(--pink); }
+    .lav  { color: var(--lavender); }
 
     /* ══════════════════════════
        § 1 LANDING
     ══════════════════════════ */
     #landing {
       min-height: 100vh;
-      background: var(--bg-landing);
+      background: var(--bg);
       padding: 0 6vw;
       display: flex;
       flex-direction: column;
@@ -127,96 +147,97 @@
       overflow: hidden;
     }
 
-    .ghost {
+    .landing-ghost {
       position: absolute;
-      bottom: -5rem; right: -3vw;
-      font-family: 'Bodoni Moda', serif;
-      font-weight: 900; font-style: italic;
-      font-size: clamp(12rem, 26vw, 22rem);
+      bottom: -8rem; right: -2vw;
+      font-family: 'Playfair Display SC', serif;
+      font-weight: 900;
+      font-size: clamp(14rem, 28vw, 24rem);
       line-height: 1;
-      color: rgba(196,180,232,0.04);
+      color: rgba(201,184,240,0.03);
       pointer-events: none; user-select: none;
       white-space: nowrap;
     }
 
     .edge-line {
       position: absolute;
-      left: 0; top: 20%; bottom: 20%;
+      left: 0; top: 15%; bottom: 15%;
       width: 2px;
-      background: linear-gradient(to bottom, transparent, var(--lime), transparent);
-      opacity: 0.5;
+      background: linear-gradient(to bottom, transparent, var(--lime) 40%, var(--pink) 70%, transparent);
+      opacity: 0.45;
     }
 
-    .landing-inner { position: relative; z-index: 2; }
+    .landing-inner {
+      position: relative; z-index: 2;
+      padding-top: 6rem;
+    }
 
     .landing-hello {
-      font-family: 'Caveat', cursive;
-      font-size: 1.5rem;
-      font-weight: 500;
+      font-family: 'Gochi Hand', cursive;
+      font-size: 1.35rem;
       color: var(--lime);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
       display: inline-block;
-      transform: rotate(-1.2deg);
+      transform: rotate(-1.5deg);
     }
 
     .landing-name {
-      font-family: 'Bodoni Moda', serif;
+      font-family: 'Playfair Display SC', serif;
       font-weight: 900;
-      font-size: clamp(5.5rem, 16vw, 14rem);
-      line-height: 0.85;
-      letter-spacing: -0.03em;
+      font-size: clamp(4.5rem, 14vw, 12rem);
+      line-height: 0.88;
+      letter-spacing: -0.02em;
       color: var(--cream);
     }
     .name-2 {
       display: block;
-      font-style: italic;
       font-weight: 400;
+      font-style: italic;
       color: var(--lavender);
-      padding-left: 7vw;
+      padding-left: 6vw;
+      font-size: clamp(3.5rem, 10vw, 9rem);
     }
 
     .landing-desc {
-      margin-top: 3rem;
-      font-family: 'Bodoni Moda', serif;
+      margin-top: 2.8rem;
+      font-family: 'Libre Baskerville', serif;
       font-style: italic;
-      font-size: clamp(1rem, 1.6vw, 1.25rem);
+      font-size: clamp(0.95rem, 1.5vw, 1.15rem);
       color: var(--lavender);
       border-left: 2px solid var(--lav-mid);
       padding-left: 1.4rem;
-      max-width: 520px;
-      line-height: 1.75;
-      opacity: 0.8;
+      max-width: 500px;
+      line-height: 1.85;
+      opacity: 0.85;
     }
 
-    /* whimsical nudge — lime, tilted */
-    .landing-nudge {
+    .landing-scroll {
       position: absolute;
-      bottom: 3rem; left: 6vw;
-      font-family: 'Caveat', cursive;
+      bottom: 2.5rem;
+      left: 6vw;
+      font-family: 'Gochi Hand', cursive;
       font-size: 1rem;
-      font-weight: 600;
       color: var(--lime);
-      transform: rotate(-1.5deg);
+      transform: rotate(-1deg);
       z-index: 2;
       display: flex;
       align-items: center;
       gap: 0.6rem;
     }
-    .landing-nudge::before {
+    .landing-scroll::before {
       content: '';
       display: inline-block;
-      width: 28px; height: 1px;
+      width: 24px; height: 1px;
       background: var(--lime);
-      opacity: 0.5;
-      flex-shrink: 0;
+      opacity: 0.6;
     }
 
     /* ══════════════════════════
        § 2 SO... (COMMONPLACE)
     ══════════════════════════ */
     #commonplace {
-      background: var(--bg-common);
-      padding: 9rem 6vw;
+      background: var(--bg-alt);
+      padding: 8rem 6vw;
       border-bottom: 1px solid var(--rule);
       position: relative;
       overflow: hidden;
@@ -225,143 +246,175 @@
     #commonplace::before {
       content: '';
       position: absolute; inset: 0;
-      background-image: radial-gradient(circle, rgba(196,180,232,0.09) 1px, transparent 1px);
-      background-size: 28px 28px;
+      background-image: radial-gradient(circle, rgba(201,184,240,0.06) 1px, transparent 1px);
+      background-size: 30px 30px;
       pointer-events: none;
     }
 
     .common-head {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: end;
-      gap: 4vw;
-      margin-bottom: 5rem;
+      margin-bottom: 4.5rem;
       position: relative; z-index: 1;
     }
 
     .common-h {
-      font-family: 'Bodoni Moda', serif;
+      font-family: 'Playfair Display SC', serif;
       font-weight: 900;
-      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-size: clamp(2.5rem, 5vw, 4.2rem);
       line-height: 0.92;
-      letter-spacing: -0.022em;
+      letter-spacing: -0.02em;
       color: var(--cream);
+      margin-bottom: 0.8rem;
     }
-    .common-h em { font-style: italic; font-weight: 400; color: var(--lavender); display: block; }
+    .common-h em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--lavender);
+    }
 
     .common-sub {
-      font-family: 'Caveat', cursive;
+      font-family: 'Gochi Hand', cursive;
       font-size: 1rem;
       color: var(--lavender);
+      opacity: 0.7;
       display: inline-block;
-      margin-top: 0.7rem;
-      opacity: 0.75;
+      margin-top: 0.5rem;
     }
 
-    .lime-box {
-      background: var(--lime);
-      color: #09060e;
-      padding: 1.3rem 1.5rem;
-      transform: rotate(2.5deg);
-      max-width: 190px;
-      flex-shrink: 0;
-    }
-    .lime-box p {
-      font-family: 'Caveat', cursive;
-      font-size: 0.88rem;
-      font-weight: 700;
-      line-height: 1.5;
-    }
-
-    /* WILD NOTES GRID */
-    .notes-grid {
+    /* COMMONPLACE GRID — quotes + currently + music */
+    .common-grid {
       display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      grid-auto-rows: auto;
-      gap: 1.4rem;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: var(--rule);
       position: relative; z-index: 1;
     }
 
-    .note {
-      padding: 2rem 1.8rem 2.4rem;
-      background: var(--bg-card);
-      border: 1px solid var(--rule);
+    .cblock {
+      background: var(--bg-alt);
+      padding: 3rem 2.5rem;
       position: relative;
-      transition: transform 0.3s ease, border-color 0.3s, box-shadow 0.3s;
-      z-index: 1;
+      transition: background 0.3s;
     }
-    .note:hover {
-      transform: translateY(-6px) rotate(0deg) !important;
-      border-color: var(--rule-hi);
-      box-shadow: 0 16px 48px rgba(0,0,0,0.5);
-      z-index: 10;
+    .cblock:hover { background: var(--lav-dim); }
+
+    .cblock-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--pink);
+      opacity: 0.7;
+      margin-bottom: 1.5rem;
+      display: block;
     }
 
-    .note:nth-child(1) { grid-column: span 5; transform: rotate(-2.5deg); }
-    .note:nth-child(2) { grid-column: span 3; transform: rotate(3deg); align-self: end; }
-    .note:nth-child(3) { grid-column: span 4; transform: rotate(-1deg); }
-    .note:nth-child(4) { grid-column: span 8; transform: rotate(1.5deg); }
-    .note:nth-child(5) { grid-column: span 4; transform: rotate(-3deg); align-self: start; }
-    .note:nth-child(6) { grid-column: span 4; transform: rotate(2deg); }
-    .note:nth-child(7) { grid-column: span 5; transform: rotate(-1.5deg); }
-    .note:nth-child(8) { grid-column: span 3; transform: rotate(2.8deg); align-self: end; }
-
-    .note::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 2px;
-      background: var(--lavender); opacity: 0.4;
+    /* quotes block spans full width */
+    .cblock.quotes {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
     }
-    .note.ng::before { background: var(--lime); opacity: 0.7; }
-    .note.np::before { background: var(--pink); opacity: 0.6; }
 
-    .note::after {
-      content: '';
-      position: absolute;
-      top: -5px; left: 50%;
-      transform: translateX(-50%);
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--lavender); opacity: 0.4;
+    .quote-item blockquote {
+      font-family: 'Playfair Display SC', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(1rem, 1.6vw, 1.25rem);
+      line-height: 1.65;
+      color: var(--cream);
+      border-left: 2px solid var(--lime);
+      padding-left: 1.4rem;
+      margin-bottom: 1rem;
     }
-    .note.ng::after { background: var(--lime); opacity: 0.7; }
-    .note.np::after { background: var(--pink); opacity: 0.6; }
 
-    .note-lbl {
+    .quote-attr {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      color: var(--lavender);
+      opacity: 0.5;
+      text-transform: uppercase;
+      padding-left: 1.4rem;
+    }
+
+    /* music block */
+    .music-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .music-confession {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-size: 0.92rem;
+      line-height: 1.8;
+      color: var(--lavender);
+      opacity: 0.85;
+      margin-bottom: 1.5rem;
+    }
+
+    .music-artist {
+      font-family: 'Playfair Display SC', serif;
+      font-size: 1.6rem;
+      color: var(--cream);
+      margin-bottom: 0.4rem;
+    }
+
+    .music-note {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 0.95rem;
+      color: var(--lime);
+      display: inline-block;
+      transform: rotate(-1deg);
+      margin-top: auto;
+    }
+
+    /* currently block — full width */
+    .cblock.currently {
+      grid-column: span 3;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    .currently-item {}
+
+    .currently-type {
       font-family: 'Space Mono', monospace;
       font-size: 0.5rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--lavender); opacity: 0.55;
-      margin-bottom: 0.8rem;
-    }
-    .note.ng .note-lbl { color: var(--lime); opacity: 0.8; }
-    .note.np .note-lbl { color: var(--pink); opacity: 0.7; }
-
-    .note-txt {
-      font-style: italic;
-      font-size: 0.95rem;
-      line-height: 1.78;
-      color: var(--cream);
-      opacity: 0.75;
-    }
-    .note-txt strong { font-style: normal; font-weight: 700; color: var(--cream); opacity: 1; }
-    .note.big .note-txt { font-size: 1.15rem; line-height: 1.65; }
-
-    .note-sig {
-      margin-top: 1rem;
-      font-family: 'Caveat', cursive;
-      font-size: 0.9rem;
       color: var(--lavender);
-      opacity: 0.6;
+      opacity: 0.5;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .currently-val {
+      font-family: 'Playfair Display SC', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--cream);
+      line-height: 1.4;
+    }
+
+    .currently-aside {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 0.88rem;
+      color: var(--lavender);
+      opacity: 0.7;
+      margin-top: 0.4rem;
+      display: block;
     }
 
     /* ══════════════════════════
-       § 3 PORTFOLIO
+       § 3 PORTFOLIO / CV
     ══════════════════════════ */
     #portfolio {
-      background: var(--bg-portfolio);
-      padding: 9rem 6vw;
+      background: var(--bg-section);
+      padding: 8rem 6vw;
       border-bottom: 1px solid var(--rule);
       position: relative;
       overflow: hidden;
@@ -371,152 +424,152 @@
       content: '';
       position: absolute; inset: 0;
       background-image: repeating-linear-gradient(
-        -55deg, transparent, transparent 60px,
-        rgba(196,180,232,0.016) 60px, rgba(196,180,232,0.016) 61px
+        -55deg, transparent, transparent 55px,
+        rgba(201,184,240,0.014) 55px, rgba(201,184,240,0.014) 56px
       );
       pointer-events: none;
     }
 
-    .port-head {
+    .port-layout {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6vw;
-      align-items: end;
-      margin-bottom: 5rem;
+      grid-template-columns: 1fr 2fr;
+      gap: 8vw;
+      align-items: start;
       position: relative; z-index: 1;
     }
 
+    .port-left { position: sticky; top: 7rem; }
+
     .port-h {
-      font-family: 'Bodoni Moda', serif;
+      font-family: 'Playfair Display SC', serif;
       font-weight: 900;
-      font-size: clamp(3rem, 5.5vw, 5rem);
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
       line-height: 0.9;
-      letter-spacing: -0.025em;
+      letter-spacing: -0.02em;
       color: var(--cream);
+      margin-bottom: 1.2rem;
     }
 
-    /* "Professionally." — pink Caveat, tilted */
     .port-h .pro {
-      font-family: 'Caveat', cursive;
+      font-family: 'Gochi Hand', cursive;
       font-style: normal;
-      font-weight: 700;
-      font-size: 0.58em;
+      font-weight: 400;
+      font-size: 0.5em;
       color: var(--pink);
-      display: inline-block;
+      display: block;
       transform: rotate(-1.5deg);
+      margin-top: 0.3rem;
       letter-spacing: 0;
     }
 
-    .port-sub {
-      font-family: 'Caveat', cursive;
-      font-size: 1rem;
-      color: var(--lavender);
-      display: inline-block;
-      margin-top: 0.8rem;
-      opacity: 0.75;
-    }
-
-    .port-head-note {
-      font-family: 'Caveat', cursive;
-      font-size: 1.05rem;
-      line-height: 1.65;
-      color: var(--lavender);
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--rule);
-      opacity: 0.8;
-    }
-
-    .port-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--rule);
-      position: relative; z-index: 1;
-    }
-
-    .pitem {
-      background: var(--bg-portfolio);
-      padding: 4rem 4vw;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.35s;
-      display: flex;
-      flex-direction: column;
-    }
-    .pitem:hover { background: var(--lav-dim); }
-
-    .pitem::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 0; height: 2px;
-      background: var(--lavender);
-      transition: width 0.4s ease;
-    }
-    .pitem:hover::after { width: 100%; }
-    .pitem.pl::after { background: var(--lime); }
-
-    .pitem-n {
-      font-family: 'Bodoni Moda', serif;
-      font-weight: 900; font-style: italic;
-      font-size: 5.5rem;
-      color: rgba(196,180,232,0.04);
-      line-height: 1;
-      position: absolute; top: 1rem; right: 1.5rem;
-      user-select: none;
-    }
-
-    .pitem-tag {
-      font-family: 'Caveat', cursive;
-      font-size: 0.92rem;
-      color: var(--lavender);
-      margin-bottom: 1rem;
-    }
-    .pitem.pl .pitem-tag { color: var(--lime); }
-
-    .pitem-title {
-      font-family: 'Bodoni Moda', serif;
-      font-weight: 700;
-      font-size: 1.35rem;
-      line-height: 1.2;
-      color: var(--cream);
-      margin-bottom: 1.2rem;
-      flex: 1;
-    }
-    .pitem-title em { font-style: italic; font-weight: 400; }
-
-    .pitem-desc {
-      font-size: 0.9rem;
+    .port-intro {
+      font-family: 'Libre Baskerville', serif;
       font-style: italic;
-      line-height: 1.8;
+      font-size: 0.92rem;
+      line-height: 1.85;
       color: var(--lavender);
-      opacity: 0.7;
-      margin-bottom: 1.5rem;
+      opacity: 0.8;
+      margin-top: 1.5rem;
+      border-left: 2px solid var(--lav-mid);
+      padding-left: 1.2rem;
     }
 
-    .pitem-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
+    /* CV ENTRIES */
+    .cv-section {
+      margin-bottom: 4rem;
+    }
+
+    .cv-section-label {
       font-family: 'Space Mono', monospace;
-      font-size: 0.56rem;
-      letter-spacing: 0.16em;
+      font-size: 0.52rem;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
+      color: var(--pink);
+      opacity: 0.8;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .cv-section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    .cv-entry {
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2.5rem;
+      align-items: start;
+      transition: background 0.3s, padding-left 0.3s;
+    }
+    .cv-entry:first-of-type { border-top: 1px solid var(--rule); }
+    .cv-entry:hover { background: var(--lav-dim); padding-left: 0.8rem; }
+
+    .cv-year {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
       color: var(--lavender);
       opacity: 0.5;
-      text-decoration: none;
-      transition: color 0.2s, gap 0.2s, opacity 0.2s;
-      align-self: flex-start;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+      padding-top: 0.3rem;
     }
-    .pitem:hover .pitem-link { color: var(--lavender); opacity: 1; gap: 0.9rem; }
-    .pitem.pl:hover .pitem-link { color: var(--lime); opacity: 1; }
+
+    .cv-title {
+      font-family: 'Playfair Display SC', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--cream);
+      line-height: 1.2;
+      margin-bottom: 0.4rem;
+    }
+
+    .cv-sub {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-size: 0.88rem;
+      color: var(--lavender);
+      opacity: 0.75;
+      line-height: 1.6;
+    }
+
+    .cv-tag {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.48rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border: 1px solid var(--lime);
+      color: var(--lime);
+      margin-top: 0.8rem;
+    }
+
+    /* thesis title — special treatment */
+    .thesis-title {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--cream);
+      opacity: 0.9;
+      line-height: 1.6;
+      margin-top: 0.6rem;
+      padding: 0.8rem 1rem;
+      border-left: 2px solid var(--lavender);
+      background: rgba(201,184,240,0.04);
+    }
 
     /* ══════════════════════════
-       § 4 WAIT, WHO? (ABOUT)
+       § 4 ABOUT (THE UNHINGED ONE)
     ══════════════════════════ */
     #about {
-      background: var(--bg-about);
-      padding: 9rem 6vw;
+      background: var(--bg);
+      padding: 8rem 6vw;
       border-bottom: 1px solid var(--rule);
       position: relative;
       overflow: hidden;
@@ -525,51 +578,56 @@
     #about::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 80% 20%, rgba(196,180,232,0.05) 0%, transparent 60%);
+      background: radial-gradient(ellipse at 85% 15%, rgba(201,184,240,0.045) 0%, transparent 55%),
+                  radial-gradient(ellipse at 15% 85%, rgba(224,64,160,0.04) 0%, transparent 50%);
       pointer-events: none;
     }
 
     .about-ghost {
       position: absolute;
-      top: -3rem; right: -1vw;
-      font-family: 'Bodoni Moda', serif;
+      top: -4rem; right: -2vw;
+      font-family: 'Playfair Display SC', serif;
       font-style: italic; font-weight: 900;
-      font-size: clamp(16rem, 32vw, 28rem);
+      font-size: clamp(18rem, 34vw, 30rem);
       line-height: 1;
-      color: rgba(196,180,232,0.028);
+      color: rgba(201,184,240,0.022);
       pointer-events: none; user-select: none;
     }
 
     .about-layout {
       display: grid;
-      grid-template-columns: 1.1fr 1fr;
+      grid-template-columns: 1.1fr 0.9fr;
       gap: 8vw;
       align-items: start;
       position: relative; z-index: 1;
     }
 
     .about-hl {
-      font-family: 'Bodoni Moda', serif;
+      font-family: 'Playfair Display SC', serif;
       font-weight: 900;
-      font-size: clamp(3.2rem, 5.8vw, 5.5rem);
+      font-size: clamp(3rem, 5.5vw, 5rem);
       line-height: 0.88;
-      letter-spacing: -0.028em;
+      letter-spacing: -0.025em;
       color: var(--cream);
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
     }
-    .about-hl em { font-style: italic; font-weight: 400; color: var(--lavender); display: block; }
-
-    /* obviously — pink, Caveat, bigger, tight to multitudes */
+    .about-hl em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--lavender);
+      display: block;
+    }
     .about-hl .obv {
       display: inline-block;
-      font-family: 'Caveat', cursive;
-      font-size: 2rem;
-      font-weight: 700;
+      font-family: 'Gochi Hand', cursive;
+      font-size: 1.6rem;
+      font-weight: 400;
       color: var(--pink);
       font-style: normal;
-      transform: rotate(-2.5deg);
-      margin-top: 0.2rem;
+      transform: rotate(-2deg);
+      margin-top: 0.4rem;
       line-height: 1;
+      letter-spacing: 0;
     }
 
     .about-paras p {
@@ -577,85 +635,87 @@
       font-size: 1rem;
       line-height: 1.95;
       color: var(--lavender);
-      opacity: 0.85;
+      opacity: 0.88;
       margin-bottom: 1.5rem;
     }
-    .about-paras p strong { font-style: normal; font-weight: 700; color: var(--cream); opacity: 1; }
-    .about-paras p:first-child::first-letter {
-      font-family: 'Bodoni Moda', serif;
-      font-size: 4.2rem; font-weight: 900;
-      float: left; line-height: 0.78;
-      margin: 0.06em 0.12em 0 0;
-      color: var(--lavender);
-    }
-
-    /* I WRITE — embedded subsection */
-    .i-write {
-      margin-top: 4rem;
-      padding-top: 3rem;
-      border-top: 1px solid var(--rule);
-    }
-
-    /* "I write, sometimes —" in lime */
-    .i-write-label {
-      font-family: 'Caveat', cursive;
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--lime);
-      display: inline-block;
-      transform: rotate(-1deg);
-      margin-bottom: 1.8rem;
-    }
-
-    .write-list { display: flex; flex-direction: column; }
-
-    .witem {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: baseline;
-      gap: 2rem;
-      padding: 1.2rem 0;
-      border-bottom: 1px solid var(--rule);
-      text-decoration: none;
-      color: inherit;
-      transition: padding-left 0.3s, background 0.3s;
-    }
-    .witem:first-child { border-top: 1px solid var(--rule); }
-    .witem:hover { padding-left: 0.8rem; background: var(--lav-dim); }
-    .witem.feat { border-left: 2px solid var(--lime); padding-left: 0.8rem; }
-    .witem.feat:hover { background: var(--lime-glow); }
-
-    .wtitle {
-      font-family: 'Bodoni Moda', serif;
-      font-style: italic;
-      font-weight: 400;
-      font-size: 1.08rem;
-      line-height: 1.3;
+    .about-paras p strong {
+      font-style: normal;
+      font-weight: 700;
       color: var(--cream);
     }
-    .wtag {
-      font-family: 'Caveat', cursive;
-      font-size: 0.8rem;
+    .about-paras p:first-child::first-letter {
+      font-family: 'Playfair Display SC', serif;
+      font-size: 4rem; font-weight: 900;
+      float: left; line-height: 0.78;
+      margin: 0.08em 0.12em 0 0;
       color: var(--lavender);
-      white-space: nowrap;
     }
-    .witem.feat .wtag { color: var(--lime); }
 
-    /* RIGHT: obsessions */
+    /* unhinged aside box */
+    .unhinged-aside {
+      background: var(--pink-dim);
+      border: 1px solid rgba(224,64,160,0.2);
+      padding: 1.5rem 1.8rem;
+      margin: 2rem 0;
+      position: relative;
+    }
+    .unhinged-aside::before {
+      content: '* important disclosure';
+      font-family: 'Space Mono', monospace;
+      font-size: 0.48rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--pink);
+      opacity: 0.7;
+      display: block;
+      margin-bottom: 0.8rem;
+    }
+    .unhinged-aside p {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 1rem;
+      color: var(--cream) !important;
+      opacity: 1 !important;
+      font-style: normal !important;
+      line-height: 1.6 !important;
+      margin: 0 !important;
+    }
+
+    /* for un-whimsical humans */
+    .unwhimsical-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-top: 2.5rem;
+      padding: 1rem 1.5rem;
+      border: 1px solid var(--rule-hi);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--lavender);
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+    .unwhimsical-link:hover {
+      background: var(--lav-dim);
+      border-color: var(--lavender);
+      color: var(--cream);
+    }
+    .unwhimsical-link::after { content: '→'; }
+
+    /* ABOUT RIGHT — obsessions */
     .about-right {
       position: sticky;
       top: 7rem;
-      display: flex;
-      flex-direction: column;
     }
 
     .obs-lbl {
       font-family: 'Space Mono', monospace;
-      font-size: 0.54rem;
+      font-size: 0.52rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--lavender);
-      opacity: 0.45;
+      color: var(--pink);
+      opacity: 0.6;
       margin-bottom: 1.2rem;
       display: flex;
       align-items: center;
@@ -664,52 +724,44 @@
     .obs-lbl::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
 
     .obs-card {
-      padding: 1.5rem 1.8rem;
+      padding: 1.4rem 1.6rem;
       border-bottom: 1px solid var(--rule);
       transition: background 0.3s, padding-left 0.3s;
-      cursor: default;
     }
     .obs-card:first-of-type { border-top: 1px solid var(--rule); }
-    .obs-card:hover { background: var(--lav-dim); padding-left: 2.2rem; }
-    .obs-card.og:hover { background: var(--lime-dim); }
+    .obs-card:hover { background: var(--lav-dim); padding-left: 2rem; }
+    .obs-card.lime:hover { background: var(--lime-dim); }
 
     .obs-title {
-      font-family: 'Bodoni Moda', serif;
+      font-family: 'Playfair Display SC', serif;
       font-style: italic;
-      font-size: 1.18rem;
+      font-size: 1.05rem;
       color: var(--lavender);
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.3rem;
     }
-    .obs-card.og .obs-title { color: var(--lime); }
+    .obs-card.lime .obs-title { color: var(--lime); }
 
     .obs-txt {
-      font-size: 0.84rem;
+      font-size: 0.85rem;
       font-style: italic;
       line-height: 1.7;
       color: var(--lavender);
-      opacity: 0.7;
-    }
-
-    .obs-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      padding: 1.2rem 0 0.4rem;
+      opacity: 0.65;
     }
 
     /* QUIRKS TICKER */
     .quirks-strip {
-      margin-top: 6rem;
+      margin-top: 5rem;
       border-top: 1px solid var(--rule);
       border-bottom: 1px solid var(--rule);
-      padding: 0.9rem 0;
+      padding: 0.85rem 0;
       overflow: hidden;
       white-space: nowrap;
       position: relative; z-index: 1;
     }
     .quirks-inner {
       display: inline-flex;
-      animation: marquee 34s linear infinite;
+      animation: marquee 38s linear infinite;
     }
     .quirks-inner:hover { animation-play-state: paused; }
     @keyframes marquee {
@@ -717,26 +769,26 @@
       to   { transform: translateX(-50%); }
     }
     .quirk {
-      font-family: 'Caveat', cursive;
-      font-size: 1.05rem;
-      font-weight: 500;
+      font-family: 'Gochi Hand', cursive;
+      font-size: 1rem;
       color: var(--lavender);
       opacity: 0.75;
-      padding: 0 2.5rem;
+      padding: 0 2rem;
       display: inline-flex;
       align-items: center;
-      gap: 2.5rem;
+      gap: 2rem;
     }
     .quirk::after { content: '✦'; font-size: 0.4rem; }
-    .quirk:nth-child(odd)::after  { color: var(--lavender); }
-    .quirk:nth-child(even)::after { color: var(--lime); }
+    .quirk:nth-child(3n)::after   { color: var(--lime); }
+    .quirk:nth-child(3n+1)::after { color: var(--pink); }
+    .quirk:nth-child(3n+2)::after { color: var(--lavender); }
 
     /* ══════════════════════════
-       § 5 HELLO OR HI. (CONTACT)
+       § 5 CONTACT
     ══════════════════════════ */
     #contact {
-      background: var(--bg-contact);
-      padding: 9rem 6vw 8rem;
+      background: var(--bg-alt);
+      padding: 8rem 6vw 7rem;
       position: relative;
       overflow: hidden;
     }
@@ -744,19 +796,19 @@
     #contact::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 10% 80%, rgba(196,180,232,0.06) 0%, transparent 55%);
+      background: radial-gradient(ellipse at 10% 80%, rgba(201,184,240,0.05) 0%, transparent 55%);
       pointer-events: none;
     }
 
     #contact::after {
       content: '&';
       position: absolute;
-      bottom: -6rem; right: -2vw;
-      font-family: 'Bodoni Moda', serif;
+      bottom: -7rem; right: -2vw;
+      font-family: 'Playfair Display SC', serif;
       font-style: italic; font-weight: 900;
-      font-size: clamp(18rem, 38vw, 32rem);
+      font-size: clamp(18rem, 36vw, 30rem);
       line-height: 1;
-      color: rgba(196,180,232,0.028);
+      color: rgba(201,184,240,0.025);
       pointer-events: none; user-select: none;
     }
 
@@ -768,11 +820,9 @@
       position: relative; z-index: 2;
     }
 
-    /* opening line — pink */
     .contact-open {
-      font-family: 'Caveat', cursive;
-      font-size: 1.1rem;
-      font-weight: 600;
+      font-family: 'Gochi Hand', cursive;
+      font-size: 1.05rem;
       color: var(--pink);
       display: block;
       margin-bottom: 1.5rem;
@@ -780,24 +830,29 @@
     }
 
     .contact-h {
-      font-family: 'Bodoni Moda', serif;
+      font-family: 'Playfair Display SC', serif;
       font-weight: 900;
-      font-size: clamp(3.2rem, 6vw, 5.5rem);
+      font-size: clamp(3rem, 5.5vw, 5rem);
       line-height: 0.88;
-      letter-spacing: -0.026em;
+      letter-spacing: -0.025em;
       color: var(--cream);
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
     }
-    .contact-h em { font-style: italic; font-weight: 400; color: var(--lavender); display: block; }
+    .contact-h em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--lavender);
+      display: block;
+    }
 
     .contact-body {
       font-style: italic;
-      font-size: 1.02rem;
+      font-size: 1rem;
       line-height: 1.9;
       color: var(--lavender);
-      opacity: 0.8;
+      opacity: 0.82;
       border-left: 2px solid var(--lav-mid);
-      padding-left: 1.5rem;
+      padding-left: 1.4rem;
     }
 
     .contact-right { padding-top: 2rem; }
@@ -807,26 +862,27 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.8rem 0;
+      padding: 1.6rem 0;
       border-bottom: 1px solid var(--rule);
       text-decoration: none;
-      transition: padding-left 0.3s;
+      transition: padding-left 0.3s, background 0.3s;
     }
     .clink:first-child { border-top: 1px solid var(--rule); }
     .clink:hover { padding-left: 0.8rem; }
 
     .clink-name {
-      font-family: 'Bodoni Moda', serif;
+      font-family: 'Playfair Display SC', serif;
       font-style: italic;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       color: var(--cream);
       transition: color 0.2s;
     }
     .clink:nth-child(1):hover .clink-name { color: var(--lavender); }
     .clink:nth-child(2):hover .clink-name { color: var(--lime); }
+    .clink:nth-child(3):hover .clink-name { color: var(--pink); }
 
     .clink-meta {
-      font-family: 'Caveat', cursive;
+      font-family: 'Gochi Hand', cursive;
       font-size: 0.88rem;
       color: var(--lavender);
       opacity: 0.5;
@@ -835,11 +891,11 @@
     .clink:hover .clink-meta { opacity: 1; }
 
     .signoff {
-      margin-top: 4rem;
-      font-family: 'Caveat', cursive;
-      font-size: 1.35rem;
+      margin-top: 3.5rem;
+      font-family: 'Gochi Hand', cursive;
+      font-size: 1.25rem;
       color: var(--lavender);
-      opacity: 0.5;
+      opacity: 0.55;
       line-height: 1.7;
     }
     .signoff em { color: var(--lavender); opacity: 1; font-style: italic; }
@@ -848,34 +904,87 @@
        FOOTER
     ══════════════════════════ */
     footer {
-      background: var(--bg-landing);
+      background: var(--bg);
       border-top: 1px solid var(--rule);
-      padding: 1.8rem 6vw;
+      padding: 1.6rem 6vw;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
-    .foot-l { font-family: 'Caveat', cursive; font-size: 1.05rem; color: var(--lavender); opacity: 0.45; }
-    .foot-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--lime); opacity: 0.6; }
-    .foot-r { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(196,180,232,0.2); }
+    .foot-l {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 1rem;
+      color: var(--lavender);
+      opacity: 0.45;
+    }
+    .foot-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--lime);
+      opacity: 0.6;
+    }
+    .foot-r {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(201,184,240,0.2);
+    }
 
     /* ══════════════════════════
        RESPONSIVE
     ══════════════════════════ */
-    @media (max-width: 860px) {
-      .common-head { grid-template-columns: 1fr; }
-      .lime-box { display: none; }
-      .notes-grid { grid-template-columns: 1fr 1fr; }
-      .note:nth-child(n) { grid-column: span 1 !important; }
-      .port-head { grid-template-columns: 1fr; }
-      .port-grid { grid-template-columns: 1fr; }
-      .about-layout { grid-template-columns: 1fr; }
-      .about-right { position: static; margin-top: 3rem; }
-      .contact-layout { grid-template-columns: 1fr; }
+    @media (max-width: 900px) {
+      .common-grid {
+        grid-template-columns: 1fr;
+      }
+      .cblock.quotes {
+        grid-column: span 1;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .cblock.currently {
+        grid-column: span 1;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .port-layout {
+        grid-template-columns: 1fr;
+      }
+      .port-left {
+        position: static;
+      }
+      .about-layout {
+        grid-template-columns: 1fr;
+      }
+      .about-right {
+        position: static;
+        margin-top: 3rem;
+      }
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        gap: 1.2rem;
+        padding: 1.2rem 4vw;
+      }
+      nav a { font-size: 0.58rem; letter-spacing: 0.12em; }
+      .landing-inner { padding-top: 5rem; }
+      .cv-entry { grid-template-columns: 1fr; gap: 0.5rem; }
+      .cv-year { padding-top: 0; }
+      .landing-scroll { font-size: 0.88rem; }
     }
   </style>
 </head>
 <body>
+
+  <!-- RUNNING FIGURE CURSOR -->
+  <div id="cursor-figure">🏃</div>
 
   <!-- NAV -->
   <nav>
@@ -889,7 +998,7 @@
        § 1 LANDING
   ══════════════════════════ -->
   <section id="landing">
-    <div class="ghost">Poudel</div>
+    <div class="landing-ghost">Poudel</div>
     <div class="edge-line"></div>
 
     <div class="landing-inner">
@@ -899,13 +1008,13 @@
         <span class="name-2">Poudel.</span>
       </h1>
       <p class="landing-desc">
-        reader. overthinker. writer, on good days.
-        person who took microbiology very seriously and then pivoted to literature,
-        which is, it turns out, the same thing.
+        reader of things. overthinker by trade. writer, occasionally, when the conditions are right
+        and Mercury is not in retrograde. studied microbiology. now studying literature.
+        these are, it turns out, exactly the same thing.
       </p>
     </div>
 
-    <span class="landing-nudge">there's more, keep going</span>
+    <span class="landing-scroll">keep scrolling, it gets weirder</span>
   </section>
 
   <!-- ══════════════════════════
@@ -913,117 +1022,155 @@
   ══════════════════════════ -->
   <section id="commonplace">
     <div class="common-head">
-      <div>
-        <span class="eyebrow">§ ii — so...</span>
-        <h2 class="common-h">
-          things I think about<br>
-          <em>at inconvenient hours.</em>
-        </h2>
-        <span class="common-sub">(unverified, unfiltered, entirely my problem)</span>
-      </div>
-      <div class="lime-box">
-        <p>not a journal.<br>not not a journal.</p>
-      </div>
+      <span class="eyebrow">§ ii — so...</span>
+      <h2 class="common-h">
+        as clichéd as quotes are,<br>
+        <em>these ones just stayed.</em>
+      </h2>
+      <span class="common-sub">(a commonplace book. sort of. not really. yes.)</span>
     </div>
 
-    <div class="notes-grid">
+    <div class="common-grid">
 
-      <div class="note nl">
-        <p class="note-lbl">on reading</p>
-        <p class="note-txt">The best books don't give you answers. They give you <strong>better questions</strong> and the quiet relief of not being the only one asking them.</p>
+      <!-- QUOTES -->
+      <div class="cblock quotes">
+        <span class="cblock-label" style="grid-column: span 2; margin-bottom: 0.5rem;">quotes that are living rent-free</span>
+        <div class="quote-item">
+          <blockquote>
+            "Everyone is an artist until rent is due."
+          </blockquote>
+          <p class="quote-attr">— anonymous. painfully accurate.</p>
+        </div>
+        <div class="quote-item">
+          <blockquote>
+            "Start where you are. Use what you have. Do what you can."
+          </blockquote>
+          <p class="quote-attr">— Arthur Ashe. genuinely changed something.</p>
+        </div>
       </div>
 
-      <div class="note ng">
-        <p class="note-lbl">on science</p>
-        <p class="note-txt">A petri dish is just a very small theatre. The bacteria don't know they're being watched. <strong>Most characters don't.</strong></p>
-      </div>
-
-      <div class="note np">
-        <p class="note-lbl">overheard in my own head</p>
-        <p class="note-txt">"I should read less."<br><strong>— nobody I want to be.</strong></p>
-      </div>
-
-      <div class="note nl big">
-        <p class="note-lbl">a thing I believe with my whole chest</p>
-        <p class="note-txt">"Fashion is the <strong>literature of the body.</strong> Every outfit is a sentence. Some people write in haiku. I am writing in the style of a footnote — elaborately specific, probably unnecessary, <strong>entirely intentional.</strong>"
-          <span class="note-sig">— me, 2 am, genuinely</span>
+      <!-- MUSIC -->
+      <div class="cblock music-block">
+        <span class="cblock-label">on music</span>
+        <p class="music-confession">
+          I am, by most accounts, musically tasteless. I have made peace with this.
+          There is one exception.
         </p>
+        <p class="music-artist">Hozier.</p>
+        <p class="music-confession" style="margin-top: 0.5rem; margin-bottom: 0;">
+          That's it. That's the whole personality.
+        </p>
+        <span class="music-note">share your playlist though →</span>
       </div>
 
-      <div class="note np">
-        <p class="note-lbl">a persistent suspicion</p>
-        <p class="note-txt">Every field of study is secretly just <strong>asking the same three questions</strong> in different outfits.</p>
-      </div>
-
-      <div class="note ng">
-        <p class="note-lbl">on writing</p>
-        <p class="note-txt">There are sentences that <strong>stop you mid-page</strong> and make the rest of the day feel slightly unreal. I collect these. I don't know what for.</p>
-      </div>
-
-      <div class="note nl">
-        <p class="note-lbl">something I stand by</p>
-        <p class="note-txt">The margin is where the reader <strong>becomes the writer.</strong> I have always read with a pen in hand.</p>
-      </div>
-
-      <div class="note np">
-        <p class="note-lbl">honestly</p>
-        <p class="note-txt">I have <strong>never once regretted</strong> slowing down to read something twice.</p>
+      <!-- CURRENTLY -->
+      <div class="cblock currently">
+        <span class="cblock-label" style="grid-column: span 3;">currently</span>
+        <div class="currently-item">
+          <span class="currently-type">watching</span>
+          <p class="currently-val">something I will recommend to you unprompted</p>
+          <span class="currently-aside">(will definitely bring this up)</span>
+        </div>
+        <div class="currently-item">
+          <span class="currently-type">thinking about</span>
+          <p class="currently-val">whether Doraemon was actually about childhood anxiety</p>
+          <span class="currently-aside">(I have a thesis. several, actually.)</span>
+        </div>
+        <div class="currently-item">
+          <span class="currently-type">avoiding</span>
+          <p class="currently-val">being perceived</p>
+          <span class="currently-aside">(and yet. website.)</span>
+        </div>
       </div>
 
     </div>
   </section>
 
   <!-- ══════════════════════════
-       § 3 PORTFOLIO
+       § 3 PORTFOLIO / CV
   ══════════════════════════ -->
   <section id="portfolio">
-    <div class="port-head">
-      <div>
+    <div class="port-layout">
+      <div class="port-left">
         <span class="eyebrow">§ iii — portfolio</span>
         <h2 class="port-h">
-          Things I've done<br>
+          The work.
           <span class="pro">"Professionally."</span>
         </h2>
-        <span class="port-sub">(the respectable portion of this website)</span>
-      </div>
-      <p class="port-head-note">
-        here are things that have, on occasion, impressed people.
-        presented without further comment because the work speaks for itself
-        and also I am shy about self-promotion.
-      </p>
-    </div>
-
-    <div class="port-grid">
-      <div class="pitem">
-        <span class="pitem-n">01</span>
-        <p class="pitem-tag">research · BSc thesis</p>
-        <h3 class="pitem-title">Bacterial Contamination in <em>Kathmandu's Water Supply</em></h3>
-        <p class="pitem-desc">Microbiology dissertation. Environmental science. And — it turned out — a surprising amount of narrative structure.</p>
-        <a href="#" class="pitem-link">view →</a>
+        <p class="port-intro">
+          The respectable portion of this website.
+          Presented without excessive editorialising because
+          I am told the work should speak for itself.
+          The work is speaking. I am standing slightly behind it.
+        </p>
       </div>
 
-      <div class="pitem">
-        <span class="pitem-n">02</span>
-        <p class="pitem-tag">research · MA ongoing</p>
-        <h3 class="pitem-title">The Essay as <em>Form</em></h3>
-        <p class="pitem-desc">Working at the intersection of form, voice, and what essays do that other writing refuses to. Ongoing, necessarily.</p>
-        <a href="#" class="pitem-link">in progress →</a>
-      </div>
+      <div class="cv-right">
 
-      <div class="pitem">
-        <span class="pitem-n">03</span>
-        <p class="pitem-tag">writing · essays & criticism</p>
-        <h3 class="pitem-title">Published &amp; <em>Unpublished Work</em></h3>
-        <p class="pitem-desc">On literature, science, form, and the occasional firmly-held opinion dressed up as analysis.</p>
-        <a href="#about" class="pitem-link">read →</a>
-      </div>
+        <div class="cv-section">
+          <p class="cv-section-label">Education</p>
 
-      <div class="pitem pl">
-        <span class="pitem-n">04</span>
-        <p class="pitem-tag">↳ open to</p>
-        <h3 class="pitem-title">Remote work in <em>science communication</em> or writing</h3>
-        <p class="pitem-desc">Commissions, collaborations, roles at the intersection of science and language. Let's talk.</p>
-        <a href="#contact" class="pitem-link">say hello →</a>
+          <div class="cv-entry">
+            <span class="cv-year">ongoing</span>
+            <div>
+              <p class="cv-title">MA in English Literature</p>
+              <p class="cv-sub">Tribhuvan University, Nepal</p>
+              <p class="cv-sub" style="margin-top: 0.3rem; font-size: 0.82rem; opacity: 0.65;">
+                Backing up a pretentious personality with a certificate. Academically speaking.
+              </p>
+              <span class="cv-tag">in progress</span>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <span class="cv-year">completed</span>
+            <div>
+              <p class="cv-title">BSc in Microbiology</p>
+              <p class="cv-sub">Tribhuvan University, Nepal</p>
+              <p class="cv-sub" style="margin-top: 0.3rem; font-size: 0.82rem; opacity: 0.65;">
+                Reading at a cellular level. It was, genuinely, fascinating.
+              </p>
+              <span class="cv-tag">BSc</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cv-section">
+          <p class="cv-section-label">Research</p>
+
+          <div class="cv-entry">
+            <span class="cv-year">BSc thesis</span>
+            <div>
+              <p class="cv-title">Undergraduate Dissertation</p>
+              <div class="thesis-title">
+                Bacterial Contamination and Prevalence of Pathogens on Elevator Buttons
+                Across Various Establishments in Kathmandu
+              </div>
+              <p class="cv-sub" style="margin-top: 0.8rem;">
+                Environmental microbiology. Field sampling. Surprisingly narrative structure
+                for a science paper. Bioremediation adjacent.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="cv-section">
+          <p class="cv-section-label">Open to</p>
+
+          <div class="cv-entry">
+            <span class="cv-year">now</span>
+            <div>
+              <p class="cv-title">Remote Work — Science Communication &amp; Writing</p>
+              <p class="cv-sub">
+                Roles at the intersection of science and language.
+                Commissions, collaborations, things that involve both a pipette and a sentence.
+                European organisations especially welcome.
+              </p>
+              <a href="#contact" class="cv-tag" style="text-decoration: none; display: inline-block; margin-top: 0.8rem;">say hello →</a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1044,32 +1191,47 @@
         </h2>
 
         <div class="about-paras">
-          <p>I grew up reading everything I could get my hands on and somehow ended up studying Microbiology — which, I have decided, is just <strong>reading at a cellular level.</strong> I am now doing an MA in English, which means I have simply switched the scale of the text I'm analysing.</p>
-          <p>I think there is something interesting at the intersection of science and story — the way both disciplines ask you to <strong>look very carefully at something</strong> and then describe what you find honestly. I am trying to do that. Most of the time.</p>
-          <p>I do not have a personal brand. I have a <strong>personality.</strong> There is a difference and I feel strongly about it.</p>
+          <p>
+            I grew up reading everything I could find and somehow ended up with a BSc in Microbiology,
+            which I have decided is just <strong>reading at a cellular level.</strong>
+            I am now doing an MA in English Literature to back up my pretentious personality
+            with a formal certificate. I am <strong>authentic like that.</strong>
+          </p>
+
+          <p>
+            I think there is something genuinely interesting at the intersection of science and story —
+            the way both ask you to <strong>look very carefully at something</strong> and then describe
+            what you find honestly. I am trying to do that. Most of the time.
+            Sometimes I am just watching television.
+          </p>
+
+          <p>
+            I do not have a personal brand. I have a <strong>personality.</strong>
+            There is a difference and I feel strongly about it.
+          </p>
         </div>
 
-        <div class="i-write">
-          <span class="i-write-label">I write, sometimes —</span>
-          <div class="write-list">
-            <a href="#" class="witem feat">
-              <span class="wtitle">Bacteria and Metaphor: What My Thesis Taught Me About Stories</span>
-              <span class="wtag">start here →</span>
-            </a>
-            <a href="#" class="witem">
-              <span class="wtitle">In Defence of the Overly Long Sentence</span>
-              <span class="wtag">criticism →</span>
-            </a>
-            <a href="#" class="witem">
-              <span class="wtitle">The Essay as a Literary Form</span>
-              <span class="wtag">on reading →</span>
-            </a>
-            <a href="#" class="witem">
-              <span class="wtitle">Getting Dressed as a Semiotic Act</span>
-              <span class="wtag">on fashion →</span>
-            </a>
-          </div>
+        <div class="unhinged-aside">
+          <p>
+            Doraemon was a formative experience and I will not be taking questions.
+            Also: all forms of art (to consume, not necessarily to produce).
+            I love it all. Theatre, film, painting, someone's niche embroidery account at 2am.
+            I am simply trying to be alive and sometimes that means crying at a well-composed shot.
+          </p>
         </div>
+
+        <div class="about-paras" style="margin-top: 1.5rem;">
+          <p>
+            I will recommend a show to you before I recommend a book.
+            I have <strong>opinions about semicolons</strong> that are disproportionate
+            to their importance. I think slowness is underrated.
+            I am working on it.
+          </p>
+        </div>
+
+        <a href="#portfolio" class="unwhimsical-link">
+          for un-whimsical humans: see the cv
+        </a>
       </div>
 
       <div class="about-right">
@@ -1077,51 +1239,54 @@
 
         <div class="obs-card">
           <p class="obs-title">The essay as a form</p>
-          <p class="obs-txt">Montaigne. Baldwin. Dillard. The essay that wanders on purpose and is honest about not knowing where it's going.</p>
+          <p class="obs-txt">Montaigne. Baldwin. Dillard. The essay that wanders deliberately and admits it doesn't know where it's going.</p>
         </div>
 
-        <div class="obs-card og">
+        <div class="obs-card lime">
           <p class="obs-title">Bioremediation</p>
-          <p class="obs-txt">Using microorganisms to clean contaminated environments. Genuinely miraculous. Not enough people talking about it.</p>
+          <p class="obs-txt">Using microorganisms to clean contaminated environments. Genuinely miraculous. Criminally under-discussed at dinner parties.</p>
         </div>
 
         <div class="obs-card">
           <p class="obs-title">Fashion as language</p>
-          <p class="obs-txt">The semiotics of getting dressed. What we say before we open our mouths. The grammar of fabric and silhouette.</p>
+          <p class="obs-txt">The semiotics of getting dressed. What we say before we open our mouths. The grammar of fabric.</p>
+        </div>
+
+        <div class="obs-card">
+          <p class="obs-title">Doraemon, actually</p>
+          <p class="obs-txt">Character development. A pocket full of impossible things. The whole thing is a metaphor and I will explain it if you ask.</p>
         </div>
 
         <div class="obs-card">
           <p class="obs-title">Slowness, deliberately</p>
-          <p class="obs-txt">Books finished. Plants tended. The radical act of doing things at their own pace.</p>
-        </div>
-
-        <div class="obs-tags">
-          <span class="lime-tag">knitting</span>
-          <span class="lime-tag">long sentences</span>
-          <span class="lime-tag">good tea</span>
-          <span class="lime-tag">plants</span>
+          <p class="obs-txt">Shows finished. Plants tended. The genuinely radical act of doing one thing at its own pace.</p>
         </div>
       </div>
     </div>
 
+    <!-- QUIRKS TICKER -->
     <div class="quirks-strip">
       <div class="quirks-inner">
-        <span class="quirk">reads things twice, at least</span>
+        <span class="quirk">will recommend a show unprompted</span>
+        <span class="quirk">Doraemon changed everything</span>
         <span class="quirk">owns too many mugs</span>
-        <span class="quirk">will recommend a book unprompted</span>
-        <span class="quirk">speaks to her plants</span>
+        <span class="quirk">musically tasteless (except Hozier)</span>
         <span class="quirk">unfinished knitting projects: several</span>
         <span class="quirk">has opinions about semicolons</span>
-        <span class="quirk">thinks in long sentences</span>
-        <span class="quirk">tea snob, unashamed</span>
-        <span class="quirk">reads things twice, at least</span>
-        <span class="quirk">owns too many mugs</span>
-        <span class="quirk">will recommend a book unprompted</span>
         <span class="quirk">speaks to her plants</span>
+        <span class="quirk">simply trying to be alive</span>
+        <span class="quirk">cried at a well-composed shot</span>
+        <span class="quirk">reads things twice, at least</span>
+        <span class="quirk">will recommend a show unprompted</span>
+        <span class="quirk">Doraemon changed everything</span>
+        <span class="quirk">owns too many mugs</span>
+        <span class="quirk">musically tasteless (except Hozier)</span>
         <span class="quirk">unfinished knitting projects: several</span>
         <span class="quirk">has opinions about semicolons</span>
-        <span class="quirk">thinks in long sentences</span>
-        <span class="quirk">tea snob, unashamed</span>
+        <span class="quirk">speaks to her plants</span>
+        <span class="quirk">simply trying to be alive</span>
+        <span class="quirk">cried at a well-composed shot</span>
+        <span class="quirk">reads things twice, at least</span>
       </div>
     </div>
   </section>
@@ -1132,15 +1297,16 @@
   <section id="contact">
     <div class="contact-layout">
       <div>
-        <span class="contact-open">you made it to the end, which means —</span>
+        <span class="contact-open">you made it to the end —</span>
         <h2 class="contact-h">
           let's talk<br>
           <em>about<br>something.</em>
         </h2>
         <p class="contact-body">
-          About books, science, writing, or whatever you've been turning over lately.
+          About books, shows, science, writing, or whatever you've been turning over lately.
           I like correspondence that sounds like it was written by a person.
-          I try to write back the same way.
+          I write back the same way.
+          Unless it's LinkedIn. Then I will be professionally pleasant.
         </p>
       </div>
 
@@ -1148,11 +1314,15 @@
         <div class="clinks">
           <a href="mailto:your@email.com" class="clink">
             <span class="clink-name">Email</span>
-            <span class="clink-meta">your@email.com →</span>
+            <span class="clink-meta">for humans →</span>
           </a>
-          <a href="#" class="clink">
+          <a href="https://www.linkedin.com/in/simranpoudel" target="_blank" class="clink">
             <span class="clink-name">LinkedIn</span>
-            <span class="clink-meta">the professional version of me →</span>
+            <span class="clink-meta">for un-whimsical humans →</span>
+          </a>
+          <a href="https://substack.com/@simranpoudel" target="_blank" class="clink">
+            <span class="clink-name">Substack</span>
+            <span class="clink-meta">inbetween inkstains — for whimsical humans →</span>
           </a>
         </div>
         <p class="signoff">
@@ -1167,8 +1337,82 @@
   <footer>
     <span class="foot-l">Simran Poudel</span>
     <div class="foot-dot"></div>
-    <span class="foot-r">made with excessive care &amp; a good cup of tea</span>
+    <span class="foot-r">made with excessive care &amp; questionable life choices</span>
   </footer>
+
+  <!-- ══════════════════════════
+       CURSOR JS
+  ══════════════════════════ -->
+  <script>
+    const figure = document.getElementById('cursor-figure');
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let figX = mouseX;
+    let figY = mouseY;
+    let lastX = mouseX;
+    let isTripped = false;
+    let tripTimeout = null;
+
+    // Running frames
+    const runFrames = ['🏃', '🏃'];
+    let frameIdx = 0;
+    let lastFrameTime = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    document.addEventListener('click', () => {
+      if (isTripped) return;
+      isTripped = true;
+      figure.classList.add('tripped');
+      figure.textContent = '🤸';
+      clearTimeout(tripTimeout);
+      tripTimeout = setTimeout(() => {
+        isTripped = false;
+        figure.classList.remove('tripped');
+      }, 600);
+    });
+
+    function animate(timestamp) {
+      // Smooth follow
+      figX += (mouseX - figX) * 0.18;
+      figY += (mouseY - figY) * 0.18;
+
+      figure.style.left = figX + 'px';
+      figure.style.top  = figY + 'px';
+
+      // Flip based on direction
+      const movingLeft = figX > mouseX + 2;
+      if (!isTripped) {
+        if (movingLeft) {
+          figure.classList.add('flipped');
+        } else {
+          figure.classList.remove('flipped');
+        }
+
+        // Animate running frames
+        const speed = Math.abs(mouseX - figX) + Math.abs(mouseY - figY);
+        const frameDelay = speed > 5 ? 120 : 300;
+        if (timestamp - lastFrameTime > frameDelay) {
+          frameIdx = (frameIdx + 1) % runFrames.length;
+          figure.textContent = speed > 2 ? '🏃' : '🧍';
+          lastFrameTime = timestamp;
+        }
+      }
+
+      lastX = figX;
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+
+    // Touch devices — hide cursor
+    window.addEventListener('touchstart', () => {
+      figure.style.display = 'none';
+    }, { once: true });
+  </script>
 
 </body>
 </html>
