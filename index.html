@@ -37,8 +37,8 @@
       color: var(--cream);
       font-family: 'Libre Baskerville', Georgia, serif;
       overflow-x: hidden;
-      font-size: 17px;
-      line-height: 1.8;
+      font-size: 18px;
+      line-height: 1.85;
     }
 
     body::before {
@@ -50,46 +50,43 @@
     }
 
     /* ══════════════════════════
-       SVG STICK FIGURE CURSOR
+       CURSOR — orbiting dot
     ══════════════════════════ */
-    #cursor-wrap {
+    #cursor-ring {
       position: fixed;
       pointer-events: none;
       z-index: 99999;
       top: 0; left: 0;
-      width: 32px;
-      height: 52px;
+      width: 36px; height: 36px;
       will-change: transform;
     }
-    #cursor-wrap svg {
-      width: 32px;
-      height: 52px;
+    #cursor-ring svg {
+      width: 36px; height: 36px;
       overflow: visible;
-      filter: drop-shadow(0 0 5px rgba(200,240,58,0.5));
-      transition: transform 0.18s ease;
     }
-
-    @keyframes leg-l  { 0%,100%{transform:rotate(-32deg)} 50%{transform:rotate(32deg)} }
-    @keyframes leg-r  { 0%,100%{transform:rotate(32deg)}  50%{transform:rotate(-32deg)} }
-    @keyframes arm-l  { 0%,100%{transform:rotate(22deg)}  50%{transform:rotate(-22deg)} }
-    @keyframes arm-r  { 0%,100%{transform:rotate(-22deg)} 50%{transform:rotate(22deg)} }
-    @keyframes bob    { 0%,100%{transform:translateY(0)}  50%{transform:translateY(-2px)} }
-
-    .s-body  { animation: bob   0.34s ease-in-out infinite; }
-    .s-legl  { transform-origin: 16px 33px; animation: leg-l 0.34s ease-in-out infinite; }
-    .s-legr  { transform-origin: 16px 33px; animation: leg-r 0.34s ease-in-out infinite; }
-    .s-arml  { transform-origin: 16px 24px; animation: arm-l 0.34s ease-in-out infinite; }
-    .s-armr  { transform-origin: 16px 24px; animation: arm-r 0.34s ease-in-out infinite; }
-
-    #cursor-wrap.idle .s-body,
-    #cursor-wrap.idle .s-legl,
-    #cursor-wrap.idle .s-legr,
-    #cursor-wrap.idle .s-arml,
-    #cursor-wrap.idle .s-armr { animation-play-state: paused; }
-
-    #cursor-wrap.tripped svg { transform: rotate(85deg); }
-    #cursor-wrap.flipped svg { transform: scaleX(-1); }
-    #cursor-wrap.flipped.tripped svg { transform: scaleX(-1) rotate(85deg); }
+    /* the orbiting dot */
+    @keyframes orbit {
+      from { transform: rotate(0deg)   translateX(14px) rotate(0deg); }
+      to   { transform: rotate(360deg) translateX(14px) rotate(-360deg); }
+    }
+    #cursor-ring.fast  .orb { animation-duration: 0.45s; }
+    #cursor-ring.idle  .orb { animation-duration: 2.2s; opacity: 0.4; }
+    .orb {
+      transform-origin: 18px 18px;
+      animation: orbit 0.9s linear infinite;
+    }
+    /* click pulse */
+    @keyframes pulse-ring {
+      0%   { r: 10; opacity: 0.7; }
+      100% { r: 22; opacity: 0; }
+    }
+    .pulse-circle {
+      transform-origin: 18px 18px;
+      opacity: 0;
+    }
+    #cursor-ring.clicked .pulse-circle {
+      animation: pulse-ring 0.45s ease-out forwards;
+    }
 
     /* ══════════════════════════
        NAV
@@ -107,7 +104,7 @@
     }
     nav a {
       font-family: 'Space Mono', monospace;
-      font-size: 0.62rem;
+      font-size: 0.65rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--pink);
@@ -133,7 +130,7 @@
     ══════════════════════════ */
     .eyebrow {
       font-family: 'Space Mono', monospace;
-      font-size: 0.58rem;
+      font-size: 0.6rem;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--pink);
@@ -180,7 +177,7 @@
     }
     .landing-hello {
       font-family: 'Gochi Hand', cursive;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       color: var(--lime);
       margin-bottom: 1rem;
       display: inline-block;
@@ -204,18 +201,18 @@
     .landing-desc {
       margin-top: 2.8rem;
       font-family: 'Libre Baskerville', serif;
-      font-size: clamp(1rem, 1.45vw, 1.15rem);
+      font-size: clamp(1.05rem, 1.5vw, 1.22rem);
       color: var(--lavender);
       border-left: 2px solid var(--lav-mid);
       padding-left: 1.4rem;
-      max-width: 520px;
+      max-width: 540px;
       line-height: 1.9;
     }
     .landing-desc em { font-style: italic; color: var(--cream); }
     .landing-scroll {
       margin-top: 3rem;
       font-family: 'Gochi Hand', cursive;
-      font-size: 1rem;
+      font-size: 1.05rem;
       color: var(--lime);
       transform: rotate(-1deg);
       display: inline-flex;
@@ -260,7 +257,7 @@
     }
     .common-sub {
       font-family: 'Gochi Hand', cursive;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       color: var(--lavender);
       opacity: 0.7;
       display: inline-block;
@@ -277,38 +274,29 @@
     }
     .quote-block {
       background: var(--bg-alt);
-      padding: 3rem 2.8rem;
+      padding: 3.2rem 3rem;
       transition: background 0.3s;
     }
     .quote-block:hover { background: var(--lav-dim); }
-    .block-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.52rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--pink);
-      opacity: 0.7;
-      margin-bottom: 1.4rem;
-      display: block;
-    }
+
     .quote-block blockquote {
       font-family: 'Playfair Display SC', serif;
       font-weight: 400;
-      font-size: clamp(1.05rem, 1.5vw, 1.25rem);
-      line-height: 1.65;
+      font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+      line-height: 1.7;
       color: var(--cream);
       border-left: 2px solid var(--lime);
-      padding-left: 1.4rem;
-      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+      margin-bottom: 1.1rem;
     }
     .quote-attr {
       font-family: 'Space Mono', monospace;
-      font-size: 0.53rem;
+      font-size: 0.56rem;
       letter-spacing: 0.13em;
       color: var(--lavender);
       opacity: 0.5;
       text-transform: uppercase;
-      padding-left: 1.4rem;
+      padding-left: 1.5rem;
     }
 
     .currently-row {
@@ -320,31 +308,31 @@
     }
     .curr-block {
       background: var(--bg-alt);
-      padding: 2.5rem 2rem;
+      padding: 2.8rem 2.2rem;
       transition: background 0.3s;
     }
     .curr-block:hover { background: var(--lav-dim); }
     .curr-type {
       font-family: 'Space Mono', monospace;
-      font-size: 0.5rem;
+      font-size: 0.54rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--lavender);
       opacity: 0.5;
-      margin-bottom: 0.7rem;
+      margin-bottom: 0.8rem;
       display: block;
     }
     .curr-val {
       font-family: 'Playfair Display SC', serif;
       font-weight: 400;
-      font-size: 1rem;
+      font-size: 1.05rem;
       color: var(--cream);
-      line-height: 1.5;
-      margin-bottom: 0.6rem;
+      line-height: 1.55;
+      margin-bottom: 0.7rem;
     }
     .curr-aside {
       font-family: 'Gochi Hand', cursive;
-      font-size: 0.9rem;
+      font-size: 0.98rem;
       color: var(--lavender);
       opacity: 0.65;
       display: block;
@@ -352,7 +340,7 @@
     }
 
     /* ══════════════════════════
-       § 3 PORTFOLIO
+       § 3 PROFESSIONALLY SPEAKING
     ══════════════════════════ */
     #portfolio {
       background: var(--bg-section);
@@ -396,7 +384,7 @@
     .port-sub {
       font-family: 'Libre Baskerville', serif;
       font-style: italic;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: var(--lavender);
       opacity: 0.6;
       margin-top: 1.1rem;
@@ -405,7 +393,7 @@
     .cv-section { margin-bottom: 3.5rem; }
     .cv-section-label {
       font-family: 'Space Mono', monospace;
-      font-size: 0.54rem;
+      font-size: 0.56rem;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--pink);
@@ -418,7 +406,7 @@
     .cv-section-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
 
     .cv-entry {
-      padding: 2rem 0;
+      padding: 2.2rem 0;
       border-bottom: 1px solid var(--rule);
       display: grid;
       grid-template-columns: 7rem 1fr;
@@ -431,7 +419,7 @@
 
     .cv-year {
       font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
+      font-size: 0.62rem;
       color: var(--lavender);
       opacity: 0.5;
       letter-spacing: 0.07em;
@@ -442,36 +430,25 @@
     .cv-title {
       font-family: 'Playfair Display SC', serif;
       font-weight: 700;
-      font-size: 1.08rem;
+      font-size: 1.12rem;
       color: var(--cream);
       line-height: 1.25;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.4rem;
     }
     .cv-sub {
       font-family: 'Libre Baskerville', serif;
       font-style: italic;
-      font-size: 0.88rem;
+      font-size: 0.95rem;
       color: var(--lavender);
       opacity: 0.75;
-      line-height: 1.65;
-    }
-    .cv-tag {
-      display: inline-block;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.48rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.25rem 0.75rem;
-      border: 1px solid var(--lime);
-      color: var(--lime);
-      margin-top: 0.7rem;
+      line-height: 1.7;
     }
     .thesis-title {
       font-family: 'Libre Baskerville', serif;
       font-style: italic;
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       color: var(--cream);
-      line-height: 1.7;
+      line-height: 1.72;
       margin-top: 0.6rem;
       padding: 0.9rem 1.1rem;
       border-left: 2px solid var(--lavender);
@@ -482,46 +459,46 @@
       align-items: center;
       gap: 0.6rem;
       margin-top: 1rem;
-      padding: 0.6rem 1.2rem;
+      padding: 0.65rem 1.3rem;
       background: rgba(200,240,58,0.07);
       border: 1.5px solid var(--lime);
       color: var(--lime);
       font-family: 'Space Mono', monospace;
-      font-size: 0.54rem;
+      font-size: 0.56rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       text-decoration: none;
       transition: background 0.25s, color 0.25s;
     }
     .pdf-btn:hover { background: var(--lime); color: #0d0916; }
-    .pdf-btn::before { content: '↓'; font-size: 0.8rem; }
+    .pdf-btn::before { content: '↓'; font-size: 0.85rem; }
 
     .cv-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
       margin-top: 1rem;
-      padding: 0.6rem 1.2rem;
+      padding: 0.65rem 1.3rem;
       background: transparent;
       border: 1.5px solid var(--lavender);
       color: var(--lavender);
       font-family: 'Space Mono', monospace;
-      font-size: 0.54rem;
+      font-size: 0.56rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       text-decoration: none;
       transition: background 0.25s, color 0.25s;
     }
     .cv-btn:hover { background: var(--lavender); color: #0d0916; }
-    .cv-btn::before { content: '↓'; font-size: 0.8rem; }
+    .cv-btn::before { content: '↓'; font-size: 0.85rem; }
 
     .open-list {
       font-family: 'Libre Baskerville', serif;
       font-style: italic;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: var(--lavender);
       opacity: 0.8;
-      line-height: 1.95;
+      line-height: 2;
       margin-top: 0.5rem;
       padding-left: 1rem;
       border-left: 1px solid var(--rule-hi);
@@ -561,11 +538,13 @@
       align-items: start;
       position: relative; z-index: 1;
     }
+
+    /* tighter heading stack */
     .about-hl {
       font-family: 'Playfair Display SC', serif;
       font-weight: 900;
       font-size: clamp(3rem, 5.5vw, 5rem);
-      line-height: 0.92;
+      line-height: 0.9;
       letter-spacing: -0.025em;
       color: var(--cream);
       margin-bottom: 2.5rem;
@@ -575,27 +554,29 @@
       color: var(--lavender);
       display: block;
       font-style: normal;
-      line-height: 1;
+      line-height: 0.9;
     }
+    /* obviously — no extra margin, sits right under multitudes */
     .about-hl .obv {
-      display: inline-block;
+      display: block;
       font-family: 'Gochi Hand', cursive;
-      font-size: 2.1rem;
+      font-size: 2.4rem;
       font-weight: 400;
       color: var(--pink);
       font-style: normal;
       transform: rotate(-2deg);
-      margin-top: 0.2rem;
-      line-height: 1;
+      line-height: 1.05;
       letter-spacing: 0;
+      margin-top: 0.1rem;
     }
+
     .about-paras p {
       font-style: italic;
-      font-size: 1.02rem;
-      line-height: 1.95;
+      font-size: 1.08rem;
+      line-height: 2;
       color: var(--lavender);
-      opacity: 0.88;
-      margin-bottom: 1.5rem;
+      opacity: 0.9;
+      margin-bottom: 1.6rem;
     }
     .about-paras p strong { font-style: normal; font-weight: 700; color: var(--cream); }
     .about-paras p:first-child::first-letter {
@@ -605,6 +586,7 @@
       margin: 0.08em 0.14em 0 0;
       color: var(--lavender);
     }
+
     .unwhimsical-link {
       display: inline-flex;
       align-items: center;
@@ -613,7 +595,7 @@
       padding: 0.9rem 1.4rem;
       border: 1px solid var(--rule-hi);
       font-family: 'Space Mono', monospace;
-      font-size: 0.58rem;
+      font-size: 0.6rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--lavender);
@@ -623,18 +605,20 @@
     .unwhimsical-link:hover { background: var(--lav-dim); border-color: var(--lavender); color: var(--cream); }
     .unwhimsical-link::after { content: '→'; }
 
+    /* right column */
     .about-right { position: sticky; top: 7rem; }
+
     .obs-lbl {
       font-family: 'Gochi Hand', cursive;
-      font-size: 1.05rem;
-      color: var(--lavender);
-      opacity: 0.82;
-      margin-bottom: 1.2rem;
+      font-size: 1.25rem;
+      color: var(--pink);
+      margin-bottom: 1.3rem;
       display: block;
       line-height: 1.55;
     }
+
     .obs-card {
-      padding: 1.4rem 1.6rem;
+      padding: 1.5rem 1.7rem;
       border-bottom: 1px solid var(--rule);
       transition: background 0.3s, padding-left 0.3s;
     }
@@ -644,17 +628,17 @@
     .obs-title {
       font-family: 'Playfair Display SC', serif;
       font-weight: 400;
-      font-size: 1rem;
+      font-size: 1.05rem;
       color: var(--lavender);
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.35rem;
     }
     .obs-card.lime .obs-title { color: var(--lime); }
     .obs-txt {
-      font-size: 0.86rem;
+      font-size: 0.95rem;
       font-style: italic;
-      line-height: 1.7;
+      line-height: 1.75;
       color: var(--lavender);
-      opacity: 0.62;
+      opacity: 0.65;
     }
 
     /* QUIRKS TICKER */
@@ -662,14 +646,14 @@
       margin-top: 5rem;
       border-top: 1px solid var(--rule);
       border-bottom: 1px solid var(--rule);
-      padding: 0.85rem 0;
+      padding: 0.9rem 0;
       overflow: hidden;
       white-space: nowrap;
       position: relative; z-index: 1;
     }
     .quirks-inner {
       display: inline-flex;
-      animation: marquee 42s linear infinite;
+      animation: marquee 40s linear infinite;
     }
     .quirks-inner:hover { animation-play-state: paused; }
     @keyframes marquee {
@@ -678,7 +662,7 @@
     }
     .quirk {
       font-family: 'Gochi Hand', cursive;
-      font-size: 1rem;
+      font-size: 1.05rem;
       color: var(--lavender);
       opacity: 0.78;
       padding: 0 2rem;
@@ -726,7 +710,7 @@
     }
     .contact-open {
       font-family: 'Gochi Hand', cursive;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       color: var(--pink);
       display: block;
       margin-bottom: 1.4rem;
@@ -749,8 +733,8 @@
     }
     .contact-body {
       font-style: italic;
-      font-size: 1rem;
-      line-height: 1.95;
+      font-size: 1.05rem;
+      line-height: 2;
       color: var(--lavender);
       opacity: 0.85;
       border-left: 2px solid var(--lav-mid);
@@ -765,7 +749,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
-      padding: 1.6rem 0;
+      padding: 1.7rem 0;
       border-bottom: 1px solid var(--rule);
       text-decoration: none;
       transition: padding-left 0.3s;
@@ -775,7 +759,7 @@
     .clink-name {
       font-family: 'Playfair Display SC', serif;
       font-weight: 400;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       color: var(--cream);
       transition: color 0.2s;
     }
@@ -784,7 +768,7 @@
     .clink:nth-child(3):hover .clink-name { color: var(--pink); }
     .clink-meta {
       font-family: 'Gochi Hand', cursive;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: var(--lavender);
       opacity: 0.5;
       transition: opacity 0.2s;
@@ -796,20 +780,20 @@
       margin-top: 3.5rem;
       font-family: 'Libre Baskerville', serif;
       font-style: italic;
-      font-size: 1rem;
+      font-size: 1.05rem;
       color: var(--lavender);
       opacity: 0.72;
       line-height: 1.9;
     }
     .signoff strong {
-      font-family: 'Playfair Display SC', serif;
-      font-style: normal;
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
       font-weight: 400;
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       color: var(--lavender);
       display: block;
       margin-top: 0.2rem;
-      opacity: 0.88;
+      opacity: 0.9;
     }
 
     /* ══════════════════════════
@@ -827,7 +811,7 @@
     }
     .foot-l { font-family: 'Gochi Hand', cursive; font-size: 1rem; color: var(--lavender); opacity: 0.45; }
     .foot-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--lime); opacity: 0.6; flex-shrink: 0; }
-    .foot-r { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(201,184,240,0.2); }
+    .foot-r { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(201,184,240,0.2); }
 
     /* ══════════════════════════
        RESPONSIVE
@@ -842,9 +826,9 @@
       .contact-layout   { grid-template-columns: 1fr; }
     }
     @media (max-width: 600px) {
-      body { font-size: 16px; }
+      body { font-size: 17px; }
       nav { gap: 1rem; padding: 1.1rem 4vw; }
-      nav a { font-size: 0.55rem; letter-spacing: 0.1em; }
+      nav a { font-size: 0.58rem; letter-spacing: 0.1em; }
       #landing,#commonplace,#portfolio,#about,#contact { padding-left: 5vw; padding-right: 5vw; }
       #landing { padding-bottom: 4rem; }
       .landing-inner { padding-top: 5.5rem; }
@@ -853,7 +837,7 @@
       .cv-year { padding-top: 0; opacity: 0.4; }
       .about-ghost { display: none; }
       .contact-layout { gap: 3rem; }
-      .clink-meta { font-size: 0.78rem; }
+      .clink-meta { font-size: 0.82rem; }
     }
     @media (max-width: 380px) {
       nav a:nth-child(3) { display: none; }
@@ -862,16 +846,16 @@
 </head>
 <body>
 
-  <!-- SVG STICK FIGURE CURSOR -->
-  <div id="cursor-wrap" aria-hidden="true">
-    <svg viewBox="0 0 32 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="16" cy="7" r="5.5" stroke="#c8f03a" stroke-width="2"/>
-      <g class="s-body">
-        <line x1="16" y1="13" x2="16" y2="31" stroke="#c8f03a" stroke-width="2" stroke-linecap="round"/>
-        <g class="s-arml"><line x1="16" y1="19" x2="5" y2="28" stroke="#c8f03a" stroke-width="2" stroke-linecap="round"/></g>
-        <g class="s-armr"><line x1="16" y1="19" x2="27" y2="28" stroke="#c8f03a" stroke-width="2" stroke-linecap="round"/></g>
-        <g class="s-legl"><line x1="16" y1="31" x2="7"  y2="47" stroke="#c8f03a" stroke-width="2" stroke-linecap="round"/></g>
-        <g class="s-legr"><line x1="16" y1="31" x2="25" y2="47" stroke="#c8f03a" stroke-width="2" stroke-linecap="round"/></g>
+  <!-- CURSOR -->
+  <div id="cursor-ring" aria-hidden="true">
+    <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- static centre dot -->
+      <circle cx="18" cy="18" r="3" fill="#c8f03a"/>
+      <!-- pulse ring on click -->
+      <circle class="pulse-circle" cx="18" cy="18" r="10" stroke="#c8f03a" stroke-width="1.5" fill="none"/>
+      <!-- orbiting dot -->
+      <g class="orb">
+        <circle cx="18" cy="18" r="3.5" fill="#e040a0"/>
       </g>
     </svg>
   </div>
@@ -889,7 +873,7 @@
     <div class="landing-ghost">Poudel</div>
     <div class="edge-line"></div>
     <div class="landing-inner">
-      <span class="landing-hello">oh, you found me —</span>
+      <span class="landing-hello">twinkle, twinkle little star —</span>
       <h1 class="landing-name">
         Simran
         <span class="name-2">Poudel.</span>
@@ -908,17 +892,15 @@
     <div class="common-head">
       <span class="eyebrow">§ ii — so...</span>
       <h2 class="common-h">as clichéd as quotes are,<br>these ones just stayed.</h2>
-      <span class="common-sub">(a commonplace book. sort of. not really. yes.)</span>
+      <span class="common-sub">(not a journal. not not a journal.)</span>
     </div>
 
     <div class="quotes-row">
       <div class="quote-block">
-        <span class="block-label">quote one</span>
         <blockquote>Everyone is an artist until rent is due.</blockquote>
         <p class="quote-attr">— anonymous. painfully accurate.</p>
       </div>
       <div class="quote-block">
-        <span class="block-label">quote two</span>
         <blockquote>Start where you are. Use what you have. Do what you can.</blockquote>
         <p class="quote-attr">— Arthur Ashe. genuinely changed something.</p>
       </div>
@@ -938,7 +920,6 @@
       <div class="curr-block">
         <span class="curr-type">watching</span>
         <p class="curr-val">anything science fiction..., you know, like, Doraemon.</p>
-        <span class="curr-aside">(will recommend unprompted. you have been warned.)</span>
       </div>
       <div class="curr-block">
         <span class="curr-type">writing</span>
@@ -968,7 +949,6 @@
             <div>
               <p class="cv-title">MA in English Literature</p>
               <p class="cv-sub">Tribhuvan University, Nepal</p>
-              <span class="cv-tag">in progress</span>
             </div>
           </div>
           <div class="cv-entry">
@@ -976,7 +956,6 @@
             <div>
               <p class="cv-title">B.Sc. Microbiology</p>
               <p class="cv-sub">Tri-Chandra Multiple Campus,<br>Tribhuvan University, Nepal</p>
-              <span class="cv-tag">completed</span>
             </div>
           </div>
         </div>
@@ -984,14 +963,14 @@
         <div class="cv-section">
           <p class="cv-section-label">Research</p>
           <div class="cv-entry">
-            <span class="cv-year">2024<br>BSc thesis</span>
+            <span class="cv-year">2025<br>BSc thesis</span>
             <div>
               <p class="cv-title">Undergraduate Research Project</p>
               <div class="thesis-title">
                 Bacterial Contamination and Prevalence of Pathogens on Elevator Buttons
                 Across Various Establishments in Kathmandu
               </div>
-              <!-- Replace href with your Google Drive PDF link -->
+              <!-- Replace with your Google Drive PDF link -->
               <a href="YOUR_GOOGLE_DRIVE_THESIS_LINK" target="_blank" class="pdf-btn">view thesis PDF</a>
             </div>
           </div>
@@ -1002,13 +981,12 @@
           <div class="cv-entry">
             <span class="cv-year">now</span>
             <div>
-              <p class="cv-title">Remote Work</p>
-              <p class="cv-sub">Research assistance and roles at the intersection of science and writing.</p>
+              <p class="cv-title">Remote Work — Research &amp; Writing</p>
               <p class="open-list">
-                Science communication · Research assistance ·
+                Research assistance · Science communication ·
                 Writing and editorial · Science &amp; environment
               </p>
-              <!-- Replace href with your CV Google Drive link -->
+              <!-- Replace with your CV Google Drive link -->
               <a href="YOUR_GOOGLE_DRIVE_CV_LINK" target="_blank" class="cv-btn">download CV</a>
             </div>
           </div>
@@ -1067,10 +1045,6 @@
           <p class="obs-txt">The semiotics of getting dressed. What we say before we open our mouths.</p>
         </div>
         <div class="obs-card">
-          <p class="obs-title">Doraemon, seriously</p>
-          <p class="obs-txt">Character development. A pocket full of impossible things. I will explain the metaphor if you ask. Please ask.</p>
-        </div>
-        <div class="obs-card">
           <p class="obs-title">Slowness, deliberately</p>
           <p class="obs-txt">Shows finished. Plants tended. The genuinely radical act of doing one thing at its own pace.</p>
         </div>
@@ -1083,20 +1057,16 @@
         <span class="quirk">simply trying to be alive</span>
         <span class="quirk">chamomile tea is genuinely good</span>
         <span class="quirk">texts with lots of commas</span>
-        <span class="quirk">normalise correcting people's grammar</span>
+        <span class="quirk">normalise correcting people's grammar!</span>
         <span class="quirk">pretentious, just because.</span>
-        <span class="quirk">speaks to her plants</span>
         <span class="quirk">musically tasteless (except Hozier)</span>
-        <span class="quirk">Doraemon changed everything</span>
         <span class="quirk">unfinished knitting projects: several</span>
         <span class="quirk">simply trying to be alive</span>
         <span class="quirk">chamomile tea is genuinely good</span>
         <span class="quirk">texts with lots of commas</span>
-        <span class="quirk">normalise correcting people's grammar</span>
+        <span class="quirk">normalise correcting people's grammar!</span>
         <span class="quirk">pretentious, just because.</span>
-        <span class="quirk">speaks to her plants</span>
         <span class="quirk">musically tasteless (except Hozier)</span>
-        <span class="quirk">Doraemon changed everything</span>
       </div>
     </div>
   </section>
@@ -1150,45 +1120,47 @@
 
   <!-- CURSOR JS -->
   <script>
-    const wrap = document.getElementById('cursor-wrap');
+    const ring = document.getElementById('cursor-ring');
     let mouseX = window.innerWidth / 2;
     let mouseY = window.innerHeight / 2;
-    let figX = mouseX, figY = mouseY;
-    let prevFigX = mouseX;
-    let isTripped = false;
+    let curX = mouseX, curY = mouseY;
+    let prevX = mouseX;
+    let speed = 0;
     let idleTimer = null;
 
     document.addEventListener('mousemove', e => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      wrap.classList.remove('idle');
+      ring.classList.remove('idle');
       clearTimeout(idleTimer);
-      idleTimer = setTimeout(() => wrap.classList.add('idle'), 1200);
+      idleTimer = setTimeout(() => ring.classList.add('idle'), 1400);
     });
 
     document.addEventListener('click', () => {
-      if (isTripped) return;
-      isTripped = true;
-      wrap.classList.add('tripped');
-      setTimeout(() => { isTripped = false; wrap.classList.remove('tripped'); }, 550);
+      ring.classList.remove('clicked');
+      void ring.offsetWidth; // reflow to restart animation
+      ring.classList.add('clicked');
+      setTimeout(() => ring.classList.remove('clicked'), 450);
     });
 
     function tick() {
-      figX += (mouseX - figX) * 0.16;
-      figY += (mouseY - figY) * 0.16;
-      wrap.style.transform = `translate(${figX - 16}px, ${figY - 44}px)`;
-      if (!isTripped) {
-        if      (figX < prevFigX - 1) wrap.classList.add('flipped');
-        else if (figX > prevFigX + 1) wrap.classList.remove('flipped');
-      }
-      prevFigX = figX;
+      curX += (mouseX - curX) * 0.14;
+      curY += (mouseY - curY) * 0.14;
+      speed = Math.abs(mouseX - curX) + Math.abs(mouseY - curY);
+
+      ring.style.transform = `translate(${curX - 18}px, ${curY - 18}px)`;
+
+      if (speed > 8) ring.classList.add('fast');
+      else           ring.classList.remove('fast');
+
+      prevX = curX;
       requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
 
-    // restore cursor on touch devices
+    // restore cursor on touch
     window.addEventListener('touchstart', () => {
-      wrap.style.display = 'none';
+      ring.style.display = 'none';
       const s = document.createElement('style');
       s.textContent = '* { cursor: auto !important; }';
       document.head.appendChild(s);
