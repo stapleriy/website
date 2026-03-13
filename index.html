@@ -755,9 +755,8 @@
   <!-- CURSOR -->
   <div id="cursor-ring" aria-hidden="true">
     <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="18" cy="18" r="4" fill="#c8f03a"/>
-<circle cx="18" cy="18" r="10" stroke="#c8f03a" stroke-width="1" fill="none" opacity="0.4"/>
-<circle class="pulse-circle" cx="18" cy="18" r="10" stroke="#c8f03a" stroke-width="1.5" fill="none"/>
+      <circle cx="18" cy="18" r="3.5" fill="#c8f03a"/>
+      <circle class="pulse-circle" cx="18" cy="18" r="10" stroke="#c8f03a" stroke-width="1.5" fill="none"/>
     </svg>
   </div>
 
@@ -901,8 +900,8 @@
       <span class="eyebrow">↯ wait, who?</span>
       <span style="font-family:'Gochi Hand',cursive; font-size:1.75rem; color:var(--pink); display:block; transform:rotate(-1deg); margin-bottom:0.9rem; opacity:0.9;">why, me, of course.</span>
       <h2 class="about-hl">
-        I contain <span class="multitudes">Multitudes.</span><br>
-        <span class="obv">(Obviously!)</span>
+        I contain <span class="multitudes">multitudes.</span><br>
+        <span class="obv">(obviously!)</span>
       </h2>
 
       <div class="about-body">
@@ -1084,3 +1083,10 @@
     window.addEventListener('touchstart', () => {
       ring.style.display = 'none';
       const s = document.createElement('style');
+      s.textContent = '* { cursor: auto !important; }';
+      document.head.appendChild(s);
+    }, { once: true });
+  </script>
+
+</body>
+</html>
