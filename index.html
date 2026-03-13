@@ -10,24 +10,28 @@
 
   <style>
     :root {
-      --bg:        #0e0b16;
-      --bg-alt:    #0b0812;
-      --bg-sec:    #110e1a;
+      --bg:        #080611;
+      --bg-alt:    #060410;
+      --bg-sec:    #0a0814;
 
       --cream:     #f2e8d6;
-      --lavender:  #d4c6f5;
-      --lav-dim:   rgba(212,198,245,0.09);
-      --lav-mid:   rgba(212,198,245,0.35);
+      --lavender:  #b197fc;
+      --lav-dim:   rgba(177,151,252,0.09);
+      --lav-mid:   rgba(177,151,252,0.35);
 
       --lime:      #c8f03a;
       --lime-dim:  rgba(200,240,58,0.08);
 
       --pink:      #e040a0;
+      --pink-dim:  rgba(224,64,160,0.08);
 
-      --rule:      rgba(212,198,245,0.12);
-      --rule-hi:   rgba(212,198,245,0.24);
+      --rule:      rgba(177,151,252,0.12);
+      --rule-hi:   rgba(177,151,252,0.24);
 
       --max:       900px;
+
+      /* current section accent — updated by JS */
+      --accent:    #c8f03a;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,7 +47,9 @@
       line-height: 1.85;
     }
 
-    /* canvas bg */
+    /* ══════════════════════════
+       BACKGROUND CANVAS
+    ══════════════════════════ */
     #bg-canvas {
       position: fixed; inset: 0;
       width: 100%; height: 100%;
@@ -55,7 +61,7 @@
     body::before {
       content: '';
       position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
       pointer-events: none;
       z-index: 1;
     }
@@ -63,27 +69,37 @@
     nav, section, footer { position: relative; z-index: 2; }
 
     /* ══════════════════════════
-       CURSOR
+       CURSOR — DAGGER
     ══════════════════════════ */
-    #cursor-ring {
+    #cursor-wrap {
       position: fixed;
       pointer-events: none;
       z-index: 99999;
       top: 0; left: 0;
-      width: 36px; height: 36px;
       will-change: transform;
     }
-    #cursor-ring svg { width: 36px; height: 36px; overflow: visible; }
-
-    /* orbit removed — cursor is static */
-
-    @keyframes pulse-ring {
-      0%   { r: 10; opacity: 0.7; }
-      100% { r: 22; opacity: 0; }
+    #cursor-wrap svg {
+      width: 28px; height: 44px;
+      overflow: visible;
+      /* rotate so tip points upper-left like a real cursor */
+      transform: rotate(-45deg);
+      display: block;
     }
-    .pulse-circle { transform-origin: 18px 18px; opacity: 0; }
-    #cursor-ring.clicked .pulse-circle {
-      animation: pulse-ring 0.45s ease-out forwards;
+    .cursor-ripple {
+      position: fixed;
+      pointer-events: none;
+      z-index: 99998;
+      border-radius: 50%;
+      width: 8px; height: 8px;
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+    }
+    .cursor-ripple.pop {
+      animation: ripple-pop 0.55s ease-out forwards;
+    }
+    @keyframes ripple-pop {
+      0%   { transform: translate(-50%, -50%) scale(0); opacity: 0.8; }
+      100% { transform: translate(-50%, -50%) scale(7); opacity: 0; }
     }
 
     /* ══════════════════════════
@@ -97,7 +113,7 @@
       justify-content: flex-end;
       align-items: center;
       gap: 2rem;
-      background: linear-gradient(to bottom, rgba(14,11,22,0.97), transparent);
+      background: linear-gradient(to bottom, rgba(8,6,17,0.97), transparent);
       backdrop-filter: blur(4px);
     }
     nav a {
@@ -105,7 +121,7 @@
       font-size: 0.62rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--pink);
+      color: var(--lavender);
       text-decoration: none;
       opacity: 0.85;
       position: relative;
@@ -117,22 +133,15 @@
       position: absolute;
       bottom: -3px; left: 0;
       width: 0; height: 1px;
-      background: var(--lime);
+      background: var(--lavender);
       transition: width 0.25s;
     }
     nav a:hover { opacity: 1; color: var(--cream); }
     nav a:hover::after { width: 100%; }
 
-    /* mobile nav — shrink font and gap so all four fit */
     @media (max-width: 600px) {
-      nav {
-        padding: 1.1rem 4vw;
-        gap: 0.9rem;
-      }
-      nav a {
-        font-size: 0.5rem;
-        letter-spacing: 0.08em;
-      }
+      nav { padding: 1.1rem 4vw; gap: 0.9rem; }
+      nav a { font-size: 0.5rem; letter-spacing: 0.08em; }
     }
     @media (max-width: 360px) {
       nav a { font-size: 0.44rem; letter-spacing: 0.05em; }
@@ -142,11 +151,7 @@
     /* ══════════════════════════
        CONTAINER
     ══════════════════════════ */
-    .wrap {
-      max-width: var(--max);
-      margin: 0 auto;
-      width: 100%;
-    }
+    .wrap { max-width: var(--max); margin: 0 auto; width: 100%; }
 
     /* ══════════════════════════
        SHARED
@@ -156,24 +161,26 @@
       font-size: 0.58rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--pink);
       opacity: 0.75;
       margin-bottom: 1rem;
       display: block;
     }
 
-    section {
-      padding: 8rem 6vw;
-      border-bottom: 1px solid var(--rule);
+    section { padding: 8rem 6vw; }
+
+    /* section transition dividers */
+    .section-divider {
+      position: relative;
+      height: 80px;
+      overflow: hidden;
+      z-index: 2;
+    }
+    .section-divider canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
     }
 
-    #landing     { background: rgba(14,11,22,0.82);  min-height: 100svh; display:flex; align-items:center; padding-top:0; padding-bottom:0; }
-    #portfolio   { background: rgba(11,8,18,0.88); }
-    #commonplace { background: rgba(17,14,26,0.90); }
-    #about       { background: rgba(14,11,22,0.85); }
-    #contact     { background: rgba(11,8,18,0.88); }
-
-    .section-head { margin-bottom: 4rem; }
     .section-h {
       font-family: 'Playfair Display SC', serif;
       font-weight: 900;
@@ -192,20 +199,23 @@
     }
 
     /* ══════════════════════════
-       § 1 LANDING
+       § 1 LANDING — lime only
     ══════════════════════════ */
+    #landing {
+      background: rgba(8,6,17,0.82);
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding: 0 6vw;
+    }
     .edge-line {
       position: absolute;
       left: 0; top: 15%; bottom: 15%;
       width: 2px;
-      background: linear-gradient(to bottom, transparent, var(--lime) 40%, var(--pink) 70%, transparent);
+      background: linear-gradient(to bottom, transparent, var(--lime) 50%, transparent);
       opacity: 0.45;
     }
-    .landing-inner {
-      position: relative; z-index: 2;
-      padding: 7rem 0 5rem;
-      width: 100%;
-    }
+    .landing-inner { position: relative; z-index: 2; padding: 7rem 0 5rem; width: 100%; }
     .landing-hello {
       font-family: 'Gochi Hand', cursive;
       font-size: 1.55rem;
@@ -225,7 +235,8 @@
     .name-2 {
       display: block;
       font-weight: 400;
-      color: var(--lavender);
+      color: var(--lime);
+      opacity: 0.55;
       padding-left: 4vw;
       font-size: clamp(3rem, 8.5vw, 7.5rem);
     }
@@ -234,13 +245,13 @@
       font-family: 'EB Garamond', serif;
       font-size: clamp(1.2rem, 1.6vw, 1.4rem);
       color: var(--cream);
-      border-left: 2px solid var(--lav-mid);
+      border-left: 2px solid rgba(200,240,58,0.35);
       padding-left: 1.5rem;
       max-width: 560px;
       line-height: 1.9;
       opacity: 0.88;
     }
-    .landing-desc em { font-style: italic; color: var(--lavender); }
+    .landing-desc em { font-style: italic; color: var(--lime); }
     .landing-scroll {
       margin-top: 3rem;
       font-family: 'Gochi Hand', cursive;
@@ -261,8 +272,11 @@
     }
 
     /* ══════════════════════════
-       § 2 PORTFOLIO
+       § 2 CREDENTIALS — pink only
     ══════════════════════════ */
+    #portfolio { background: rgba(10,8,20,0.88); }
+    #portfolio .eyebrow { color: var(--pink); }
+
     .port-heading {
       font-family: 'Playfair Display SC', serif;
       font-weight: 900;
@@ -285,34 +299,34 @@
     .cv-section { margin-bottom: 3.5rem; }
     .cv-section-label {
       font-family: 'Space Mono', monospace;
-      font-size: 0.54rem;
+      font-size: 0.62rem;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--pink);
-      opacity: 0.8;
+      font-weight: 700;
       margin-bottom: 1.5rem;
       display: flex;
       align-items: center;
       gap: 1rem;
     }
-    .cv-section-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+    .cv-section-label::after { content: ''; flex: 1; height: 1px; background: rgba(224,64,160,0.2); }
 
     .cv-entry {
       padding: 2.2rem 0;
-      border-bottom: 1px solid var(--rule);
+      border-bottom: 1px solid rgba(224,64,160,0.12);
       display: grid;
       grid-template-columns: 7rem 1fr;
       gap: 2.5rem;
       align-items: start;
       transition: background 0.3s, padding-left 0.3s;
     }
-    .cv-entry:first-of-type { border-top: 1px solid var(--rule); }
-    .cv-entry:hover { background: var(--lav-dim); padding-left: 0.8rem; }
+    .cv-entry:first-of-type { border-top: 1px solid rgba(224,64,160,0.12); }
+    .cv-entry:hover { background: var(--pink-dim); padding-left: 0.8rem; }
 
     .cv-year {
       font-family: 'Space Mono', monospace;
       font-size: 0.6rem;
-      color: var(--lavender);
+      color: var(--pink);
       opacity: 0.6;
       letter-spacing: 0.07em;
       white-space: nowrap;
@@ -322,8 +336,7 @@
     .cv-title {
       font-family: 'EB Garamond', serif;
       font-weight: 500;
-      font-style: normal;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       color: var(--cream);
       line-height: 1.35;
       margin-bottom: 0.4rem;
@@ -345,8 +358,8 @@
       line-height: 1.75;
       margin-top: 0.6rem;
       padding: 0.9rem 1.2rem;
-      border-left: 2px solid var(--lavender);
-      background: rgba(212,198,245,0.05);
+      border-left: 2px solid var(--pink);
+      background: rgba(224,64,160,0.05);
     }
     .pdf-btn {
       display: inline-flex;
@@ -354,17 +367,17 @@
       gap: 0.6rem;
       margin-top: 1rem;
       padding: 0.65rem 1.3rem;
-      background: var(--lime-dim);
-      border: 1.5px solid var(--lime);
-      color: var(--lime);
+      background: var(--pink-dim);
+      border: 1.5px solid var(--pink);
+      color: var(--pink);
       font-family: 'Space Mono', monospace;
-      font-size: 0.54rem;
+      font-size: 0.58rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       text-decoration: none;
       transition: background 0.25s, color 0.25s;
     }
-    .pdf-btn:hover { background: var(--lime); color: #0b0812; }
+    .pdf-btn:hover { background: var(--pink); color: #080611; }
     .pdf-btn::before { content: '↓'; font-size: 0.8rem; }
 
     .cv-btn {
@@ -373,17 +386,17 @@
       gap: 0.6rem;
       margin-top: 1rem;
       padding: 0.65rem 1.3rem;
-      background: transparent;
-      border: 1.5px solid var(--lavender);
-      color: var(--lavender);
+      background: var(--pink-dim);
+      border: 1.5px solid var(--pink);
+      color: var(--pink);
       font-family: 'Space Mono', monospace;
-      font-size: 0.54rem;
+      font-size: 0.58rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       text-decoration: none;
       transition: background 0.25s, color 0.25s;
     }
-    .cv-btn:hover { background: var(--lavender); color: #0b0812; }
+    .cv-btn:hover { background: var(--pink); color: #080611; }
     .cv-btn::before { content: '↓'; font-size: 0.8rem; }
 
     .open-list {
@@ -395,32 +408,37 @@
       line-height: 2;
       margin-top: 0.5rem;
       padding-left: 1rem;
-      border-left: 1px solid var(--rule-hi);
+      border-left: 1px solid rgba(224,64,160,0.3);
     }
 
     /* ══════════════════════════
-       § 3 WHAT'S THAT?
+       § 3 WHAT'S THIS? — lavender only
     ══════════════════════════ */
+    #commonplace { background: rgba(12,10,22,0.90); }
+    #commonplace .eyebrow { color: var(--lavender); }
+    #commonplace .section-h { }
+    #commonplace .section-sub { color: var(--lavender); }
+
     .quotes-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1px;
-      background: var(--rule);
+      background: rgba(177,151,252,0.12);
       margin-bottom: 1px;
     }
     .quote-block {
-      background: rgba(17,14,26,0.75);
+      background: rgba(12,10,22,0.75);
       padding: 3rem 2.5rem;
       transition: background 0.3s;
     }
-    .quote-block:hover { background: rgba(212,198,245,0.06); }
+    .quote-block:hover { background: var(--lav-dim); }
     .quote-block blockquote {
       font-family: 'EB Garamond', serif;
       font-style: italic;
       font-size: clamp(1.25rem, 1.7vw, 1.45rem);
       line-height: 1.7;
       color: var(--cream);
-      border-left: 2px solid var(--lime);
+      border-left: 2px solid var(--lavender);
       padding-left: 1.4rem;
       margin-bottom: 1rem;
     }
@@ -434,25 +452,39 @@
       padding-left: 1.4rem;
     }
 
+    .currently-divider {
+      margin: 3rem 0 0;
+      padding: 2rem 0 1.5rem;
+      border-top: 1px solid rgba(177,151,252,0.15);
+    }
+    .currently-label {
+      font-family: 'Gochi Hand', cursive;
+      font-size: 1.35rem;
+      color: var(--lavender);
+      opacity: 0.82;
+      display: block;
+      transform: rotate(-0.8deg);
+    }
+
     .currently-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1px;
-      background: var(--rule);
+      background: rgba(177,151,252,0.12);
     }
     .curr-block {
-      background: rgba(17,14,26,0.75);
+      background: rgba(12,10,22,0.75);
       padding: 2.8rem 2.5rem;
       transition: background 0.3s;
     }
-    .curr-block:hover { background: rgba(212,198,245,0.06); }
+    .curr-block:hover { background: var(--lav-dim); }
     .curr-type {
       font-family: 'Space Mono', monospace;
-      font-size: 0.62rem;
+      font-size: 0.65rem;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--lavender);
-      opacity: 0.9;
+      font-weight: 700;
       margin-bottom: 0.8rem;
       display: block;
     }
@@ -473,8 +505,11 @@
     }
 
     /* ══════════════════════════
-       § 4 WAIT, WHO?
+       § 4 WAIT, WHO? — all three
     ══════════════════════════ */
+    #about { background: rgba(10,8,18,0.85); }
+    #about .eyebrow { color: var(--lavender); }
+
     .about-hl {
       font-family: 'Playfair Display SC', serif;
       font-weight: 900;
@@ -514,7 +549,7 @@
       opacity: 0.88;
       margin-bottom: 1.6rem;
     }
-    .about-body p strong { font-style: normal; font-weight: 500; color: var(--cream); opacity: 1; }
+    .about-body p strong { font-style: normal; font-weight: 500; color: var(--lime); opacity: 1; }
     .about-body p:first-child::first-letter {
       font-family: 'Playfair Display SC', serif;
       font-size: 3.8rem; font-weight: 900;
@@ -526,7 +561,7 @@
     .obs-divider {
       margin: 3.5rem 0 2rem;
       border: none;
-      border-top: 1px solid var(--rule);
+      border-top: 1px solid rgba(177,151,252,0.15);
     }
     .obs-lbl {
       font-family: 'Gochi Hand', cursive;
@@ -540,26 +575,24 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1px;
-      background: var(--rule);
+      background: rgba(177,151,252,0.12);
       margin-bottom: 2.5rem;
     }
     .obs-card {
-      background: rgba(14,11,22,0.75);
+      background: rgba(10,8,18,0.75);
       padding: 1.8rem 2rem;
       transition: background 0.3s, padding-left 0.3s;
     }
     .obs-card:hover { background: var(--lav-dim); padding-left: 2.4rem; }
-    .obs-card.lime:hover { background: var(--lime-dim); }
     .obs-title {
       font-family: 'EB Garamond', serif;
       font-weight: 500;
       font-style: normal;
-      font-size: 1.15rem;
-      color: var(--lavender);
+      font-size: 1.2rem;
+      color: var(--lime);
       margin-bottom: 0.35rem;
       letter-spacing: 0.01em;
     }
-    .obs-card.lime .obs-title { color: var(--lime); }
     .obs-txt {
       font-family: 'EB Garamond', serif;
       font-style: italic;
@@ -574,7 +607,7 @@
       align-items: center;
       gap: 0.8rem;
       padding: 0.9rem 1.4rem;
-      border: 1px solid var(--rule-hi);
+      border: 1px solid rgba(177,151,252,0.3);
       font-family: 'Space Mono', monospace;
       font-size: 0.58rem;
       letter-spacing: 0.16em;
@@ -589,13 +622,20 @@
     /* TICKER */
     .quirks-strip {
       margin-top: 5rem;
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
+      border-top: 1px solid rgba(177,151,252,0.15);
+      border-bottom: 1px solid rgba(200,240,58,0.15);
       padding: 0.9rem 0;
       overflow: hidden;
       white-space: nowrap;
       margin-left: calc(-50vw + 50%);
       margin-right: calc(-50vw + 50%);
+      /* gradient from lavender-tint to lime-tint */
+      background: linear-gradient(to right,
+        rgba(177,151,252,0.04) 0%,
+        rgba(177,151,252,0.02) 40%,
+        rgba(200,240,58,0.02) 60%,
+        rgba(200,240,58,0.05) 100%
+      );
     }
     .quirks-inner {
       display: inline-flex;
@@ -616,18 +656,22 @@
       align-items: center;
       gap: 2rem;
     }
-    .quirk::after { content: '✦'; font-size: 0.4rem; }
-    .quirk:nth-child(3n)::after   { color: var(--lime); }
-    .quirk:nth-child(3n+1)::after { color: var(--pink); }
-    .quirk:nth-child(3n+2)::after { color: var(--lavender); }
+    /* gradient text colour across ticker — alternating */
+    .quirk:nth-child(3n)   { color: var(--lime);     opacity: 0.75; }
+    .quirk:nth-child(3n+1) { color: var(--lavender); opacity: 0.82; }
+    .quirk:nth-child(3n+2) { color: var(--pink);     opacity: 0.7;  }
+    .quirk::after { content: '✦'; font-size: 0.4rem; color: currentColor; opacity: 0.5; }
 
     /* ══════════════════════════
-       § 5 CONTACT
+       § 5 CONTACT — lime only
     ══════════════════════════ */
+    #contact { background: rgba(8,6,17,0.88); }
+    #contact .eyebrow { color: var(--lime); }
+
     .contact-open {
       font-family: 'Gochi Hand', cursive;
       font-size: 1.2rem;
-      color: var(--pink);
+      color: var(--lime);
       display: block;
       margin-bottom: 1.4rem;
       transform: rotate(-0.8deg);
@@ -643,9 +687,10 @@
     }
     .contact-h em {
       font-weight: 400;
-      color: var(--lavender);
+      color: var(--lime);
       display: block;
       font-style: normal;
+      opacity: 0.75;
     }
     .contact-body {
       font-family: 'EB Garamond', serif;
@@ -654,12 +699,12 @@
       line-height: 1.95;
       color: var(--cream);
       opacity: 0.85;
-      border-left: 2px solid var(--lav-mid);
+      border-left: 2px solid rgba(200,240,58,0.35);
       padding-left: 1.4rem;
       margin-bottom: 3.5rem;
       max-width: 620px;
     }
-    .contact-body em { font-style: normal; color: var(--lavender); }
+    .contact-body em { font-style: normal; color: var(--lime); }
 
     .clinks { display: flex; flex-direction: column; }
     .clink {
@@ -668,28 +713,26 @@
       align-items: center;
       gap: 1rem;
       padding: 1.7rem 0;
-      border-bottom: 1px solid var(--rule);
+      border-bottom: 1px solid rgba(200,240,58,0.12);
       text-decoration: none;
       transition: padding-left 0.3s;
     }
-    .clink:first-child { border-top: 1px solid var(--rule); }
+    .clink:first-child { border-top: 1px solid rgba(200,240,58,0.12); }
     .clink:hover { padding-left: 0.8rem; }
     .clink-name {
       font-family: 'EB Garamond', serif;
       font-weight: 500;
       font-style: normal;
-      font-size: 1.75rem;
+      font-size: 1.85rem;
       color: var(--cream);
       transition: color 0.2s;
       letter-spacing: 0.01em;
     }
-    .clink:nth-child(1):hover .clink-name { color: var(--lavender); }
-    .clink:nth-child(2):hover .clink-name { color: var(--lime); }
-    .clink:nth-child(3):hover .clink-name { color: var(--pink); }
+    .clink:hover .clink-name { color: var(--lime); }
     .clink-meta {
       font-family: 'Gochi Hand', cursive;
       font-size: 1rem;
-      color: var(--lavender);
+      color: var(--lime);
       opacity: 0.55;
       transition: opacity 0.2s;
       white-space: nowrap;
@@ -701,7 +744,7 @@
       font-family: 'EB Garamond', serif;
       font-style: italic;
       font-size: 1.2rem;
-      color: var(--lavender);
+      color: var(--lime);
       opacity: 0.78;
       line-height: 1.9;
     }
@@ -710,7 +753,7 @@
       font-style: italic;
       font-weight: 400;
       font-size: 1.65rem;
-      color: var(--lavender);
+      color: var(--lime);
       display: block;
       margin-top: 0.2rem;
       opacity: 0.92;
@@ -720,8 +763,8 @@
        FOOTER
     ══════════════════════════ */
     footer {
-      background: rgba(11,8,18,0.95);
-      border-top: 1px solid var(--rule);
+      background: rgba(6,4,16,0.97);
+      border-top: 1px solid rgba(177,151,252,0.1);
       padding: 1.6rem 6vw;
       display: flex;
       justify-content: space-between;
@@ -732,7 +775,7 @@
     }
     .foot-l { font-family: 'Gochi Hand', cursive; font-size: 1rem; color: var(--lavender); opacity: 0.5; }
     .foot-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--lime); opacity: 0.7; flex-shrink: 0; }
-    .foot-r { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(212,198,245,0.25); }
+    .foot-r { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(177,151,252,0.25); }
 
     /* ══════════════════════════
        RESPONSIVE
@@ -752,15 +795,22 @@
 
   <canvas id="bg-canvas"></canvas>
 
-  <!-- CURSOR -->
-  <div id="cursor-ring" aria-hidden="true">
-    <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="18" cy="18" r="3.5" fill="#c8f03a"/>
-      <circle class="pulse-circle" cx="18" cy="18" r="10" stroke="#c8f03a" stroke-width="1.5" fill="none"/>
+  <!-- CURSOR — dagger -->
+  <div id="cursor-wrap" aria-hidden="true">
+    <svg viewBox="0 0 14 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- blade -->
+      <path id="dagger-blade" d="M7 0 L10.5 28 L7 32 L3.5 28 Z" fill="#c8f03a"/>
+      <!-- guard -->
+      <rect id="dagger-guard" x="2" y="28" width="10" height="2.5" rx="1" fill="#c8f03a" opacity="0.9"/>
+      <!-- grip -->
+      <rect id="dagger-grip" x="5.5" y="30.5" width="3" height="7" rx="1.5" fill="#c8f03a" opacity="0.7"/>
+      <!-- pommel -->
+      <circle id="dagger-pommel" cx="7" cy="38.5" r="1.8" fill="#c8f03a" opacity="0.85"/>
     </svg>
   </div>
+  <div class="cursor-ripple" id="cursor-ripple"></div>
 
-  <!-- NAV — new order: portfolio / what's that? / wait, who? / hello or hi. -->
+  <!-- NAV -->
   <nav>
     <a href="#portfolio">credentials</a>
     <a href="#commonplace">what's this?</a>
@@ -769,7 +819,7 @@
   </nav>
 
   <!-- § 1 LANDING -->
-  <section id="landing">
+  <section id="landing" data-accent="lime">
     <div class="edge-line"></div>
     <div class="wrap">
       <div class="landing-inner">
@@ -788,10 +838,13 @@
     </div>
   </section>
 
-  <!-- § 2 PORTFOLIO -->
-  <section id="portfolio">
+  <!-- DIVIDER: landing → credentials -->
+  <div class="section-divider" id="div-1" data-from="lime" data-to="pink"></div>
+
+  <!-- § 2 CREDENTIALS -->
+  <section id="portfolio" data-accent="pink">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" style="margin-bottom:4rem;">
         <span class="eyebrow">↯ credentials</span>
         <h2 class="port-heading">Professionally <span class="speaking">Speaking...</span></h2>
       </div>
@@ -846,10 +899,13 @@
     </div>
   </section>
 
-  <!-- § 3 WHAT'S THAT? -->
-  <section id="commonplace">
+  <!-- DIVIDER: credentials → what's this? -->
+  <div class="section-divider" id="div-2" data-from="pink" data-to="lavender"></div>
+
+  <!-- § 3 WHAT'S THIS? -->
+  <section id="commonplace" data-accent="lavender">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" style="margin-bottom:4rem;">
         <span class="eyebrow">↯ what's this?</span>
         <h2 class="section-h">not a journal.<br>not not a journal.</h2>
         <span class="section-sub">(as clichéd as quotes are, these ones just make sense, kind of.)</span>
@@ -866,8 +922,8 @@
         </div>
       </div>
 
-      <div style="margin: 3rem 0 0; padding: 2rem 0 1.5rem; border-top: 1px solid var(--rule);">
-        <span style="font-family:'Gochi Hand',cursive; font-size:1.35rem; color:var(--lavender); opacity:0.75; display:block; transform:rotate(-0.8deg);">and currently —</span>
+      <div class="currently-divider">
+        <span class="currently-label">and currently —</span>
       </div>
 
       <div class="currently-grid">
@@ -894,8 +950,11 @@
     </div>
   </section>
 
+  <!-- DIVIDER: what's this? → wait, who? -->
+  <div class="section-divider" id="div-3" data-from="lavender" data-to="all"></div>
+
   <!-- § 4 WAIT, WHO? -->
-  <section id="about">
+  <section id="about" data-accent="all">
     <div class="wrap" style="position:relative; z-index:1;">
       <span class="eyebrow">↯ wait, who?</span>
       <span style="font-family:'Gochi Hand',cursive; font-size:1.75rem; color:var(--pink); display:block; transform:rotate(-1deg); margin-bottom:0.9rem; opacity:0.9;">why, me, of course.</span>
@@ -967,11 +1026,14 @@
     </div>
   </section>
 
+  <!-- DIVIDER: wait, who? → hello or hi -->
+  <div class="section-divider" id="div-4" data-from="all" data-to="lime"></div>
+
   <!-- § 5 HELLO OR HI. -->
-  <section id="contact">
+  <section id="contact" data-accent="lime">
     <div class="wrap" style="position:relative; z-index:2;">
       <span class="eyebrow">↯ hello or hi.</span>
-      <span class="landing-hello">since you've travelled quite so far —</span>
+      <span class="contact-open">since you've travelled quite so far —</span>
       <h2 class="contact-h">
         let's talk<br>
         <em>about something?</em>
@@ -1012,81 +1074,359 @@
     <span class="foot-r">made with obsessive vision and excellent life choices</span>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    /* BACKGROUND CANVAS */
-    (function () {
-      const canvas = document.getElementById('bg-canvas');
-      const ctx = canvas.getContext('2d');
-      const ORBS = [
-        { x:0.15, y:0.20, r:0.38, color:'100,70,180',  a:0.055, vx:0.00008,  vy:0.00012  },
-        { x:0.80, y:0.15, r:0.32, color:'180,50,130',  a:0.045, vx:-0.00010, vy:0.00008  },
-        { x:0.50, y:0.65, r:0.45, color:'80,50,160',   a:0.05,  vx:0.00006,  vy:-0.00009 },
-        { x:0.85, y:0.80, r:0.30, color:'160,90,220',  a:0.04,  vx:-0.00007, vy:-0.00011 },
-        { x:0.20, y:0.75, r:0.28, color:'200,64,160',  a:0.035, vx:0.00009,  vy:0.00007  },
-      ];
-      function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-      resize();
-      window.addEventListener('resize', resize);
-      function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#0e0b16';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ORBS.forEach(o => {
-          o.x += o.vx; o.y += o.vy;
-          if (o.x < 0 || o.x > 1) o.vx *= -1;
-          if (o.y < 0 || o.y > 1) o.vy *= -1;
-          const cx = o.x * canvas.width;
-          const cy = o.y * canvas.height;
-          const r  = o.r * Math.max(canvas.width, canvas.height);
-          const g  = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-          g.addColorStop(0,   `rgba(${o.color},${o.a})`);
-          g.addColorStop(0.5, `rgba(${o.color},${o.a*0.4})`);
-          g.addColorStop(1,   `rgba(${o.color},0)`);
-          ctx.beginPath();
-          ctx.arc(cx, cy, r, 0, Math.PI*2);
-          ctx.fillStyle = g;
-          ctx.fill();
-        });
-        requestAnimationFrame(draw);
-      }
-      draw();
-    })();
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script>
+  /* ═══════════════════════════════════════════
+     ACCENT COLOURS
+  ═══════════════════════════════════════════ */
+  const ACCENT = {
+    lime:     { r:200, g:240, b:58  },
+    pink:     { r:224, g:64,  b:160 },
+    lavender: { r:177, g:151, b:252 },
+    all:      null  // handled specially
+  };
 
-    /* CURSOR */
-    const ring = document.getElementById('cursor-ring');
+  /* ═══════════════════════════════════════════
+     BACKGROUND: orbs + constellation + tendrils
+  ═══════════════════════════════════════════ */
+  (function () {
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+
+    // current tint state — blends toward section accent
+    let tintR = 200, tintG = 240, tintB = 58;
+    let targetR = tintR, targetG = tintG, targetB = tintB;
+
+    const ORBS = [
+      { x:0.15, y:0.20, r:0.38, color:'100,60,190',  a:0.055, vx:0.00008,  vy:0.00012  },
+      { x:0.80, y:0.15, r:0.32, color:'180,40,140',  a:0.045, vx:-0.00010, vy:0.00008  },
+      { x:0.50, y:0.65, r:0.45, color:'70,40,170',   a:0.05,  vx:0.00006,  vy:-0.00009 },
+      { x:0.85, y:0.80, r:0.30, color:'150,80,230',  a:0.04,  vx:-0.00007, vy:-0.00011 },
+      { x:0.20, y:0.75, r:0.28, color:'195,55,165',  a:0.035, vx:0.00009,  vy:0.00007  },
+    ];
+
+    // constellation nodes
+    const NODES = Array.from({length: 22}, () => ({
+      x: Math.random(),
+      y: Math.random(),
+      vx: (Math.random() - 0.5) * 0.00015,
+      vy: (Math.random() - 0.5) * 0.00015,
+    }));
+
+    // ink tendrils
+    class Tendril {
+      constructor() { this.reset(); }
+      reset() {
+        // start from edge
+        const edge = Math.floor(Math.random() * 4);
+        if (edge === 0) { this.x = Math.random(); this.y = 0; }
+        else if (edge === 1) { this.x = 1; this.y = Math.random(); }
+        else if (edge === 2) { this.x = Math.random(); this.y = 1; }
+        else { this.x = 0; this.y = Math.random(); }
+        const angleToCenter = Math.atan2(0.5 - this.y, 0.5 - this.x);
+        const spread = (Math.random() - 0.5) * 1.2;
+        this.angle = angleToCenter + spread;
+        this.speed = 0.0003 + Math.random() * 0.0004;
+        this.life = 0;
+        this.maxLife = 180 + Math.random() * 220;
+        this.thickness = 0.4 + Math.random() * 1.2;
+        this.wobble = (Math.random() - 0.5) * 0.03;
+        this.path = [{x: this.x, y: this.y}];
+        this.growing = true;
+      }
+      update() {
+        this.life++;
+        if (this.life > this.maxLife) { this.reset(); return; }
+        if (this.growing && this.path.length < 80) {
+          this.angle += this.wobble + (Math.random() - 0.5) * 0.02;
+          this.x += Math.cos(this.angle) * this.speed;
+          this.y += Math.sin(this.angle) * this.speed;
+          this.path.push({x: this.x, y: this.y});
+        }
+      }
+      draw(ctx, W, H, tr, tg, tb) {
+        if (this.path.length < 2) return;
+        const fade = Math.min(this.life / 40, 1) * Math.max(0, 1 - (this.life - this.maxLife * 0.6) / (this.maxLife * 0.4));
+        ctx.beginPath();
+        ctx.moveTo(this.path[0].x * W, this.path[0].y * H);
+        for (let i = 1; i < this.path.length; i++) {
+          ctx.lineTo(this.path[i].x * W, this.path[i].y * H);
+        }
+        ctx.strokeStyle = `rgba(${tr},${tg},${tb},${0.07 * fade})`;
+        ctx.lineWidth = this.thickness;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+      }
+    }
+
+    const TENDRILS = Array.from({length: 14}, (_, i) => {
+      const t = new Tendril();
+      t.life = Math.floor(Math.random() * t.maxLife); // stagger starts
+      return t;
+    });
+
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // section accent tracking
+    const sections = document.querySelectorAll('section[data-accent]');
+    function updateTargetAccent() {
+      let current = 'lime';
+      sections.forEach(s => {
+        const rect = s.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.5) current = s.dataset.accent;
+      });
+      if (current === 'all') { targetR = 177; targetG = 151; targetB = 252; }
+      else if (ACCENT[current]) { targetR = ACCENT[current].r; targetG = ACCENT[current].g; targetB = ACCENT[current].b; }
+    }
+    window.addEventListener('scroll', updateTargetAccent, {passive: true});
+    updateTargetAccent();
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function draw() {
+      const W = canvas.width, H = canvas.height;
+      tintR = lerp(tintR, targetR, 0.008);
+      tintG = lerp(tintG, targetG, 0.008);
+      tintB = lerp(tintB, targetB, 0.008);
+      const tr = Math.round(tintR), tg = Math.round(tintG), tb = Math.round(tintB);
+
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = '#080611';
+      ctx.fillRect(0, 0, W, H);
+
+      // orbs
+      ORBS.forEach(o => {
+        o.x += o.vx; o.y += o.vy;
+        if (o.x < 0 || o.x > 1) o.vx *= -1;
+        if (o.y < 0 || o.y > 1) o.vy *= -1;
+        const cx = o.x * W, cy = o.y * H;
+        const r  = o.r * Math.max(W, H);
+        const g  = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+        g.addColorStop(0,   `rgba(${o.color},${o.a})`);
+        g.addColorStop(0.5, `rgba(${o.color},${o.a*0.4})`);
+        g.addColorStop(1,   `rgba(${o.color},0)`);
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI*2);
+        ctx.fillStyle = g;
+        ctx.fill();
+      });
+
+      // constellation nodes
+      NODES.forEach(n => {
+        n.x += n.vx; n.y += n.vy;
+        if (n.x < 0 || n.x > 1) n.vx *= -1;
+        if (n.y < 0 || n.y > 1) n.vy *= -1;
+      });
+
+      // constellation lines
+      const MAX_DIST = 0.22;
+      for (let i = 0; i < NODES.length; i++) {
+        for (let j = i + 1; j < NODES.length; j++) {
+          const dx = NODES[i].x - NODES[j].x;
+          const dy = NODES[i].y - NODES[j].y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < MAX_DIST) {
+            const alpha = (1 - dist / MAX_DIST) * 0.18;
+            ctx.beginPath();
+            ctx.moveTo(NODES[i].x * W, NODES[i].y * H);
+            ctx.lineTo(NODES[j].x * W, NODES[j].y * H);
+            ctx.strokeStyle = `rgba(${tr},${tg},${tb},${alpha})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // node dots
+      NODES.forEach(n => {
+        ctx.beginPath();
+        ctx.arc(n.x * W, n.y * H, 1.2, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(${tr},${tg},${tb},0.22)`;
+        ctx.fill();
+      });
+
+      // ink tendrils
+      TENDRILS.forEach(t => {
+        t.update();
+        t.draw(ctx, W, H, tr, tg, tb);
+      });
+
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+
+  /* ═══════════════════════════════════════════
+     SECTION DIVIDERS — gradient ink wash
+  ═══════════════════════════════════════════ */
+  (function() {
+    const COLORS = {
+      lime:     [200, 240, 58],
+      pink:     [224, 64,  160],
+      lavender: [177, 151, 252],
+      all:      [177, 151, 252],
+    };
+
+    document.querySelectorAll('.section-divider').forEach(div => {
+      const cvs = document.createElement('canvas');
+      div.appendChild(cvs);
+      const ctx2 = cvs.getContext('2d');
+      const from = div.dataset.from;
+      const to   = div.dataset.to;
+
+      function drawDivider() {
+        cvs.width  = div.offsetWidth;
+        cvs.height = div.offsetHeight;
+        const W = cvs.width, H = cvs.height;
+        const [fr, fg, fb] = COLORS[from] || COLORS.lime;
+        const [tr, tg, tb] = COLORS[to]   || COLORS.lavender;
+
+        // base gradient fade
+        const g = ctx2.createLinearGradient(0, 0, 0, H);
+        g.addColorStop(0,   `rgba(${fr},${fg},${fb},0.12)`);
+        g.addColorStop(0.5, `rgba(8,6,17,0)`);
+        g.addColorStop(1,   `rgba(${tr},${tg},${tb},0.12)`);
+        ctx2.fillStyle = g;
+        ctx2.fillRect(0, 0, W, H);
+
+        // horizontal rule with gradient
+        const lineY = H / 2;
+        const lg = ctx2.createLinearGradient(0, 0, W, 0);
+        lg.addColorStop(0,    `rgba(${fr},${fg},${fb},0)`);
+        lg.addColorStop(0.3,  `rgba(${fr},${fg},${fb},0.35)`);
+        lg.addColorStop(0.5,  `rgba(${Math.round((fr+tr)/2)},${Math.round((fg+tg)/2)},${Math.round((fb+tb)/2)},0.5)`);
+        lg.addColorStop(0.7,  `rgba(${tr},${tg},${tb},0.35)`);
+        lg.addColorStop(1,    `rgba(${tr},${tg},${tb},0)`);
+        ctx2.beginPath();
+        ctx2.moveTo(0, lineY);
+        ctx2.lineTo(W, lineY);
+        ctx2.strokeStyle = lg;
+        ctx2.lineWidth = 1;
+        ctx2.stroke();
+
+        // ↯ glyph in the middle
+        const midColor = `rgba(${Math.round((fr+tr)/2)},${Math.round((fg+tg)/2)},${Math.round((fb+tb)/2)},0.4)`;
+        ctx2.font = '11px Space Mono, monospace';
+        ctx2.fillStyle = midColor;
+        ctx2.textAlign = 'center';
+        ctx2.textBaseline = 'middle';
+        ctx2.fillText('↯', W/2, lineY);
+
+        // subtle ink smudge blobs at edges
+        [[0.05, 0.5, fr, fg, fb], [0.95, 0.5, tr, tg, tb]].forEach(([ex, ey, r, g2, b]) => {
+          const blob = ctx2.createRadialGradient(ex*W, ey*H, 0, ex*W, ey*H, W*0.15);
+          blob.addColorStop(0, `rgba(${r},${g2},${b},0.07)`);
+          blob.addColorStop(1, `rgba(${r},${g2},${b},0)`);
+          ctx2.fillStyle = blob;
+          ctx2.fillRect(0, 0, W, H);
+        });
+      }
+
+      drawDivider();
+      window.addEventListener('resize', drawDivider);
+    });
+  })();
+
+  /* ═══════════════════════════════════════════
+     CURSOR — dagger + section colour
+  ═══════════════════════════════════════════ */
+  (function() {
+    const wrap    = document.getElementById('cursor-wrap');
+    const ripple  = document.getElementById('cursor-ripple');
+    const blade   = document.getElementById('dagger-blade');
+    const guard   = document.getElementById('dagger-guard');
+    const grip    = document.getElementById('dagger-grip');
+    const pommel  = document.getElementById('dagger-pommel');
+
+    const COLOR_MAP = {
+      lime:     '#c8f03a',
+      pink:     '#e040a0',
+      lavender: '#b197fc',
+      all:      '#b197fc',
+    };
+
     let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2;
     let curX = mouseX, curY = mouseY;
-    let idleTimer = null;
+    let currentColor = '#c8f03a';
+    let targetColor  = '#c8f03a';
 
-    document.addEventListener('mousemove', e => {
-      mouseX = e.clientX; mouseY = e.clientY;
-      ring.classList.remove('idle');
-      clearTimeout(idleTimer);
-      idleTimer = setTimeout(() => ring.classList.add('idle'), 1400);
+    // hex to rgb
+    function hexRGB(h) {
+      const r = parseInt(h.slice(1,3),16);
+      const g = parseInt(h.slice(3,5),16);
+      const b = parseInt(h.slice(5,7),16);
+      return [r,g,b];
+    }
+    function rgbHex(r,g,b) {
+      return '#' + [r,g,b].map(v => Math.round(v).toString(16).padStart(2,'0')).join('');
+    }
+    function lerpColor(a, b, t) {
+      const [ar,ag,ab] = hexRGB(a);
+      const [br,bg,bb] = hexRGB(b);
+      return rgbHex(ar+(br-ar)*t, ag+(bg-ag)*t, ab+(bb-ab)*t);
+    }
+    let colorT = 0;
+
+    function setDaggerColor(c) {
+      [blade, guard, grip, pommel].forEach(el => el && el.setAttribute('fill', c));
+      ripple.style.background = c;
+    }
+
+    // section tracking
+    const sections = document.querySelectorAll('section[data-accent]');
+    function updateCursorAccent() {
+      let current = 'lime';
+      sections.forEach(s => {
+        const rect = s.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.5) current = s.dataset.accent;
+      });
+      const newColor = COLOR_MAP[current] || '#c8f03a';
+      if (newColor !== targetColor) { targetColor = newColor; colorT = 0; }
+    }
+    window.addEventListener('scroll', updateCursorAccent, {passive:true});
+
+    document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+
+    document.addEventListener('click', e => {
+      ripple.style.left = e.clientX + 'px';
+      ripple.style.top  = e.clientY + 'px';
+      ripple.style.background = currentColor;
+      ripple.classList.remove('pop');
+      void ripple.offsetWidth;
+      ripple.classList.add('pop');
     });
-    document.addEventListener('click', () => {
-      ring.classList.remove('clicked');
-      void ring.offsetWidth;
-      ring.classList.add('clicked');
-      setTimeout(() => ring.classList.remove('clicked'), 450);
-    });
+
     function tick() {
       curX += (mouseX - curX) * 0.14;
       curY += (mouseY - curY) * 0.14;
-      const speed = Math.abs(mouseX - curX) + Math.abs(mouseY - curY);
-      ring.style.transform = `translate(${curX-18}px, ${curY-18}px)`;
-      speed > 8 ? ring.classList.add('fast') : ring.classList.remove('fast');
+      wrap.style.transform = `translate(${curX - 7}px, ${curY - 4}px)`;
+
+      // smooth colour transition
+      if (currentColor !== targetColor) {
+        colorT = Math.min(colorT + 0.04, 1);
+        currentColor = lerpColor(currentColor, targetColor, colorT);
+        setDaggerColor(currentColor);
+        if (colorT >= 1) currentColor = targetColor;
+      }
+
       requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
 
+    // update on scroll too
+    setInterval(updateCursorAccent, 200);
+
+    // disable on touch
     window.addEventListener('touchstart', () => {
-      ring.style.display = 'none';
+      wrap.style.display = 'none';
+      ripple.style.display = 'none';
       const s = document.createElement('style');
       s.textContent = '* { cursor: auto !important; }';
       document.head.appendChild(s);
-    }, { once: true });
+    }, {once: true});
+  })();
   </script>
-
 </body>
 </html>
