@@ -69,7 +69,7 @@
     nav, section, footer { position: relative; z-index: 2; }
 
     /* ══════════════════════════
-       CURSOR — bioluminescent space plant
+       CURSOR — compass needle
     ══════════════════════════ */
     #cursor-wrap {
       position: fixed;
@@ -79,18 +79,14 @@
       will-change: transform;
     }
     #cursor-wrap svg {
-      width: 22px; height: 48px;
+      width: 14px; height: 38px;
       overflow: visible;
       display: block;
+      transform: rotate(-12deg);
+      transform-origin: 7px 0px;
     }
-    #cursor-orb {
-      animation: orb-pulse 2.2s ease-in-out infinite;
-      transform-origin: 11px 4px;
-    }
-    @keyframes orb-pulse {
-      0%, 100% { opacity: 0.9; r: 4; }
-      50%       { opacity: 1;   r: 5; }
-    }
+    #needle-tip { transition: none; }
+    #needle-tail { transition: none; }
     .cursor-ripple {
       position: fixed;
       pointer-events: none;
@@ -478,30 +474,49 @@
     }
 
     /* ══════════════════════════
-       HOME BUTTON — spaceship
+       HOME BUTTON — space station
     ══════════════════════════ */
     #home-ship {
       position: fixed;
-      top: 1.2rem;
-      left: 1.4rem;
+      top: 1.1rem;
+      left: 1.2rem;
       z-index: 300;
-      width: 38px; height: 52px;
+      width: 72px; height: 28px;
       cursor: none;
-      opacity: 0.82;
-      transition: opacity 0.2s;
-      animation: ship-hover 3s ease-in-out infinite;
+      opacity: 0.78;
+      transition: opacity 0.25s;
+      animation: station-drift 4s ease-in-out infinite;
+      text-decoration: none;
     }
     #home-ship:hover { opacity: 1; }
-    @keyframes ship-hover {
-      0%, 100% { transform: translateY(0px); }
-      50%       { transform: translateY(-4px); }
+    #home-ship:hover #station-label {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+    @keyframes station-drift {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33%       { transform: translateY(-2.5px) rotate(0.4deg); }
+      66%       { transform: translateY(-1px) rotate(-0.3deg); }
     }
     #home-ship svg { width: 100%; height: 100%; overflow: visible; }
-    #ship-porthole-glow {
-      transition: fill 1.2s ease;
+    #station-porthole { transition: fill 1.2s ease; }
+    #station-label {
+      position: absolute;
+      bottom: -16px;
+      left: 50%;
+      transform: translateX(-50%) translateY(3px);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.38rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--lavender);
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      white-space: nowrap;
+      pointer-events: none;
     }
     @media (max-width: 600px) {
-      #home-ship { width: 30px; height: 42px; top: 0.9rem; left: 1rem; }
+      #home-ship { width: 56px; height: 22px; top: 0.85rem; left: 0.9rem; }
     }
 
     .currently-grid {
@@ -862,84 +877,112 @@
 
   <canvas id="bg-canvas"></canvas>
 
-  <!-- HOME BUTTON — retro-futurist spaceship -->
+  <!-- HOME BUTTON — space station, horizontal -->
   <a href="#landing" id="home-ship" aria-label="Return to top" title="home">
-    <svg viewBox="0 0 38 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- exhaust plume sparkles -->
-      <circle cx="19" cy="50" r="1.2" fill="#b197fc" opacity="0.4"/>
-      <circle cx="16" cy="49" r="0.7" fill="#c8f03a" opacity="0.3"/>
-      <circle cx="22" cy="49" r="0.7" fill="#e040a0" opacity="0.3"/>
-      <circle cx="19" cy="47.5" r="0.5" fill="#b197fc" opacity="0.25"/>
-      <!-- engine nozzles -->
-      <ellipse cx="14.5" cy="44" rx="2.2" ry="1.2" fill="#1a1030"/>
-      <ellipse cx="23.5" cy="44" rx="2.2" ry="1.2" fill="#1a1030"/>
-      <ellipse cx="14.5" cy="44" rx="1.2" ry="0.6" fill="#b197fc" opacity="0.5"/>
-      <ellipse cx="23.5" cy="44" rx="1.2" ry="0.6" fill="#b197fc" opacity="0.5"/>
-      <!-- main body -->
-      <path d="M19 2 C13 2 8 10 7 20 L7 40 C7 42 12 44 19 44 C26 44 31 42 31 40 L31 20 C30 10 25 2 19 2Z" fill="#0d0a1f"/>
-      <!-- body side panels -->
-      <path d="M9 22 L7 22 L7 36 L9 36Z" fill="#1a1535" opacity="0.8"/>
-      <path d="M29 22 L31 22 L31 36 L29 36Z" fill="#1a1535" opacity="0.8"/>
+    <svg viewBox="0 0 72 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- === SOLAR PANELS LEFT === -->
+      <!-- panel arm -->
+      <line x1="14" y1="14" x2="2" y2="14" stroke="#b197fc" stroke-width="0.7" opacity="0.6"/>
+      <!-- panel body -->
+      <rect x="0" y="8" width="12" height="5" rx="0.8" fill="#0d0a22" stroke="#b197fc" stroke-width="0.6" opacity="0.8"/>
+      <!-- panel cells -->
+      <line x1="4" y1="8" x2="4" y2="13" stroke="#b197fc" stroke-width="0.3" opacity="0.4"/>
+      <line x1="8" y1="8" x2="8" y2="13" stroke="#b197fc" stroke-width="0.3" opacity="0.4"/>
+      <line x1="0" y1="10.5" x2="12" y2="10.5" stroke="#b197fc" stroke-width="0.3" opacity="0.4"/>
+      <!-- panel shimmer -->
+      <rect x="1" y="9" width="2.5" height="1.5" rx="0.3" fill="#b197fc" opacity="0.18"/>
+
+      <!-- === SOLAR PANELS RIGHT === -->
+      <line x1="58" y1="14" x2="70" y2="14" stroke="#b197fc" stroke-width="0.7" opacity="0.6"/>
+      <rect x="60" y="8" width="12" height="5" rx="0.8" fill="#0d0a22" stroke="#b197fc" stroke-width="0.6" opacity="0.8"/>
+      <line x1="64" y1="8" x2="64" y2="13" stroke="#b197fc" stroke-width="0.3" opacity="0.4"/>
+      <line x1="68" y1="8" x2="68" y2="13" stroke="#b197fc" stroke-width="0.3" opacity="0.4"/>
+      <line x1="60" y1="10.5" x2="72" y2="10.5" stroke="#b197fc" stroke-width="0.3" opacity="0.4"/>
+      <rect x="61" y="9" width="2.5" height="1.5" rx="0.3" fill="#b197fc" opacity="0.18"/>
+
+      <!-- === MAIN HULL === -->
+      <!-- outer hull -->
+      <rect x="14" y="5" width="44" height="18" rx="4" fill="#0a0818"/>
+      <rect x="14" y="5" width="44" height="18" rx="4" fill="none" stroke="#b197fc" stroke-width="0.7" opacity="0.55"/>
       <!-- hull plating lines -->
-      <line x1="9" y1="28" x2="29" y2="28" stroke="#b197fc" stroke-width="0.4" opacity="0.25"/>
-      <line x1="9" y1="34" x2="29" y2="34" stroke="#b197fc" stroke-width="0.4" opacity="0.25"/>
-      <line x1="9" y1="38" x2="29" y2="38" stroke="#b197fc" stroke-width="0.4" opacity="0.2"/>
-      <!-- body outline -->
-      <path d="M19 2 C13 2 8 10 7 20 L7 40 C7 42 12 44 19 44 C26 44 31 42 31 40 L31 20 C30 10 25 2 19 2Z" fill="none" stroke="#b197fc" stroke-width="0.8" opacity="0.4"/>
-      <!-- fins -->
-      <path d="M7 36 L2 44 L7 42Z" fill="#1a1535" stroke="#b197fc" stroke-width="0.5" opacity="0.6"/>
-      <path d="M31 36 L36 44 L31 42Z" fill="#1a1535" stroke="#b197fc" stroke-width="0.5" opacity="0.6"/>
-      <!-- porthole / cockpit dome -->
-      <ellipse cx="19" cy="16" rx="6.5" ry="7" fill="#0a0820"/>
-      <ellipse cx="19" cy="16" rx="6.5" ry="7" fill="none" stroke="#b197fc" stroke-width="0.9" opacity="0.6"/>
-      <!-- porthole glow — shifts with section -->
-      <ellipse id="ship-porthole-glow" cx="19" cy="16" rx="5" ry="5.5" fill="#c8f03a" opacity="0.12"/>
+      <line x1="26" y1="5" x2="26" y2="23" stroke="#b197fc" stroke-width="0.35" opacity="0.2"/>
+      <line x1="46" y1="5" x2="46" y2="23" stroke="#b197fc" stroke-width="0.35" opacity="0.2"/>
+      <!-- hull highlight top -->
+      <line x1="16" y1="7" x2="56" y2="7" stroke="#ffffff" stroke-width="0.4" opacity="0.08" stroke-linecap="round"/>
+
+      <!-- === LEFT MODULE === -->
+      <rect x="14" y="8" width="14" height="12" rx="2.5" fill="#0d0b1c" stroke="#b197fc" stroke-width="0.5" opacity="0.4"/>
+
+      <!-- === RIGHT MODULE === -->
+      <rect x="44" y="8" width="14" height="12" rx="2.5" fill="#0d0b1c" stroke="#b197fc" stroke-width="0.5" opacity="0.4"/>
+
+      <!-- === CENTRE HUB / PORTHOLE === -->
+      <!-- hub ring -->
+      <circle cx="36" cy="14" r="7.5" fill="#080614" stroke="#b197fc" stroke-width="0.8" opacity="0.7"/>
+      <!-- porthole glow — shifts colour -->
+      <circle id="station-porthole" cx="36" cy="14" r="5.5" fill="#c8f03a" opacity="0.1"/>
       <!-- porthole inner ring -->
-      <ellipse cx="19" cy="16" rx="3.5" ry="3.8" fill="none" stroke="#b197fc" stroke-width="0.5" opacity="0.35"/>
-      <!-- porthole star -->
-      <path d="M19 12.5 L19.5 15 L22 15.2 L20.2 16.8 L20.8 19.2 L19 17.8 L17.2 19.2 L17.8 16.8 L16 15.2 L18.5 15 Z" fill="#c8f03a" opacity="0.7"/>
-      <!-- nose cone -->
-      <path d="M14 6 Q19 -1 24 6Z" fill="#1a1535" stroke="#b197fc" stroke-width="0.6" opacity="0.5"/>
-      <!-- nose tip sparkle -->
-      <circle cx="19" cy="2.5" r="1" fill="#b197fc" opacity="0.6"/>
-      <!-- antenna left -->
-      <line x1="11" y1="10" x2="7" y2="5" stroke="#b197fc" stroke-width="0.6" opacity="0.45"/>
-      <circle cx="7" cy="5" r="1" fill="#e040a0" opacity="0.7"/>
-      <!-- antenna right -->
-      <line x1="27" y1="10" x2="31" y2="5" stroke="#b197fc" stroke-width="0.6" opacity="0.45"/>
-      <circle cx="31" cy="5" r="1" fill="#c8f03a" opacity="0.7"/>
-      <!-- vine detail on body — botanical touch -->
-      <path d="M9 30 C8 28 9 26 10 28 C10 30 9 32 10 34" stroke="#1e8040" stroke-width="0.6" fill="none" stroke-linecap="round" opacity="0.6"/>
-      <ellipse cx="9.2" cy="27.5" rx="1.0" ry="0.6" fill="#28a050" opacity="0.55" transform="rotate(-30 9.2 27.5)"/>
-      <ellipse cx="9.8" cy="32" rx="1.0" ry="0.6" fill="#28a050" opacity="0.55" transform="rotate(20 9.8 32)"/>
+      <circle cx="36" cy="14" r="4" fill="none" stroke="#b197fc" stroke-width="0.45" opacity="0.4"/>
+      <!-- star inside porthole -->
+      <path d="M36 10.5 L36.5 13 L39 13.2 L37.2 14.8 L37.8 17.2 L36 15.8 L34.2 17.2 L34.8 14.8 L33 13.2 L35.5 13 Z"
+            fill="#c8f03a" opacity="0.65"/>
+
+      <!-- === DOCKING PORT TOP === -->
+      <rect x="33" y="2" width="6" height="4" rx="1" fill="#0d0b1c" stroke="#b197fc" stroke-width="0.5" opacity="0.5"/>
+      <circle cx="36" cy="4" r="0.9" fill="#b197fc" opacity="0.4"/>
+
+      <!-- === DOCKING PORT BOTTOM === -->
+      <rect x="33" y="22" width="6" height="4" rx="1" fill="#0d0b1c" stroke="#b197fc" stroke-width="0.5" opacity="0.5"/>
+      <circle cx="36" cy="24" r="0.9" fill="#b197fc" opacity="0.4"/>
+
+      <!-- === ANTENNA DETAILS === -->
+      <line x1="20" y1="5" x2="20" y2="1" stroke="#b197fc" stroke-width="0.5" opacity="0.45"/>
+      <circle cx="20" cy="1" r="0.8" fill="#e040a0" opacity="0.7"/>
+      <line x1="52" y1="5" x2="52" y2="1" stroke="#b197fc" stroke-width="0.5" opacity="0.45"/>
+      <circle cx="52" cy="1" r="0.8" fill="#c8f03a" opacity="0.7"/>
+
+      <!-- === BLINKING LIGHT === -->
+      <circle id="station-blink" cx="28" cy="14" r="1.2" fill="#e040a0" opacity="0.7"/>
+      <circle cx="44" cy="14" r="1" fill="#b197fc" opacity="0.35"/>
+
     </svg>
+    <span id="station-label">home</span>
   </a>
 
-  <!-- CURSOR — bioluminescent space plant -->
+  <!-- CURSOR — compass needle, point at top -->
   <div id="cursor-wrap" aria-hidden="true">
-    <svg viewBox="0 0 22 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- orb glow halo -->
-      <circle id="cursor-orb-halo" cx="11" cy="4" r="8" fill="#c8f03a" opacity="0.08"/>
-      <!-- orb -->
-      <circle id="cursor-orb" cx="11" cy="4" r="4" fill="#c8f03a" opacity="0.92"/>
-      <!-- orb inner highlight -->
-      <circle cx="9.5" cy="2.8" r="1.4" fill="#ffffff" opacity="0.35"/>
-      <!-- main stem -->
-      <path d="M11 8 C11 8 10.5 22 11 36 C11.2 40 11 44 11 48" stroke="#1e8040" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-      <!-- left leaf 1 -->
-      <path d="M10.8 16 C8 14 5.5 16 7 18.5 C8.5 19.5 10.5 18 10.8 16Z" fill="#28a050" opacity="0.85"/>
-      <path d="M10.8 16 C9 17 7.5 18 7 18.5" stroke="#1e8040" stroke-width="0.4" fill="none" opacity="0.6"/>
-      <!-- right leaf 1 -->
-      <path d="M11.2 22 C14 20 16.5 22 15 24.5 C13.5 25.5 11.5 24 11.2 22Z" fill="#28a050" opacity="0.85"/>
-      <path d="M11.2 22 C13 23 14.5 24 15 24.5" stroke="#1e8040" stroke-width="0.4" fill="none" opacity="0.6"/>
-      <!-- left leaf 2 — smaller -->
-      <path d="M10.8 30 C8.5 28.5 6.5 30 7.8 32 C9 33 10.6 31.5 10.8 30Z" fill="#28a050" opacity="0.7"/>
-      <!-- tiny root tendrils at bottom -->
-      <path d="M11 46 C10 47 9 48 8 48" stroke="#1e8040" stroke-width="0.5" fill="none" stroke-linecap="round" opacity="0.5"/>
-      <path d="M11 46 C12 47 13 48 14 48" stroke="#1e8040" stroke-width="0.5" fill="none" stroke-linecap="round" opacity="0.5"/>
-      <!-- leaf shimmer dots -->
-      <circle cx="8" cy="17.5" r="0.5" fill="#5df09a" opacity="0.6"/>
-      <circle cx="14" cy="23" r="0.5" fill="#5df09a" opacity="0.5"/>
+    <svg viewBox="0 0 14 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- upper needle — pointed tip at top, fixed lavender -->
+      <polygon id="needle-tip"
+               points="7,0 9.5,16 7,19 4.5,16"
+               fill="#b197fc" opacity="0.92"/>
+      <!-- upper needle light face -->
+      <polygon points="7,0 7,19 9.5,16"
+               fill="#ffffff" opacity="0.15"/>
+      <!-- upper needle centre line -->
+      <line x1="7" y1="1" x2="7" y2="18"
+            stroke="#ffffff" stroke-width="0.35" opacity="0.2" stroke-linecap="round"/>
+
+      <!-- lower needle — tail, dark muted -->
+      <polygon id="needle-tail"
+               points="7,19 9.5,22 7,38 4.5,22"
+               fill="#2a1860" opacity="0.85"/>
+      <!-- lower needle subtle face -->
+      <polygon points="7,19 7,38 9.5,22"
+               fill="#b197fc" opacity="0.08"/>
+
+      <!-- centre band — the pivot point -->
+      <ellipse cx="7" cy="19" rx="2.8" ry="1.4"
+               fill="#1a1035" stroke="#b197fc" stroke-width="0.5" opacity="0.8"/>
+      <ellipse cx="7" cy="19" rx="1.2" ry="0.6"
+               fill="#b197fc" opacity="0.5"/>
+
+      <!-- tiny 4-point sparkle exactly at tip -->
+      <path d="M7,-2 L7.25,-0.5 L8.5,-0.8 L7.4,0 L8.5,0.8 L7.25,0.5 L7,2 L6.75,0.5 L5.5,0.8 L6.6,0 L5.5,-0.8 L6.75,-0.5 Z"
+            fill="#ffffff" opacity="0.8"/>
+
     </svg>
   </div>
   <div class="cursor-ripple" id="cursor-ripple"></div>
@@ -1509,24 +1552,22 @@
   })();
 
   /* ═══════════════════════════════════════════
-     CURSOR — bioluminescent plant, orb shifts colour
+     CURSOR — compass needle, fixed lavender, slight right tilt
   ═══════════════════════════════════════════ */
   (function() {
     const wrap   = document.getElementById('cursor-wrap');
     const ripple = document.getElementById('cursor-ripple');
-    const orb    = document.getElementById('cursor-orb');
-    const halo   = document.getElementById('cursor-orb-halo');
 
     const COLOR_MAP = {
-      lime:     { fill: '#c8f03a', halo: 'rgba(200,240,58,0.08)'  },
-      pink:     { fill: '#e040a0', halo: 'rgba(224,64,160,0.08)'  },
-      lavender: { fill: '#b197fc', halo: 'rgba(177,151,252,0.08)' },
-      all:      { fill: '#b197fc', halo: 'rgba(177,151,252,0.08)' },
+      lime:     '#c8f03a',
+      pink:     '#e040a0',
+      lavender: '#b197fc',
+      all:      '#b197fc',
     };
 
-    let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2;
+    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
     let curX = mouseX, curY = mouseY;
-    let rippleColor = '#c8f03a';
+    let rippleColor = '#b197fc';
 
     const sections = document.querySelectorAll('section[data-accent]');
     function updateAccent() {
@@ -1535,15 +1576,11 @@
         const rect = s.getBoundingClientRect();
         if (rect.top < window.innerHeight * 0.5) current = s.dataset.accent;
       });
-      const c = COLOR_MAP[current] || COLOR_MAP.lime;
-      if (orb)  orb.setAttribute('fill', c.fill);
-      if (halo) halo.setAttribute('fill', c.halo);
-      rippleColor = c.fill;
-      // ship porthole too
-      const pg = document.getElementById('ship-porthole-glow');
-      if (pg) pg.setAttribute('fill', c.fill);
+      // station porthole shifts with section
+      const pg = document.getElementById('station-porthole');
+      if (pg) pg.setAttribute('fill', COLOR_MAP[current] || '#c8f03a');
     }
-    window.addEventListener('scroll', updateAccent, {passive:true});
+    window.addEventListener('scroll', updateAccent, { passive: true });
     setInterval(updateAccent, 200);
     updateAccent();
 
@@ -1559,10 +1596,9 @@
     });
 
     function tick() {
-      curX += (mouseX - curX) * 0.12;
-      curY += (mouseY - curY) * 0.12;
-      // offset so tip of plant (orb top) aligns with cursor point
-      wrap.style.transform = `translate(${curX - 11}px, ${curY - 4}px)`;
+      curX += (mouseX - curX) * 0.32;
+      curY += (mouseY - curY) * 0.32;
+      wrap.style.transform = `translate(${curX - 7}px, ${curY}px)`;
       requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
@@ -1573,7 +1609,18 @@
       const s = document.createElement('style');
       s.textContent = '* { cursor: auto !important; }';
       document.head.appendChild(s);
-    }, {once: true});
+    }, { once: true });
+  })();
+
+  /* station blinking light */
+  (function() {
+    const blink = document.getElementById('station-blink');
+    if (!blink) return;
+    let on = true;
+    setInterval(() => {
+      on = !on;
+      blink.setAttribute('opacity', on ? '0.7' : '0.15');
+    }, 1400);
   })();
 
   /* home ship click — scroll to top */
