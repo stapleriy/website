@@ -797,15 +797,25 @@
 
   <!-- CURSOR — dagger -->
   <div id="cursor-wrap" aria-hidden="true">
-    <svg viewBox="0 0 14 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- blade -->
-      <path id="dagger-blade" d="M7 0 L10.5 28 L7 32 L3.5 28 Z" fill="#c8f03a"/>
-      <!-- guard -->
-      <rect id="dagger-guard" x="2" y="28" width="10" height="2.5" rx="1" fill="#c8f03a" opacity="0.9"/>
-      <!-- grip -->
-      <rect id="dagger-grip" x="5.5" y="30.5" width="3" height="7" rx="1.5" fill="#c8f03a" opacity="0.7"/>
-      <!-- pommel -->
-      <circle id="dagger-pommel" cx="7" cy="38.5" r="1.8" fill="#c8f03a" opacity="0.85"/>
+    <svg viewBox="0 0 16 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- blade — elegant tapered stiletto with fuller groove -->
+      <path id="dagger-blade" d="M8 0 C8 0 11 18 11.2 26 L8 29.5 L4.8 26 C5 18 8 0 8 0Z" fill="#c8f03a"/>
+      <!-- fuller (blade groove) — darker stripe down centre -->
+      <path id="dagger-fuller" d="M8 3 L8 24" stroke="#080611" stroke-width="0.7" stroke-linecap="round" opacity="0.35"/>
+      <!-- ricasso (unsharpened base of blade) -->
+      <rect id="dagger-ricasso" x="6.2" y="25" width="3.6" height="3" rx="0.3" fill="#c8f03a" opacity="0.85"/>
+      <!-- guard — slightly curved crossguard -->
+      <path id="dagger-guard" d="M1.5 29 Q8 27.5 14.5 29 Q8 30.5 1.5 29Z" fill="#c8f03a" opacity="0.95"/>
+      <!-- grip — wrapped handle with knurling suggestion -->
+      <rect id="dagger-grip" x="6" y="29.5" width="4" height="9" rx="2" fill="#c8f03a" opacity="0.72"/>
+      <!-- grip wrapping lines -->
+      <line id="dagger-wrap1" x1="6" y1="32" x2="10" y2="32" stroke="#080611" stroke-width="0.6" opacity="0.3"/>
+      <line id="dagger-wrap2" x1="6" y1="34.5" x2="10" y2="34.5" stroke="#080611" stroke-width="0.6" opacity="0.3"/>
+      <line id="dagger-wrap3" x1="6" y1="37" x2="10" y2="37" stroke="#080611" stroke-width="0.6" opacity="0.3"/>
+      <!-- pommel — faceted gem shape -->
+      <path id="dagger-pommel" d="M8 38.5 L10.2 41 L8 43.5 L5.8 41 Z" fill="#c8f03a" opacity="0.9"/>
+      <!-- pommel shimmer -->
+      <path id="dagger-shimmer" d="M8 39.2 L9.4 41 L8 42.7" stroke="#ffffff" stroke-width="0.4" opacity="0.25" fill="none" stroke-linecap="round"/>
     </svg>
   </div>
   <div class="cursor-ripple" id="cursor-ripple"></div>
@@ -959,8 +969,8 @@
       <span class="eyebrow">↯ wait, who?</span>
       <span style="font-family:'Gochi Hand',cursive; font-size:1.75rem; color:var(--pink); display:block; transform:rotate(-1deg); margin-bottom:0.9rem; opacity:0.9;">why, me, of course.</span>
       <h2 class="about-hl">
-        I contain <span class="multitudes">Multitudes.</span><br>
-        <span class="obv">(Obviously!)</span>
+        I contain <span class="multitudes">multitudes.</span><br>
+        <span class="obv">(obviously!)</span>
       </h2>
 
       <div class="about-body">
@@ -1098,47 +1108,47 @@
     let targetR = tintR, targetG = tintG, targetB = tintB;
 
     const ORBS = [
-      { x:0.15, y:0.20, r:0.38, color:'100,60,190',  a:0.055, vx:0.00008,  vy:0.00012  },
-      { x:0.80, y:0.15, r:0.32, color:'180,40,140',  a:0.045, vx:-0.00010, vy:0.00008  },
-      { x:0.50, y:0.65, r:0.45, color:'70,40,170',   a:0.05,  vx:0.00006,  vy:-0.00009 },
-      { x:0.85, y:0.80, r:0.30, color:'150,80,230',  a:0.04,  vx:-0.00007, vy:-0.00011 },
-      { x:0.20, y:0.75, r:0.28, color:'195,55,165',  a:0.035, vx:0.00009,  vy:0.00007  },
+      { x:0.15, y:0.20, r:0.38, color:'100,60,190',  a:0.10, vx:0.00008,  vy:0.00012  },
+      { x:0.80, y:0.15, r:0.32, color:'180,40,140',  a:0.09, vx:-0.00010, vy:0.00008  },
+      { x:0.50, y:0.65, r:0.45, color:'70,40,170',   a:0.10, vx:0.00006,  vy:-0.00009 },
+      { x:0.85, y:0.80, r:0.30, color:'150,80,230',  a:0.08, vx:-0.00007, vy:-0.00011 },
+      { x:0.20, y:0.75, r:0.28, color:'195,55,165',  a:0.08, vx:0.00009,  vy:0.00007  },
     ];
 
-    // constellation nodes
-    const NODES = Array.from({length: 22}, () => ({
+    // constellation nodes — more of them, slightly faster
+    const NODES = Array.from({length: 38}, () => ({
       x: Math.random(),
       y: Math.random(),
-      vx: (Math.random() - 0.5) * 0.00015,
-      vy: (Math.random() - 0.5) * 0.00015,
+      vx: (Math.random() - 0.5) * 0.00022,
+      vy: (Math.random() - 0.5) * 0.00022,
+      size: 0.8 + Math.random() * 2.2,  // varied star sizes
     }));
 
-    // ink tendrils
+    // ink tendrils — more, more opaque, reach further inward
     class Tendril {
       constructor() { this.reset(); }
       reset() {
-        // start from edge
         const edge = Math.floor(Math.random() * 4);
         if (edge === 0) { this.x = Math.random(); this.y = 0; }
         else if (edge === 1) { this.x = 1; this.y = Math.random(); }
         else if (edge === 2) { this.x = Math.random(); this.y = 1; }
         else { this.x = 0; this.y = Math.random(); }
         const angleToCenter = Math.atan2(0.5 - this.y, 0.5 - this.x);
-        const spread = (Math.random() - 0.5) * 1.2;
+        const spread = (Math.random() - 0.5) * 1.6;
         this.angle = angleToCenter + spread;
-        this.speed = 0.0003 + Math.random() * 0.0004;
+        this.speed = 0.0004 + Math.random() * 0.0006;
         this.life = 0;
-        this.maxLife = 180 + Math.random() * 220;
-        this.thickness = 0.4 + Math.random() * 1.2;
-        this.wobble = (Math.random() - 0.5) * 0.03;
+        this.maxLife = 220 + Math.random() * 280;
+        this.thickness = 0.6 + Math.random() * 2.0;
+        this.wobble = (Math.random() - 0.5) * 0.035;
         this.path = [{x: this.x, y: this.y}];
-        this.growing = true;
+        this.maxPoints = 90 + Math.floor(Math.random() * 60);
       }
       update() {
         this.life++;
         if (this.life > this.maxLife) { this.reset(); return; }
-        if (this.growing && this.path.length < 80) {
-          this.angle += this.wobble + (Math.random() - 0.5) * 0.02;
+        if (this.path.length < this.maxPoints) {
+          this.angle += this.wobble + (Math.random() - 0.5) * 0.025;
           this.x += Math.cos(this.angle) * this.speed;
           this.y += Math.sin(this.angle) * this.speed;
           this.path.push({x: this.x, y: this.y});
@@ -1146,22 +1156,22 @@
       }
       draw(ctx, W, H, tr, tg, tb) {
         if (this.path.length < 2) return;
-        const fade = Math.min(this.life / 40, 1) * Math.max(0, 1 - (this.life - this.maxLife * 0.6) / (this.maxLife * 0.4));
+        const fade = Math.min(this.life / 50, 1) * Math.max(0, 1 - (this.life - this.maxLife * 0.55) / (this.maxLife * 0.45));
         ctx.beginPath();
         ctx.moveTo(this.path[0].x * W, this.path[0].y * H);
         for (let i = 1; i < this.path.length; i++) {
           ctx.lineTo(this.path[i].x * W, this.path[i].y * H);
         }
-        ctx.strokeStyle = `rgba(${tr},${tg},${tb},${0.07 * fade})`;
+        ctx.strokeStyle = `rgba(${tr},${tg},${tb},${0.18 * fade})`;
         ctx.lineWidth = this.thickness;
         ctx.lineCap = 'round';
         ctx.stroke();
       }
     }
 
-    const TENDRILS = Array.from({length: 14}, (_, i) => {
+    const TENDRILS = Array.from({length: 22}, () => {
       const t = new Tendril();
-      t.life = Math.floor(Math.random() * t.maxLife); // stagger starts
+      t.life = Math.floor(Math.random() * t.maxLife);
       return t;
     });
 
@@ -1221,29 +1231,38 @@
       });
 
       // constellation lines
-      const MAX_DIST = 0.22;
+      const MAX_DIST = 0.26;
       for (let i = 0; i < NODES.length; i++) {
         for (let j = i + 1; j < NODES.length; j++) {
           const dx = NODES[i].x - NODES[j].x;
           const dy = NODES[i].y - NODES[j].y;
           const dist = Math.sqrt(dx*dx + dy*dy);
           if (dist < MAX_DIST) {
-            const alpha = (1 - dist / MAX_DIST) * 0.18;
+            const alpha = (1 - dist / MAX_DIST) * 0.32;
             ctx.beginPath();
             ctx.moveTo(NODES[i].x * W, NODES[i].y * H);
             ctx.lineTo(NODES[j].x * W, NODES[j].y * H);
             ctx.strokeStyle = `rgba(${tr},${tg},${tb},${alpha})`;
-            ctx.lineWidth = 0.5;
+            ctx.lineWidth = 0.7;
             ctx.stroke();
           }
         }
       }
 
-      // node dots
+      // node dots — varied sizes, some brighter
       NODES.forEach(n => {
+        // glow halo
+        const halo = ctx.createRadialGradient(n.x*W, n.y*H, 0, n.x*W, n.y*H, n.size * 4);
+        halo.addColorStop(0,   `rgba(${tr},${tg},${tb},0.18)`);
+        halo.addColorStop(1,   `rgba(${tr},${tg},${tb},0)`);
         ctx.beginPath();
-        ctx.arc(n.x * W, n.y * H, 1.2, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(${tr},${tg},${tb},0.22)`;
+        ctx.arc(n.x * W, n.y * H, n.size * 4, 0, Math.PI*2);
+        ctx.fillStyle = halo;
+        ctx.fill();
+        // core dot
+        ctx.beginPath();
+        ctx.arc(n.x * W, n.y * H, n.size, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(${tr},${tg},${tb},0.7)`;
         ctx.fill();
       });
 
@@ -1335,10 +1354,8 @@
   (function() {
     const wrap    = document.getElementById('cursor-wrap');
     const ripple  = document.getElementById('cursor-ripple');
-    const blade   = document.getElementById('dagger-blade');
-    const guard   = document.getElementById('dagger-guard');
-    const grip    = document.getElementById('dagger-grip');
-    const pommel  = document.getElementById('dagger-pommel');
+    const dagParts = ['dagger-blade','dagger-ricasso','dagger-guard','dagger-grip','dagger-pommel']
+      .map(id => document.getElementById(id)).filter(Boolean);
 
     const COLOR_MAP = {
       lime:     '#c8f03a',
@@ -1370,7 +1387,7 @@
     let colorT = 0;
 
     function setDaggerColor(c) {
-      [blade, guard, grip, pommel].forEach(el => el && el.setAttribute('fill', c));
+      dagParts.forEach(el => el.setAttribute('fill', c));
       ripple.style.background = c;
     }
 
