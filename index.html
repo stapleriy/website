@@ -75,13 +75,7 @@
     }
     #cursor-ring svg { width: 36px; height: 36px; overflow: visible; }
 
-    @keyframes orbit {
-      from { transform: rotate(0deg)   translateX(14px) rotate(0deg); }
-      to   { transform: rotate(360deg) translateX(14px) rotate(-360deg); }
-    }
-    .orb { transform-origin: 18px 18px; animation: orbit 0.9s linear infinite; }
-    #cursor-ring.fast .orb { animation-duration: 0.4s; }
-    #cursor-ring.idle .orb { animation-duration: 2.4s; opacity: 0.35; }
+    /* orbit removed — cursor is static */
 
     @keyframes pulse-ring {
       0%   { r: 10; opacity: 0.7; }
@@ -326,12 +320,14 @@
       line-height: 1.7;
     }
     .cv-title {
-      font-family: 'Playfair Display SC', serif;
-      font-weight: 700;
-      font-size: 1.15rem;
+      font-family: 'EB Garamond', serif;
+      font-weight: 500;
+      font-style: normal;
+      font-size: 1.2rem;
       color: var(--cream);
-      line-height: 1.25;
+      line-height: 1.35;
       margin-bottom: 0.4rem;
+      letter-spacing: 0.01em;
     }
     .cv-sub {
       font-family: 'EB Garamond', serif;
@@ -452,11 +448,11 @@
     .curr-block:hover { background: rgba(212,198,245,0.06); }
     .curr-type {
       font-family: 'Space Mono', monospace;
-      font-size: 0.52rem;
-      letter-spacing: 0.22em;
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--lavender);
-      opacity: 0.6;
+      opacity: 0.9;
       margin-bottom: 0.8rem;
       display: block;
     }
@@ -488,24 +484,25 @@
       color: var(--cream);
       margin-bottom: 2.8rem;
     }
-    .about-hl em {
+    .about-hl .multitudes {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
       font-weight: 400;
       color: var(--lavender);
-      display: block;
-      font-style: normal;
-      line-height: 0.92;
+      font-size: 0.92em;
+      letter-spacing: -0.01em;
     }
     .about-hl .obv {
       display: block;
       font-family: 'Gochi Hand', cursive;
-      font-size: 2.5rem;
+      font-size: 3rem;
       font-weight: 400;
       color: var(--pink);
       font-style: normal;
       transform: rotate(-2deg);
-      line-height: 1.05;
+      line-height: 1.1;
       letter-spacing: 0;
-      margin-top: 0.12rem;
+      margin-top: 0.3rem;
     }
 
     .about-body p {
@@ -554,11 +551,13 @@
     .obs-card:hover { background: var(--lav-dim); padding-left: 2.4rem; }
     .obs-card.lime:hover { background: var(--lime-dim); }
     .obs-title {
-      font-family: 'Playfair Display SC', serif;
-      font-weight: 400;
-      font-size: 1.05rem;
+      font-family: 'EB Garamond', serif;
+      font-weight: 500;
+      font-style: normal;
+      font-size: 1.15rem;
       color: var(--lavender);
       margin-bottom: 0.35rem;
+      letter-spacing: 0.01em;
     }
     .obs-card.lime .obs-title { color: var(--lime); }
     .obs-txt {
@@ -676,11 +675,13 @@
     .clink:first-child { border-top: 1px solid var(--rule); }
     .clink:hover { padding-left: 0.8rem; }
     .clink-name {
-      font-family: 'Playfair Display SC', serif;
-      font-weight: 400;
-      font-size: 1.65rem;
+      font-family: 'EB Garamond', serif;
+      font-weight: 500;
+      font-style: normal;
+      font-size: 1.75rem;
       color: var(--cream);
       transition: color 0.2s;
+      letter-spacing: 0.01em;
     }
     .clink:nth-child(1):hover .clink-name { color: var(--lavender); }
     .clink:nth-child(2):hover .clink-name { color: var(--lime); }
@@ -754,16 +755,15 @@
   <!-- CURSOR -->
   <div id="cursor-ring" aria-hidden="true">
     <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="18" cy="18" r="3" fill="#c8f03a"/>
+      <circle cx="18" cy="18" r="3.5" fill="#c8f03a"/>
       <circle class="pulse-circle" cx="18" cy="18" r="10" stroke="#c8f03a" stroke-width="1.5" fill="none"/>
-      <g class="orb"><circle cx="18" cy="18" r="3.5" fill="#e040a0"/></g>
     </svg>
   </div>
 
   <!-- NAV — new order: portfolio / what's that? / wait, who? / hello or hi. -->
   <nav>
-    <a href="#portfolio">portfolio</a>
-    <a href="#commonplace">what's this?</a>
+    <a href="#portfolio">credentials</a>
+    <a href="#commonplace">what's that?</a>
     <a href="#about">wait, who?</a>
     <a href="#contact">Hello or Hi.</a>
   </nav>
@@ -773,7 +773,7 @@
     <div class="edge-line"></div>
     <div class="wrap">
       <div class="landing-inner">
-        <span class="landing-hello">twinkle, twinkle little star —</span>
+        <span class="landing-hello">twinkle twinkle little star —</span>
         <h1 class="landing-name">
           Simran
           <span class="name-2">Poudel.</span>
@@ -783,7 +783,7 @@
           (lab, thesis, and all) without RTIs. now doing MA in English literature
           to back up a pretentious personality. authentic enough?
         </p>
-        <span class="landing-scroll">fancy some scrolling?</span>
+        <span class="landing-scroll">keep scrolling, it gets weirder</span>
       </div>
     </div>
   </section>
@@ -792,9 +792,8 @@
   <section id="portfolio">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">↯ portfolio</span>
+        <span class="eyebrow">↯ credentials</span>
         <h2 class="port-heading">Professionally <span class="speaking">Speaking...</span></h2>
-        <span class="section-sub">(the "serious" portion of this website)</span>
       </div>
 
       <div class="cv-section">
@@ -851,9 +850,9 @@
   <section id="commonplace">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">↯ what's this?</span>
+        <span class="eyebrow">↯ what's that?</span>
         <h2 class="section-h">not a journal.<br>not not a journal.</h2>
-        <span class="section-sub">(as clichéd as quotes are, these ones just stayed.)</span>
+        <span class="section-sub">(as clichéd as quotes are, these ones just make sense, kind of.)</span>
       </div>
 
       <div class="quotes-row">
@@ -865,6 +864,10 @@
           <blockquote>Start where you are. Use what you have. Do what you can.</blockquote>
           <p class="quote-attr">— Arthur Ashe. genuinely changed something.</p>
         </div>
+      </div>
+
+      <div style="margin: 3rem 0 0; padding: 2rem 0 1.5rem; border-top: 1px solid var(--rule);">
+        <span style="font-family:'Gochi Hand',cursive; font-size:1.35rem; color:var(--lavender); opacity:0.75; display:block; transform:rotate(-0.8deg);">and currently —</span>
       </div>
 
       <div class="currently-grid">
@@ -895,11 +898,10 @@
   <section id="about">
     <div class="wrap" style="position:relative; z-index:1;">
       <span class="eyebrow">↯ wait, who?</span>
-      <span style="font-family:'Gochi Hand',cursive; font-size:1.5rem; color:var(--pink); display:block; transform:rotate(-1deg); margin-bottom:0.9rem; opacity:0.9;">why, me, of course.</span>
+      <span style="font-family:'Gochi Hand',cursive; font-size:1.75rem; color:var(--pink); display:block; transform:rotate(-1deg); margin-bottom:0.9rem; opacity:0.9;">why, me, of course.</span>
       <h2 class="about-hl">
-        I contain<br>
-        <em>multitudes.</em><br>
-        <span class="obv">(obviously.)</span>
+        I contain <span class="multitudes">multitudes.</span><br>
+        <span class="obv">(obviously!)</span>
       </h2>
 
       <div class="about-body">
@@ -921,27 +923,24 @@
 
       <hr class="obs-divider"/>
 
-      <span class="obs-lbl">
-        I write. Well, kind of.<br>
-        I mean, not really. But, you know. Anyway...
-      </span>
+      <span class="obs-lbl">I write. Well, kind of. I mean, not really. But, you know. Anyway...</span>
 
       <div class="obs-grid">
         <div class="obs-card">
-          <p class="obs-title">The essay as a form</p>
-          <p class="obs-txt">Montaigne. Baldwin. Dillard. The essay that wanders deliberately and admits it doesn't know where it's going.</p>
-        </div>
-        <div class="obs-card lime">
-          <p class="obs-title">Bioremediation</p>
-          <p class="obs-txt">Microorganisms cleaning contaminated environments. Genuinely miraculous. Criminally under-discussed.</p>
+          <p class="obs-title">Sample 1</p>
+          <p class="obs-txt">under construction — check back later.</p>
         </div>
         <div class="obs-card">
-          <p class="obs-title">Fashion as language</p>
-          <p class="obs-txt">The semiotics of getting dressed. What we say before we open our mouths.</p>
+          <p class="obs-title">Sample 2</p>
+          <p class="obs-txt">under construction — check back later.</p>
         </div>
         <div class="obs-card">
-          <p class="obs-title">Slowness, deliberately</p>
-          <p class="obs-txt">Shows finished. Plants tended. The genuinely radical act of doing one thing at its own pace.</p>
+          <p class="obs-title">Sample 3</p>
+          <p class="obs-txt">under construction — check back later.</p>
+        </div>
+        <div class="obs-card">
+          <p class="obs-title">Sample 4</p>
+          <p class="obs-txt">under construction — check back later.</p>
         </div>
       </div>
 
@@ -972,7 +971,7 @@
   <section id="contact">
     <div class="wrap" style="position:relative; z-index:2;">
       <span class="eyebrow">↯ hello or hi.</span>
-      <span class="contact-open">well, since you made it to the end —</span>
+      <span class="contact-open">made it to the end, did you?</span>
       <h2 class="contact-h">
         let's talk<br>
         <em>about something?</em>
@@ -985,7 +984,7 @@
       </p>
 
       <div class="clinks">
-        <a href="mailto:your@email.com" class="clink">
+        <a href="/cdn-cgi/l/email-protection#b4cddbc1c6f4d1d9d5ddd89ad7dbd9" class="clink">
           <span class="clink-name">Email</span>
           <span class="clink-meta">for humans →</span>
         </a>
@@ -1013,7 +1012,7 @@
     <span class="foot-r">made with obsessive vision and excellent life choices</span>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     /* BACKGROUND CANVAS */
     (function () {
       const canvas = document.getElementById('bg-canvas');
@@ -1084,10 +1083,3 @@
     window.addEventListener('touchstart', () => {
       ring.style.display = 'none';
       const s = document.createElement('style');
-      s.textContent = '* { cursor: auto !important; }';
-      document.head.appendChild(s);
-    }, { once: true });
-  </script>
-
-</body>
-</html>
