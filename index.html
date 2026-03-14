@@ -4,15 +4,15 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Someone's Spaceship, Apparently</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 24'%3E%3Crect x='0' y='3' width='16' height='5' rx='1' fill='%230d0a22' stroke='%23b197fc' stroke-width='1.5'/%3E%3Cline x1='5.5' y1='3' x2='5.5' y2='8' stroke='%23b197fc' stroke-width='1' opacity='0.6'/%3E%3Cline x1='10.5' y1='3' x2='10.5' y2='8' stroke='%23b197fc' stroke-width='1' opacity='0.6'/%3E%3Cline x1='16' y1='5.5' x2='22' y2='10' stroke='%23b197fc' stroke-width='1.5'/%3E%3Crect x='0' y='16' width='16' height='5' rx='1' fill='%230d0a22' stroke='%23b197fc' stroke-width='1.5'/%3E%3Cline x1='5.5' y1='16' x2='5.5' y2='21' stroke='%23b197fc' stroke-width='1' opacity='0.6'/%3E%3Cline x1='10.5' y1='16' x2='10.5' y2='21' stroke='%23b197fc' stroke-width='1' opacity='0.6'/%3E%3Cline x1='16' y1='18.5' x2='22' y2='14' stroke='%23b197fc' stroke-width='1.5'/%3E%3Crect x='74' y='3' width='16' height='5' rx='1' fill='%230d0a22' stroke='%23b197fc' stroke-width='1.5'/%3E%3Cline x1='79.5' y1='3' x2='79.5' y2='8' stroke='%23b197fc' stroke-width='1' opacity='0.6'/%3E%3Cline x1='84.5' y1='3' x2='84.5' y2='8' stroke='%23b197fc' stroke-width='1' opacity='0.6'/%3E%3Cline x1='68' y1='10' x2='74' y2='5.5' stroke='%23b197fc' stroke-width='1.5'/%3E%3Crect x='74' y='16' width='16' height='5' rx='1' fill='%230d0a22' stroke='%23b197fc' stroke-width='1.5'/%3E%3Cline x1='79.5' y1='16' x2='79.5' y2='21' stroke='%23b197fc' stroke-width='1' opacity='0.6'/%3E%3Cline x1='84.5' y1='16' x2='84.5' y2='21' stroke='%23b197fc' stroke-width='1' opacity='0.6'/%3E%3Cline x1='68' y1='14' x2='74' y2='18.5' stroke='%23b197fc' stroke-width='1.5'/%3E%3Crect x='22' y='9' width='46' height='6' rx='1.5' fill='%230a0818' stroke='%23b197fc' stroke-width='1.2'/%3E%3Crect x='22' y='7' width='14' height='10' rx='2.5' fill='%230c0a1e' stroke='%23b197fc' stroke-width='1.5'/%3E%3Ccircle cx='29' cy='12' r='2.5' fill='%23080614' stroke='%23b197fc' stroke-width='1.2'/%3E%3Ccircle cx='29' cy='12' r='1.4' fill='%23c4ff20' opacity='0.6'/%3E%3Crect x='54' y='7' width='14' height='10' rx='2.5' fill='%230c0a1e' stroke='%23b197fc' stroke-width='1.5'/%3E%3Ccircle cx='61' cy='12' r='2.5' fill='%23080614' stroke='%23b197fc' stroke-width='1.2'/%3E%3Ccircle cx='61' cy='12' r='1.4' fill='%23b197fc' opacity='0.4'/%3E%3Crect x='38' y='6' width='14' height='12' rx='3' fill='%23090717' stroke='%23b197fc' stroke-width='2'/%3E%3Ccircle cx='25' cy='3' r='2' fill='%23d4c98a'/%3E%3Ccircle cx='65' cy='3' r='2' fill='%23c4ff20'/%3E%3C/svg%3E"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Gochi+Hand&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Gochi+Hand&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg:       #06080f;
       --cream:    #f0e8d8;
       --lavender: #b197fc;
       --lime:     #c8f03a;
+      --cyan:     #00d9c0;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,14 +22,16 @@
       background: var(--bg);
       color: var(--cream);
       font-family: 'EB Garamond', Georgia, serif;
-      overflow-x: hidden;
-      font-size: 20px;
+      font-size: 18px;
       line-height: 1.85;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
     }
     body::before {
       content: '';
       position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
       pointer-events: none; z-index: 1;
     }
     #bg-canvas {
@@ -37,1337 +39,772 @@
       pointer-events: none; z-index: 0;
     }
 
-    /* ══ CURSOR (desktop only) ══ */
-    @media (pointer: fine) {
-      * { cursor: none !important; }
-    }
+    /* ══ CURSOR ══ */
+    @media (pointer: fine) { * { cursor: none !important; } }
     #cursor-wrap {
       position: fixed; pointer-events: none;
-      z-index: 99999; top: 0; left: 0; will-change: transform;
+      z-index: 99999; top: 0; left: 0;
+      will-change: transform; display: none;
     }
-    #cursor-wrap svg {
-      width: 14px; height: 38px; overflow: visible; display: block;
-      transform: rotate(-12deg); transform-origin: 7px 0px;
-    }
-    .cursor-ripple {
-      position: fixed; pointer-events: none; z-index: 99998;
-      border-radius: 50%; width: 8px; height: 8px;
-      transform: translate(-50%,-50%) scale(0); opacity: 0;
-    }
+    #cursor-wrap svg { width: 14px; height: 38px; overflow: visible; display: block; transform: rotate(-12deg); transform-origin: 7px 0; }
+    .cursor-ripple { position: fixed; pointer-events: none; z-index: 99998; border-radius: 50%; width: 8px; height: 8px; transform: translate(-50%,-50%) scale(0); opacity: 0; }
     .cursor-ripple.pop { animation: ripple-pop 0.55s ease-out forwards; }
-    @keyframes ripple-pop {
-      0%   { transform: translate(-50%,-50%) scale(0); opacity: 0.7; }
-      100% { transform: translate(-50%,-50%) scale(7); opacity: 0; }
+    @keyframes ripple-pop { 0%{transform:translate(-50%,-50%) scale(0);opacity:.7} 100%{transform:translate(-50%,-50%) scale(7);opacity:0} }
+
+    /* ══ TOP NAVBAR ══ */
+    #topnav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+      height: 62px;
+      display: flex; align-items: center;
+      padding: 0 1.8rem;
+      background: linear-gradient(to bottom, rgba(6,8,15,0.96) 75%, transparent);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    #helm-btn {
+      flex-shrink: 0; background: none; border: none; padding: 0;
+      margin-right: 1.4rem; cursor: pointer;
+      opacity: 0.72; transition: opacity 0.25s;
+      display: flex; align-items: center;
+    }
+    #helm-btn:hover { opacity: 1; }
+    #helm-svg { width: 48px; height: 48px; overflow: visible; display: block; }
+    #helm-g { transform-origin: 24px 24px; animation: helm-osc 7s ease-in-out infinite; }
+    @keyframes helm-osc { 0%,100%{transform:rotate(0)} 35%{transform:rotate(11deg)} 70%{transform:rotate(-8deg)} }
+
+    #vessel-strip {
+      display: flex; align-items: center; gap: 1.8rem;
+      margin-right: auto; padding-left: 0.5rem;
+    }
+    .vs-item { display: flex; flex-direction: column; gap: 0.1rem; }
+    .vs-key { font-family:'Space Mono',monospace; font-size:0.34rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--lavender); opacity:0.38; }
+    .vs-val { font-family:'Space Mono',monospace; font-size:0.44rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--lime); opacity:0.75; }
+
+    .nav-links { display:flex; align-items:center; gap:0; list-style:none; }
+    .nav-links a {
+      font-family:'Space Mono',monospace; font-size:0.56rem; letter-spacing:0.16em;
+      text-transform:uppercase; color:var(--lavender); text-decoration:none;
+      opacity:0.4; padding:0.5rem 0.9rem;
+      transition:opacity 0.25s, color 0.25s; white-space:nowrap;
+    }
+    .nav-links a:hover, .nav-links a.active { opacity:1; color:var(--lime); }
+
+    @media (max-width: 900px) { #vessel-strip { display:none; } }
+    @media (max-width: 660px) {
+      #topnav { height:52px; padding:0 1rem; }
+      #helm-svg { width:38px; height:38px; }
+      #helm-btn { margin-right:0.8rem; }
+      .nav-links a { font-size:0.48rem; padding:0.4rem 0.55rem; letter-spacing:0.1em; }
+    }
+    @media (max-width: 400px) {
+      .nav-links a { font-size:0.42rem; padding:0.35rem 0.4rem; }
     }
 
-    /* ══ HELM — minimal compass needle, no box ══ */
-    #helm {
-      position: fixed; top: 1.1rem; left: 1.1rem;
-      z-index: 300;
-      text-decoration: none;
-      opacity: 0.55; transition: opacity 0.3s;
-      display: flex; align-items: center; gap: 0.6rem;
-    }
-    #helm:hover { opacity: 1; }
-    #helm-svg { width: 28px; height: 28px; overflow: visible; }
-    #helm-needle {
-      transform-origin: 14px 14px;
-      animation: needle-drift 8s ease-in-out infinite;
-    }
-    @keyframes needle-drift {
-      0%,100% { transform: rotate(0deg); }
-      30%     { transform: rotate(12deg); }
-      70%     { transform: rotate(-9deg); }
-    }
-    .helm-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.52rem; letter-spacing: 0.25em;
-      text-transform: uppercase; color: var(--lavender);
-      opacity: 0.6;
-    }
-    @media (max-width: 600px) {
-      .helm-label { display: none; }
-      #helm { top: 0.8rem; left: 0.8rem; }
-    }
-
-    /* ══ NAV — top right constellation ══ */
-    #ship-nav {
-      position: fixed; right: 0; top: 50%;
-      transform: translateY(-50%);
-      z-index: 200;
-      display: flex; flex-direction: column;
-      align-items: flex-end; gap: 0;
-      padding-right: 1.4rem;
-    }
-    .nav-entry {
-      display: flex; align-items: center; gap: 0.6rem;
-      text-decoration: none; padding: 0.55rem 0;
-    }
-    .nav-entry-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.55rem; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--lavender);
-      opacity: 0.22; transition: opacity 0.3s, transform 0.3s;
-      transform: translateX(4px); white-space: nowrap; text-align: right;
-      line-height: 1.4;
-    }
-    .nav-entry-label strong {
-      display: block; font-weight: 700;
-      opacity: 0.8; font-size: 1em; color: var(--lime);
-    }
-    .nav-pip {
-      width: 5px; height: 5px; border-radius: 50%;
-      background: var(--lavender); opacity: 0.25; flex-shrink: 0;
-      transition: opacity 0.3s, transform 0.3s, background 0.3s;
-      position: relative;
-    }
-    .nav-pip::after {
-      content: ''; position: absolute; inset: -3px;
-      border-radius: 50%; border: 1px solid var(--lavender);
-      opacity: 0; transition: opacity 0.3s;
-    }
-    .nav-entry:hover .nav-entry-label,
-    .nav-entry.active .nav-entry-label { opacity: 0.85; transform: translateX(0); }
-    .nav-entry:hover .nav-pip,
-    .nav-entry.active .nav-pip { opacity: 1; transform: scale(1.6); background: var(--lime); }
-    .nav-entry:hover .nav-pip::after,
-    .nav-entry.active .nav-pip::after { opacity: 0.4; }
-    #ship-nav::before {
-      content: ''; position: absolute;
-      right: 1.55rem; top: 12px; bottom: 12px; width: 1px;
-      background: linear-gradient(to bottom,
-        transparent,
-        rgba(177,151,252,0.1) 15%,
-        rgba(177,151,252,0.1) 85%,
-        transparent);
-      pointer-events: none;
-    }
-
-    /* ══ VESSEL READOUTS — top right ══ */
-    #vessel-readouts {
-      position: fixed; top: 1.1rem; right: 5rem;
-      z-index: 200;
-      display: flex; flex-direction: row; gap: 1.8rem;
-      align-items: baseline;
-      opacity: 0.5;
-    }
-    .readout-item {
-      display: flex; flex-direction: column; gap: 0.2rem; align-items: flex-end;
-    }
-    .readout-key {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.42rem; letter-spacing: 0.28em;
-      text-transform: uppercase; color: var(--lavender); opacity: 0.55;
-    }
-    .readout-val {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.52rem; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--lime);
-    }
-
-    /* hull integrity — bottom left */
+    /* ══ HULL READOUT ══ */
     #hull-readout {
-      position: fixed; bottom: 1.4rem; left: 1.1rem;
-      z-index: 200; opacity: 0.38;
-      display: flex; flex-direction: column; gap: 0.35rem;
+      position:fixed; bottom:1.2rem; left:1.4rem;
+      z-index:200; opacity:0.32; pointer-events:none;
+      display:flex; flex-direction:column; gap:0.28rem;
     }
-    .hull-row {
-      display: flex; align-items: baseline; gap: 0.6rem;
-    }
-    .hull-key {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.42rem; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--lavender); opacity: 0.5;
-    }
-    .hull-val {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.48rem; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--lime);
-    }
+    .hull-row { display:flex; align-items:baseline; gap:0.55rem; }
+    .hull-key { font-family:'Space Mono',monospace; font-size:0.4rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--lavender); }
+    .hull-val { font-family:'Space Mono',monospace; font-size:0.46rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--lime); }
+    @media (max-width:660px) { #hull-readout { display:none; } }
 
-    @media (max-width: 768px) {
-      #vessel-readouts { display: none; }
-      #hull-readout { display: none; }
-      #ship-nav {
-        right: auto; top: auto; bottom: 0; left: 0; right: 0;
-        transform: none; flex-direction: row; justify-content: center;
-        padding: 0.7rem 1rem 0.9rem;
-        background: linear-gradient(to top, rgba(6,8,15,0.97) 60%, transparent);
-        gap: 0;
-      }
-      #ship-nav::before { display: none; }
-      .nav-entry { padding: 0.5rem 0.9rem; flex-direction: column; gap: 0.35rem; }
-      .nav-entry-label { transform: none; font-size: 0.45rem; text-align: center; }
-      .nav-entry-label strong { display: inline; }
-      .nav-pip { order: -1; }
-      .nav-entry:hover .nav-entry-label,
-      .nav-entry.active .nav-entry-label { opacity: 0.85; transform: none; }
+    /* ══ LOG ID ══ */
+    .log-id {
+      font-family:'Space Mono',monospace; font-size:0.7rem; letter-spacing:0.3em;
+      text-transform:uppercase; color:var(--lime);
+      opacity:0.9; display:block; margin-bottom:2.5rem;
+      text-shadow:0 0 14px rgba(200,240,58,0.45);
     }
 
     /* ══ SECTIONS ══ */
-    section { position: relative; z-index: 2; min-height: 100vh; }
+    section { position:relative; z-index:2; min-height:100vh; width:100%; }
+    .section-inner {
+      width:100%; max-width:860px;
+      margin:0 auto;
+      padding:100px 2.2rem 8vh;
+    }
+    @media (max-width:660px) { .section-inner { padding:76px 1.25rem 6vh; } }
 
-    .log-id {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem; letter-spacing: 0.3em;
-      text-transform: uppercase; color: var(--lime);
-      opacity: 0.9; display: block;
-      text-shadow: 0 0 12px rgba(200,240,58,0.4);
-    }
+    /* ══ § 1 LANDING ══ */
+    #landing { display:flex; align-items:center; }
+    #landing .section-inner { padding-top:130px; }
 
-    /* ══════════════════════════
-       § 1 LANDING
-    ══════════════════════════ */
-    #landing {
-      display: flex; align-items: center;
-      padding: 0 8vw;
-    }
-    .bridge-inner {
-      width: 100%; max-width: 900px;
-      margin: 0 auto; padding: 18vh 0 16vh;
-      position: relative;
-    }
-    .bridge-inner .log-id { margin-bottom: 4rem; }
-
-    /* name */
-    .captain-register {
-      margin-bottom: 5rem; position: relative;
-    }
     .register-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.52rem; letter-spacing: 0.4em;
-      text-transform: uppercase; color: var(--lime);
-      opacity: 0.45; display: block; margin-bottom: 1rem;
+      font-family:'Space Mono',monospace; font-size:0.54rem; letter-spacing:0.42em;
+      text-transform:uppercase; color:var(--lime); opacity:0.45;
+      display:block; margin-bottom:0.8rem;
     }
-    .captain-name { display: block; }
+    .captain-register { margin-bottom:4.5rem; }
 
-    /* ── SIMRAN — glitch-echo animation ── */
+    /* NAME — Bebas Neue: tall, condensed, unexpected on this serif site */
     .name-simran {
-      font-family: 'Playfair Display SC', serif;
-      font-weight: 900;
-      font-size: clamp(4.5rem, 13vw, 12rem);
-      line-height: 0.85; letter-spacing: -0.02em;
-      color: var(--cream); display: block;
-      position: relative;
-      animation: name-settle 1.8s cubic-bezier(0.16,1,0.3,1) both;
-    }
-    @keyframes name-settle {
-      0%   { opacity: 0; filter: blur(18px); transform: translateY(12px); }
-      40%  { opacity: 1; filter: blur(0); }
-      60%  { transform: translateY(-3px); }
-      100% { transform: translateY(0); }
-    }
-    /* chromatic aberration ghost layers */
-    .name-simran::before,
-    .name-simran::after {
-      content: attr(data-name);
-      position: absolute; top: 0; left: 0;
-      font-family: inherit; font-weight: inherit;
-      font-size: inherit; line-height: inherit;
-      letter-spacing: inherit;
-      pointer-events: none;
-      mix-blend-mode: screen;
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(5rem,18vw,14rem);
+      line-height:0.82; letter-spacing:0.04em;
+      color:var(--cream); display:block; position:relative;
     }
     .name-simran::before {
-      color: var(--lavender);
-      animation: ghost-left 5s ease-in-out 1.8s infinite;
-      opacity: 0;
+      content:attr(data-n); position:absolute; top:0; left:0;
+      font-family:inherit; font-size:inherit; line-height:inherit; letter-spacing:inherit;
+      color:var(--cyan); opacity:0; pointer-events:none; mix-blend-mode:screen;
+      animation:chr-l 6s ease-in-out 2.2s infinite;
     }
     .name-simran::after {
-      color: var(--lime);
-      animation: ghost-right 5s ease-in-out 1.8s infinite;
-      opacity: 0;
+      content:attr(data-n); position:absolute; top:0; left:0;
+      font-family:inherit; font-size:inherit; line-height:inherit; letter-spacing:inherit;
+      color:var(--lavender); opacity:0; pointer-events:none; mix-blend-mode:screen;
+      animation:chr-r 6s ease-in-out 2.2s infinite;
     }
-    @keyframes ghost-left {
-      0%,80%,100% { opacity: 0; transform: translate(0,0); }
-      10%  { opacity: 0.18; transform: translate(-4px, 1px); }
-      20%  { opacity: 0; transform: translate(-2px, 0); }
-      85%  { opacity: 0.09; transform: translate(-3px, 2px); }
+    @keyframes chr-l {
+      0%,68%,100%{opacity:0;transform:translate(0,0)}
+      10%{opacity:.22;transform:translate(-5px,1px)}
+      20%{opacity:.06;transform:translate(-2px,0)}
+      72%{opacity:.12;transform:translate(-4px,2px)}
+      78%{opacity:0}
     }
-    @keyframes ghost-right {
-      0%,80%,100% { opacity: 0; transform: translate(0,0); }
-      10%  { opacity: 0.12; transform: translate(4px, -1px); }
-      20%  { opacity: 0; transform: translate(2px, 0); }
-      85%  { opacity: 0.06; transform: translate(3px, -2px); }
+    @keyframes chr-r {
+      0%,68%,100%{opacity:0;transform:translate(0,0)}
+      10%{opacity:.16;transform:translate(5px,-1px)}
+      20%{opacity:.05;transform:translate(2px,0)}
+      72%{opacity:.08;transform:translate(3px,-2px)}
+      78%{opacity:0}
     }
-
-    /* occasional character-level glitch shimmer */
-    .name-simran .s-char {
-      display: inline-block;
-      transition: color 0.05s;
-    }
-
-    /* Poudel — lavender, no underline, offset */
     .name-poudel {
-      font-family: 'Playfair Display SC', serif;
-      font-weight: 400;
-      font-size: clamp(2.5rem, 6.5vw, 5.8rem);
-      line-height: 1; letter-spacing: 0.06em;
-      color: var(--lavender); display: block;
-      margin-left: clamp(2rem, 8vw, 9rem);
-      margin-top: 0.25rem;
-      opacity: 0.82;
-      animation: name-settle 2.1s cubic-bezier(0.16,1,0.3,1) 0.15s both;
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(2.8rem,9vw,7rem);
+      line-height:0.9; letter-spacing:0.08em;
+      color:var(--lavender); display:block;
+      margin-left:clamp(1.2rem,5vw,6rem); margin-top:0.15rem; opacity:0.78;
     }
-    .name-period { color: var(--lime); opacity: 1; }
-
-    .rank-stamp {
-      position: absolute; top: 50%; right: -1vw;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.42rem; letter-spacing: 0.28em;
-      text-transform: uppercase; color: var(--lavender);
-      opacity: 0.22; transform: rotate(90deg) translateY(-50%);
-      transform-origin: right center; white-space: nowrap;
-    }
-    @media (max-width: 700px) { .rank-stamp { display: none; } }
+    .name-period { color:var(--lime); }
 
     /* poem */
-    .poem-wrap {
-      display: flex; justify-content: center;
-      margin-bottom: 3.5rem;
-    }
-    .ship-poem {
-      text-align: center;
-      max-width: 520px;
-    }
+    .poem-wrap { display:flex; justify-content:center; margin-bottom:3rem; }
+    .ship-poem { text-align:center; max-width:520px; }
     .poem-stanza {
-      font-family: 'EB Garamond', serif; font-style: italic;
-      font-size: clamp(1.1rem, 1.7vw, 1.4rem);
-      line-height: 2.1; color: var(--cream); opacity: 0.62;
-      letter-spacing: 0.03em; margin-bottom: 1.8rem;
+      font-family:'EB Garamond',serif; font-style:italic;
+      font-size:clamp(1rem,1.7vw,1.32rem);
+      line-height:2.1; color:var(--cream); opacity:0.6;
+      letter-spacing:0.03em; margin-bottom:1.6rem;
     }
-    .poem-stanza em { font-style: normal; color: var(--lime); opacity: 1; }
-    .poem-indent { padding-left: 2em; display: block; }
-
+    .poem-stanza em { font-style:normal; color:var(--lime); opacity:1; }
+    .poem-indent { padding-left:2em; display:block; }
     .scroll-nudge {
-      display: inline-block;
-      font-family: 'EB Garamond', serif; font-style: italic;
-      font-size: clamp(1.25rem, 2vw, 1.6rem);
-      font-weight: 500;
-      color: var(--lime); opacity: 0.85; letter-spacing: 0.05em;
-      margin-top: 1.2rem;
-      animation: nudge-breathe 3.2s ease-in-out infinite;
+      display:block; margin-top:1.4rem;
+      font-family:'EB Garamond',serif; font-style:italic;
+      font-size:clamp(1.2rem,2.2vw,1.6rem); font-weight:500;
+      color:var(--lime); letter-spacing:0.05em;
+      animation:nudge-bob 3s ease-in-out infinite;
     }
-    @keyframes nudge-breathe {
-      0%,100% { opacity: 0.85; transform: translateY(0); }
-      50%     { opacity: 1;    transform: translateY(5px); }
-    }
+    @keyframes nudge-bob { 0%,100%{opacity:.82;transform:translateY(0)} 50%{opacity:1;transform:translateY(7px)} }
 
-    /* ══════════════════════════
-       § 2 CREDENTIALS
-    ══════════════════════════ */
-    #credentials { padding: 16vh 8vw 18vh; }
-    .cred-inner { max-width: 820px; margin: 0 auto; }
-    .cred-inner .log-id { margin-bottom: 2.5rem; }
+    /* ══ § 2 CREDENTIALS — accent lavender ══ */
+    #credentials .log-id { color:var(--lavender); text-shadow:0 0 14px rgba(177,151,252,.45); }
 
     .cred-heading {
-      font-family: 'Playfair Display SC', serif; font-weight: 400;
-      font-size: clamp(1.7rem, 3.5vw, 3rem);
-      line-height: 1.2; color: var(--cream); margin-bottom: 4rem;
+      font-family:'Playfair Display SC',serif; font-weight:400;
+      font-size:clamp(1.65rem,3.5vw,2.9rem); line-height:1.2;
+      color:var(--cream); margin-bottom:3.5rem;
     }
-    .cred-heading em {
-      font-family: 'EB Garamond', serif; font-style: italic;
-      font-weight: 400; color: var(--lavender); font-size: 0.9em;
-    }
+    .cred-heading em { font-family:'EB Garamond',serif; font-style:italic; color:var(--lavender); font-size:.9em; }
     .cred-body {
-      font-family: 'EB Garamond', serif;
-      font-size: clamp(1.1rem, 1.6vw, 1.28rem);
-      line-height: 2; color: var(--cream); opacity: 0.78;
-      max-width: 660px; margin-bottom: 2.5rem;
+      font-family:'EB Garamond',serif; font-size:clamp(1.05rem,1.5vw,1.2rem);
+      line-height:2; color:var(--cream); opacity:.78; max-width:660px; margin-bottom:2.5rem;
     }
-    .cred-body p { margin-bottom: 1.5em; }
-    .cred-body strong { font-style: normal; font-weight: 500; color: var(--lavender); }
+    .cred-body p { margin-bottom:1.5em; }
+    .cred-body strong { font-weight:500; color:var(--lavender); }
     .cred-open {
-      font-family: 'EB Garamond', serif;
-      font-size: clamp(1.1rem, 1.6vw, 1.28rem);
-      line-height: 2; color: var(--cream); opacity: 0.78;
-      max-width: 660px; margin-bottom: 4rem;
+      font-family:'EB Garamond',serif; font-size:clamp(1.05rem,1.5vw,1.2rem);
+      line-height:2; color:var(--cream); opacity:.78; max-width:660px; margin-bottom:3.5rem;
     }
     .cred-open-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.62rem; letter-spacing: 0.24em;
-      text-transform: uppercase; color: var(--lavender);
-      opacity: 0.85; display: block; margin-bottom: 0.8rem;
+      font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:.24em;
+      text-transform:uppercase; color:var(--lavender); opacity:.9; display:block; margin-bottom:.8rem;
     }
-    .cred-open p { margin-bottom: 0.8em; }
-    .cred-open strong { font-style: normal; font-weight: 500; color: var(--lavender); }
+    .cred-open p { margin-bottom:.8em; }
+    .cred-open strong { font-weight:500; color:var(--lavender); }
 
-    .specimen-row { display: flex; flex-wrap: wrap; gap: 1.8rem; }
+    .specimen-row { display:flex; flex-wrap:wrap; gap:1.4rem; }
     .specimen-tag {
-      display: inline-flex; flex-direction: column; gap: 0.3rem;
-      text-decoration: none; position: relative;
-      padding: 1.1rem 1.5rem 1rem;
-      border: 1px solid rgba(177,151,252,0.3);
-      background: rgba(177,151,252,0.03);
-      transition: border-color 0.3s, background 0.3s;
+      display:inline-flex; flex-direction:column; gap:.3rem;
+      text-decoration:none; position:relative;
+      padding:1rem 1.4rem .9rem;
+      border:1px solid rgba(177,151,252,.28);
+      background:rgba(177,151,252,.03);
+      transition:border-color .3s,background .3s;
     }
     .specimen-tag::before {
-      content: ''; position: absolute;
-      top: -9px; left: 50%; transform: translateX(-50%);
-      width: 16px; height: 9px;
-      background: rgba(177,151,252,0.15);
-      border: 1px solid rgba(177,151,252,0.3); border-radius: 1px;
+      content:''; position:absolute; top:-8px; left:50%; transform:translateX(-50%);
+      width:14px; height:8px;
+      background:rgba(177,151,252,.15); border:1px solid rgba(177,151,252,.3); border-radius:1px;
     }
-    .specimen-tag:hover {
-      border-color: rgba(177,151,252,0.65);
-      background: rgba(177,151,252,0.07);
-    }
-    .spec-num {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.52rem; letter-spacing: 0.28em;
-      text-transform: uppercase; color: var(--lavender); opacity: 0.65;
-    }
-    .spec-name {
-      font-family: 'EB Garamond', serif;
-      font-size: 1.1rem; color: var(--cream); opacity: 0.85; line-height: 1.4;
-    }
+    .specimen-tag:hover { border-color:rgba(177,151,252,.65); background:rgba(177,151,252,.08); }
+    .spec-num { font-family:'Space Mono',monospace; font-size:.52rem; letter-spacing:.28em; text-transform:uppercase; color:var(--lavender); opacity:.65; }
+    .spec-name { font-family:'EB Garamond',serif; font-size:1.05rem; color:var(--cream); opacity:.85; }
 
-    /* ══════════════════════════
-       § 3 COMMONPLACE
-    ══════════════════════════ */
-    #commonplace { padding: 16vh 8vw 18vh; }
-    .common-inner { max-width: 900px; margin: 0 auto; }
-    .common-inner .log-id { margin-bottom: 1.2rem; }
+    /* ══ § 3 COMMONPLACE — accent cyan ══ */
+    #commonplace .log-id { color:var(--cyan); text-shadow:0 0 14px rgba(0,217,192,.4); }
+
     .common-heading {
-      font-family: 'Playfair Display SC', serif; font-weight: 700;
-      font-size: clamp(1.6rem, 3.2vw, 2.8rem);
-      color: var(--lavender); opacity: 0.88;
-      margin-bottom: 0; line-height: 1.2;
+      font-family:'Playfair Display SC',serif; font-weight:700;
+      font-size:clamp(1.55rem,3.2vw,2.75rem); color:var(--cyan);
+      opacity:.85; margin-bottom:0; line-height:1.2;
     }
-    .common-hi {
-      font-family: 'Gochi Hand', cursive;
-      font-size: clamp(1.1rem, 2vw, 1.6rem);
-      color: var(--cream); opacity: 0.45;
-      display: inline; margin-left: 0.6em;
+    .common-hi { font-family:'Gochi Hand',cursive; font-size:clamp(1rem,2vw,1.55rem); color:var(--cream); opacity:.42; display:inline; margin-left:.6em; }
+    .common-sub-head { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1rem,1.6vw,1.22rem); color:var(--cream); opacity:.44; display:block; margin-bottom:4rem; }
+
+    .verse-bridge { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1rem,1.5vw,1.14rem); color:var(--cream); opacity:.5; line-height:2; margin-bottom:3rem; }
+    .verse-indent { padding-left:2.5em; display:block; }
+    .quotes-field { margin-bottom:4.5rem; }
+    .quote-float { margin-bottom:2.5rem; }
+    .quote-float:nth-child(2) { margin-left:clamp(1.5rem,8vw,6rem); }
+    .quote-float blockquote { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1.15rem,1.9vw,1.48rem); line-height:1.65; color:var(--cream); opacity:.7; max-width:540px; }
+    .quote-float .q-attr { font-family:'Space Mono',monospace; font-size:.52rem; letter-spacing:.18em; text-transform:uppercase; color:var(--cyan); opacity:.42; margin-top:.7rem; display:block; }
+    .secrets-verse { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1rem,1.5vw,1.14rem); color:var(--cream); opacity:.5; line-height:2; margin-bottom:3.5rem; }
+
+    /* DOSSIERS */
+    .dossiers {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:1.6rem; margin-bottom:5rem;
     }
-    .common-sub-head {
-      font-family: 'EB Garamond', serif; font-style: italic;
-      font-size: clamp(1.05rem, 1.7vw, 1.3rem);
-      color: var(--cream); opacity: 0.48;
-      display: block; margin-bottom: 4rem;
+    @media (max-width:580px) { .dossiers { grid-template-columns:1fr; gap:1.2rem; } }
+
+    .dossier {
+      position:relative;
+      background:rgba(0,217,192,.03);
+      border:1px solid rgba(0,217,192,.16);
+      padding:1.3rem 1.3rem 1.1rem;
+      clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%);
+    }
+    .dossier::before {
+      content:''; position:absolute; top:0; right:0;
+      width:0; height:0; border-style:solid;
+      border-width:0 16px 16px 0;
+      border-color:transparent rgba(0,217,192,.3) transparent transparent;
+    }
+    .dossier-class {
+      font-family:'Space Mono',monospace; font-size:.45rem; letter-spacing:.26em;
+      text-transform:uppercase; color:var(--cyan); opacity:.68; display:block;
+      border-bottom:1px solid rgba(0,217,192,.13); padding-bottom:.55rem; margin-bottom:.9rem;
+    }
+    .redact {
+      display:inline-block; background:rgba(0,217,192,.16);
+      border-bottom:2px solid rgba(0,217,192,.45);
+      height:1em; width:4.5em; vertical-align:middle; margin:0 .2em;
+    }
+    .dossier-body {
+      font-family:'EB Garamond',serif; font-style:italic;
+      font-size:clamp(.95rem,1.4vw,1.08rem); line-height:1.8; color:var(--cream); opacity:.7;
+    }
+    .dossier-body strong { font-style:normal; color:var(--cyan); font-weight:500; }
+    .dossier-id { font-family:'Space Mono',monospace; font-size:.38rem; letter-spacing:.2em; text-transform:uppercase; color:var(--cyan); opacity:.28; display:block; margin-top:.9rem; }
+    .dossier-stamp {
+      position:absolute; bottom:.9rem; right:1.1rem;
+      font-family:'Space Mono',monospace; font-size:.46rem; letter-spacing:.2em;
+      text-transform:uppercase; color:var(--cyan); opacity:.22;
+      border:1px solid rgba(0,217,192,.18); padding:.22rem .45rem;
+      transform:rotate(-3.5deg);
     }
 
-    .verse-bridge {
-      font-family: 'EB Garamond', serif; font-style: italic;
-      font-size: clamp(1rem, 1.5vw, 1.18rem);
-      color: var(--cream); opacity: 0.5; line-height: 2; margin-bottom: 3rem;
-    }
-    .verse-indent { padding-left: 2.5em; display: block; }
-    .quotes-field { margin-bottom: 5rem; }
-    .quote-float { margin-bottom: 2.8rem; }
-    .quote-float:nth-child(2) { margin-left: clamp(2rem, 10vw, 8rem); }
-    .quote-float blockquote {
-      font-family: 'EB Garamond', serif; font-style: italic;
-      font-size: clamp(1.2rem, 2vw, 1.55rem);
-      line-height: 1.65; color: var(--cream); opacity: 0.7; max-width: 540px;
-    }
-    .quote-float .q-attr {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.52rem; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--lavender);
-      opacity: 0.45; margin-top: 0.7rem; display: block;
-    }
-    .secrets-verse {
-      font-family: 'EB Garamond', serif; font-style: italic;
-      font-size: clamp(1rem, 1.5vw, 1.18rem);
-      color: var(--cream); opacity: 0.5; line-height: 2; margin-bottom: 4rem;
-    }
-
-    /* ── SECRETS — 4 organic, non-rectangular treatments ── */
-    .secrets-field {
-      position: relative;
-      margin-bottom: 5rem;
-      min-height: 420px;
-    }
-
-    /* Secret 1 — large text, arced along a curve via SVG */
-    .secret-1-wrap {
-      position: relative;
-      margin-bottom: 2rem;
-      z-index: 1;
-    }
-    .secret-1-arc {
-      width: 100%; max-width: 700px;
-      overflow: visible; display: block;
-    }
-    .secret-1-arc text {
-      font-family: 'Playfair Display SC', serif;
-      font-size: 28px; font-weight: 900;
-      fill: var(--lavender); opacity: 0.38;
-      letter-spacing: 2px;
-    }
-
-    /* Secret 2 — diagonal ribbon, Space Mono */
-    .secret-2 {
-      position: relative;
-      font-family: 'Space Mono', monospace;
-      font-size: clamp(0.6rem, 1vw, 0.82rem);
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--lime); opacity: 0.65;
-      line-height: 1.9;
-      max-width: 360px;
-      margin-left: auto;
-      margin-right: 3rem;
-      transform: rotate(-3.5deg) skewX(-2deg);
-      padding: 1rem 1.5rem;
-      border-left: 2px solid rgba(200,240,58,0.25);
-      z-index: 3; position: relative;
-    }
-    .secret-2 strong { color: var(--lime); opacity: 1; font-weight: 700; }
-    .secret-2::before {
-      content: '';
-      position: absolute; top: 0; right: -1.5rem; bottom: 0; left: 0;
-      background: linear-gradient(105deg, rgba(200,240,58,0.04), transparent);
-      clip-path: polygon(0 0, 100% 8%, 100% 92%, 0 100%);
-      z-index: -1;
-    }
-
-    /* Secret 3 — Gochi Hand in a tilted diamond layout */
-    .secret-3 {
-      font-family: 'Gochi Hand', cursive;
-      font-size: clamp(1.35rem, 2.5vw, 2.1rem);
-      color: var(--cream); opacity: 0.52;
-      line-height: 1.65;
-      margin-left: clamp(1rem, 6vw, 6rem);
-      margin-top: -1rem;
-      max-width: 480px;
-      position: relative; z-index: 2;
-      transform: rotate(1.2deg);
-    }
-    .secret-3::before {
-      content: '✦';
-      position: absolute; left: -1.8rem; top: 0.2rem;
-      font-size: 0.8rem; color: var(--lavender); opacity: 0.4;
-    }
-    .secret-3 strong {
-      font-style: normal; color: var(--lavender);
-    }
-
-    /* Secret 4 — pulled into a column on the right, like a torn margin note */
-    .secret-4-wrap {
-      display: flex; justify-content: flex-end;
-      margin-top: 1.5rem;
-      position: relative; z-index: 2;
-    }
-    .secret-4 {
-      font-family: 'EB Garamond', serif; font-style: italic;
-      font-size: clamp(1.1rem, 1.9vw, 1.5rem);
-      color: var(--lavender); opacity: 0.55;
-      line-height: 1.8;
-      max-width: 340px;
-      transform: rotate(-2deg);
-      padding: 1.2rem 1.4rem;
-      position: relative;
-    }
-    .secret-4::before {
-      content: '';
-      position: absolute; inset: 0;
-      border: 1px solid rgba(177,151,252,0.12);
-      clip-path: polygon(3% 0%, 100% 1%, 97% 100%, 0% 99%);
-    }
-    .secret-4::after {
-      content: '— the ship';
-      display: block;
-      font-family: 'Space Mono', monospace; font-style: normal;
-      font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--lavender); opacity: 0.4;
-      margin-top: 0.8rem;
-    }
-
-    /* ══════════════════════════
-       § 4 ABOUT
-    ══════════════════════════ */
-    #about { padding: 18vh 8vw 20vh; position: relative; }
-    .about-inner { max-width: 900px; margin: 0 auto; position: relative; }
+    /* ══ § 4 ABOUT — all three accents ══ */
+    #about .log-id { color:var(--lavender); text-shadow:0 0 14px rgba(177,151,252,.45); }
     .about-ghost {
-      position: absolute; top: -6vh; left: -2vw;
-      font-family: 'Playfair Display SC', serif; font-weight: 900;
-      font-size: clamp(7rem, 20vw, 18rem);
-      color: var(--lavender); opacity: 0.018;
-      line-height: 1; pointer-events: none;
-      letter-spacing: -0.04em; white-space: nowrap; user-select: none;
+      position:absolute; top:-4vh; left:-1vw;
+      font-family:'Playfair Display SC',serif; font-weight:900;
+      font-size:clamp(6rem,18vw,16rem); color:var(--lavender); opacity:.016;
+      line-height:1; pointer-events:none; letter-spacing:-.04em; white-space:nowrap; user-select:none;
     }
-    .about-inner .log-id { margin-bottom: 1.5rem; }
     .multitudes-hl {
-      font-family: 'Playfair Display SC', serif; font-weight: 900;
-      font-size: clamp(3.5rem, 8vw, 7.5rem);
-      line-height: 0.88; letter-spacing: -0.03em;
-      color: var(--cream); margin-bottom: 0.4rem;
+      font-family:'Playfair Display SC',serif; font-weight:900;
+      font-size:clamp(2.8rem,8vw,7rem); line-height:.9; letter-spacing:-.02em; color:var(--cream); margin-bottom:.35rem;
     }
-    .multitudes-hl .multitudes-italic {
-      font-family: 'EB Garamond', serif; font-style: italic;
-      font-weight: 400; color: var(--lavender); font-size: 0.86em;
-    }
-    .obviously {
-      font-family: 'Gochi Hand', cursive;
-      font-size: clamp(1.1rem, 2vw, 1.7rem);
-      color: var(--lavender); opacity: 0.6; display: block;
-      transform: rotate(-1deg); margin-bottom: 4rem;
-    }
-    .about-body { max-width: 660px; margin-bottom: 2rem; }
-    .about-body p {
-      font-family: 'EB Garamond', serif; font-style: italic;
-      font-size: clamp(1.1rem, 1.6vw, 1.28rem);
-      line-height: 2; color: var(--cream); opacity: 0.76; margin-bottom: 1.5rem;
-    }
-    .about-body p strong { font-style: normal; font-weight: 500; color: var(--lime); }
-    .about-body p:first-child::first-letter {
-      font-family: 'Playfair Display SC', serif;
-      font-size: 3.5rem; font-weight: 900;
-      float: left; line-height: 0.78;
-      margin: 0.08em 0.14em 0 0; color: var(--lavender);
-    }
-    .inner-monologue {
-      font-family: 'Gochi Hand', cursive;
-      font-size: 1.05rem; color: var(--lavender); opacity: 0.4;
-      display: block; transform: rotate(-0.5deg);
-      margin-bottom: 3.5rem; line-height: 1.7;
-    }
+    .multitudes-italic { font-family:'EB Garamond',serif; font-style:italic; font-weight:400; color:var(--lavender); font-size:.86em; }
+    .m-lime { color:var(--lime); } .m-cyan { color:var(--cyan); } .m-lav { color:var(--lavender); }
+    .obviously { font-family:'Gochi Hand',cursive; font-size:clamp(1rem,1.8vw,1.55rem); color:var(--lavender); opacity:.58; display:block; transform:rotate(-1deg); margin-bottom:3.5rem; }
+
+    .about-body { max-width:660px; margin-bottom:2rem; }
+    .about-body p { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1.05rem,1.5vw,1.2rem); line-height:2; color:var(--cream); opacity:.76; margin-bottom:1.5rem; }
+    .about-body p strong { font-style:normal; font-weight:500; color:var(--lime); }
+    .about-body p:first-child::first-letter { font-family:'Playfair Display SC',serif; font-size:3.2rem; font-weight:900; float:left; line-height:.78; margin:.1em .14em 0 0; color:var(--lavender); }
+
+    .inner-monologue { font-family:'Gochi Hand',cursive; font-size:1rem; color:var(--lavender); opacity:.36; display:block; transform:rotate(-.5deg); margin-bottom:3rem; line-height:1.7; }
     .unwhimsical-btn {
-      display: inline-flex; align-items: center;
-      text-decoration: none;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--lavender); border: 1px solid rgba(177,151,252,0.3);
-      padding: 0.85rem 1.4rem; opacity: 0.7;
-      transition: opacity 0.2s, border-color 0.2s; margin-bottom: 5rem;
+      display:inline-flex; align-items:center; text-decoration:none;
+      font-family:'Space Mono',monospace; font-size:.6rem; letter-spacing:.2em; text-transform:uppercase;
+      color:var(--lavender); border:1px solid rgba(177,151,252,.3);
+      padding:.85rem 1.4rem; opacity:.7; transition:opacity .2s,border-color .2s; margin-bottom:4.5rem;
     }
-    .unwhimsical-btn:hover { opacity: 1; border-color: rgba(177,151,252,0.65); }
+    .unwhimsical-btn:hover { opacity:1; border-color:rgba(177,151,252,.65); }
 
-    .writing-heading {
-      font-family: 'EB Garamond', serif; font-style: italic;
-      font-size: clamp(1.3rem, 2.2vw, 1.7rem);
-      color: var(--cream); opacity: 0.72;
-      display: block; margin-bottom: 2.5rem;
-      letter-spacing: 0.01em; line-height: 1.4;
-    }
-    .writing-heading em { color: var(--lavender); font-style: normal; }
+    .writing-heading { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1.2rem,2vw,1.6rem); color:var(--cream); opacity:.7; display:block; margin-bottom:2rem; }
+    .writing-heading em { color:var(--lavender); font-style:normal; }
+    .writing-list { list-style:none; max-width:600px; margin-bottom:2.5rem; }
+    .writing-item { border-bottom:1px solid rgba(177,151,252,.08); }
+    .writing-link { display:block; text-decoration:none; padding:1rem 0; transition:padding-left .25s; }
+    .writing-link:hover { padding-left:.5rem; }
+    .w-title { font-family:'EB Garamond',serif; font-size:clamp(1.05rem,1.5vw,1.18rem); color:var(--cream); opacity:.78; display:block; }
+    .writing-link:hover .w-title { color:var(--lavender); opacity:1; }
 
-    .writing-list { list-style: none; max-width: 600px; margin-bottom: 2.5rem; }
-    .writing-item { border-bottom: 1px solid rgba(177,151,252,0.08); }
-    .writing-link {
-      display: block; text-decoration: none;
-      padding: 1.1rem 0; transition: padding-left 0.25s;
-    }
-    .writing-link:hover { padding-left: 0.5rem; }
-    .w-title {
-      font-family: 'EB Garamond', serif;
-      font-size: clamp(1.1rem, 1.6vw, 1.25rem);
-      color: var(--cream); opacity: 0.78; line-height: 1.4; display: block;
-    }
-    .writing-link:hover .w-title { color: var(--lavender); opacity: 1; }
+    .ticker-wrap { overflow:hidden; border-top:1px solid rgba(177,151,252,.07); border-bottom:1px solid rgba(200,240,58,.07); padding:.85rem 0; margin-top:3.5rem; }
+    .ticker-track { display:flex; width:max-content; animation:ticker-scroll 40s linear infinite; }
+    @keyframes ticker-scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    .ticker-item { font-family:'Space Mono',monospace; font-size:.52rem; letter-spacing:.18em; text-transform:uppercase; color:var(--lavender); opacity:.38; padding:0 2.5rem; white-space:nowrap; }
+    .ticker-item span { color:var(--lime); opacity:.7; margin-right:2rem; }
 
-    .ticker-wrap {
-      overflow: hidden;
-      border-top: 1px solid rgba(177,151,252,0.07);
-      border-bottom: 1px solid rgba(200,240,58,0.07);
-      padding: 0.85rem 0; margin-top: 4rem;
-    }
-    .ticker-track {
-      display: flex; width: max-content;
-      animation: ticker-scroll 38s linear infinite;
-    }
-    @keyframes ticker-scroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    .ticker-item {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.55rem; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--lavender);
-      opacity: 0.38; padding: 0 2.5rem; white-space: nowrap;
-    }
-    .ticker-item span { color: var(--lime); opacity: 0.7; margin-right: 2.5rem; }
+    /* ══ § 5 CONTACT — accent cyan ══ */
+    #contact { display:flex; align-items:center; }
+    #contact .log-id { color:var(--cyan); text-shadow:0 0 14px rgba(0,217,192,.4); }
+    .contact-heading { font-family:'Playfair Display SC',serif; font-weight:900; font-size:clamp(2.4rem,7vw,6rem); line-height:.9; color:var(--cream); margin-bottom:.4rem; letter-spacing:-.02em; }
+    .contact-subhead { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(.98rem,1.6vw,1.22rem); color:var(--cyan); opacity:.52; display:block; margin-bottom:3rem; }
+    .contact-letter { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1rem,1.4vw,1.16rem); line-height:2; color:var(--cream); opacity:.65; max-width:540px; margin-bottom:.4rem; }
+    .contact-letter p { margin-bottom:.6em; }
+    .contact-verse { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(.95rem,1.4vw,1.08rem); color:var(--cyan); opacity:.44; display:block; margin-bottom:3.5rem; line-height:2; }
 
-    /* ══════════════════════════
-       § 5 CONTACT
-    ══════════════════════════ */
-    #contact {
-      min-height: 100vh; display: flex;
-      align-items: center; padding: 0 8vw; position: relative;
-    }
-    .contact-inner {
-      position: relative; width: 100%;
-      max-width: 700px; margin: 0 auto; padding: 16vh 0 14vh;
-    }
-    .contact-inner .log-id { margin-bottom: 2rem; }
-    .contact-heading {
-      font-family: 'Playfair Display SC', serif; font-weight: 900;
-      font-size: clamp(2.5rem, 6.5vw, 6rem);
-      line-height: 0.9; color: var(--cream);
-      margin-bottom: 0.5rem; letter-spacing: -0.02em;
-    }
-    .contact-subhead {
-      font-family: 'EB Garamond', serif; font-style: italic;
-      font-size: clamp(1.05rem, 1.6vw, 1.3rem);
-      color: var(--lavender); opacity: 0.6;
-      display: block; margin-bottom: 3.5rem;
-    }
-    .contact-letter {
-      font-family: 'EB Garamond', serif; font-style: italic;
-      font-size: clamp(1.05rem, 1.5vw, 1.22rem);
-      line-height: 2; color: var(--cream); opacity: 0.65;
-      max-width: 560px; margin-bottom: 0.5rem;
-    }
-    .contact-letter p { margin-bottom: 0.6em; }
-    .contact-verse {
-      font-family: 'EB Garamond', serif; font-style: italic;
-      font-size: clamp(1rem, 1.4vw, 1.1rem);
-      color: var(--lavender); opacity: 0.5;
-      display: block; margin-bottom: 4rem; line-height: 2;
-    }
-
-    /* ── BIG contact links ── */
-    .contact-links {
-      display: flex; flex-direction: column; gap: 0;
-      margin-bottom: 5rem;
-    }
+    .contact-links { display:flex; flex-direction:column; gap:0; margin-bottom:4.5rem; }
     .contact-link-row {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.4rem 0;
-      border-bottom: 1px solid rgba(177,151,252,0.1);
-      text-decoration: none; transition: padding-left 0.25s;
-      gap: 1rem;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:1.3rem 0; border-bottom:1px solid rgba(0,217,192,.1);
+      text-decoration:none; transition:padding-left .25s; gap:1rem;
     }
-    .contact-link-row:first-child { border-top: 1px solid rgba(177,151,252,0.1); }
-    .contact-link-row:hover { padding-left: 0.5rem; }
-    .link-platform {
-      font-family: 'Playfair Display SC', serif;
-      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
-      color: var(--cream); opacity: 0.85;
-      line-height: 1; letter-spacing: -0.01em;
-      transition: color 0.25s, opacity 0.25s;
-    }
-    .contact-link-row:hover .link-platform {
-      color: var(--lavender); opacity: 1;
-    }
-    .link-aside {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.52rem; letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--lavender); opacity: 0.35;
-      white-space: nowrap;
-    }
+    .contact-link-row:first-child { border-top:1px solid rgba(0,217,192,.1); }
+    .contact-link-row:hover { padding-left:.5rem; }
+    .link-platform { font-family:'Playfair Display SC',serif; font-size:clamp(1.7rem,4.5vw,3rem); color:var(--cream); opacity:.85; line-height:1; letter-spacing:-.01em; transition:color .25s,opacity .25s; }
+    .contact-link-row:hover .link-platform { color:var(--cyan); opacity:1; }
+    .link-aside { font-family:'Space Mono',monospace; font-size:.5rem; letter-spacing:.16em; text-transform:uppercase; color:var(--cyan); opacity:.33; white-space:nowrap; }
+    @media (max-width:460px) { .link-aside { display:none; } }
 
-    .interlude {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.52rem; letter-spacing: 0.28em;
-      text-transform: uppercase; color: var(--lavender);
-      opacity: 0.38; display: block; margin-bottom: 0.8rem;
-    }
-    .contact-signoff {
-      font-family: 'Gochi Hand', cursive;
-      font-size: clamp(1.3rem, 2.2vw, 1.9rem);
-      color: var(--lavender); opacity: 0.45;
-      transform: rotate(1.2deg); line-height: 1.7; display: block;
-    }
+    .interlude { font-family:'Space Mono',monospace; font-size:.52rem; letter-spacing:.26em; text-transform:uppercase; color:var(--lavender); opacity:.36; display:block; margin-bottom:.8rem; }
+    .contact-signoff { font-family:'Gochi Hand',cursive; font-size:clamp(1.25rem,2.2vw,1.85rem); color:var(--lavender); opacity:.44; transform:rotate(1.2deg); line-height:1.7; display:block; }
 
     /* ══ FOOTER ══ */
     footer {
-      position: relative; z-index: 2;
-      padding: 1.8rem 8vw;
-      border-top: 1px solid rgba(177,151,252,0.04);
-      display: flex; justify-content: space-between;
-      align-items: center; flex-wrap: wrap; gap: 0.5rem;
+      position:relative; z-index:2; padding:1.6rem 2.2rem;
+      border-top:1px solid rgba(177,151,252,.05);
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem;
     }
-    .foot-l, .foot-r {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.48rem; letter-spacing: 0.13em; text-transform: uppercase;
-    }
-    .foot-l { color: rgba(177,151,252,0.22); }
-    .foot-r { color: rgba(177,151,252,0.15); }
-
-    /* ══ MOBILE OVERRIDES ══ */
-    @media (max-width: 600px) {
-      body { font-size: 17px; }
-      #landing { padding: 0 6vw; }
-      .bridge-inner { padding: 14vh 0 18vh; }
-      #credentials, #commonplace, #about { padding: 12vh 6vw 14vh; }
-      #contact { padding: 0 6vw; }
-      .contact-inner { padding: 12vh 0 16vh; }
-      .secrets-field { min-height: auto; }
-      .secret-2 { margin-right: 0; max-width: 100%; }
-      .secret-4-wrap { justify-content: flex-start; }
-      .quote-float:nth-child(2) { margin-left: 1rem; }
-      .contact-link-row { padding: 1.2rem 0; }
-      .link-platform { font-size: clamp(1.4rem, 7vw, 2rem); }
-      footer { flex-direction: column; align-items: flex-start; }
-    }
-
-    @media (max-width: 768px) {
-      /* give breathing room above bottom nav */
-      #contact { padding-bottom: 6rem; }
-      #about { padding-bottom: 8rem; }
-      .ticker-wrap { margin-bottom: 2rem; }
-    }
-
+    .foot-l,.foot-r { font-family:'Space Mono',monospace; font-size:.46rem; letter-spacing:.13em; text-transform:uppercase; }
+    .foot-l { color:rgba(177,151,252,.22); }
+    .foot-r { color:rgba(177,151,252,.13); }
+    @media (max-width:480px) { footer { flex-direction:column; align-items:flex-start; } }
   </style>
 </head>
 <body>
 
-  <canvas id="bg-canvas"></canvas>
+<canvas id="bg-canvas"></canvas>
 
-  <!-- HELM — minimal compass needle -->
-  <a href="#landing" id="helm" aria-label="Return to bridge">
-    <svg id="helm-svg" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g id="helm-needle">
-        <!-- north needle — lime -->
-        <polygon points="14,2 16,14 14,15 12,14" fill="#c8f03a" opacity="0.9"/>
-        <!-- south needle — lavender -->
-        <polygon points="14,15 16,14 14,26 12,14" fill="#b197fc" opacity="0.6"/>
-        <!-- centre pip -->
-        <circle cx="14" cy="14" r="2.2" fill="#06080f" stroke="#b197fc" stroke-width="0.8"/>
-        <circle cx="14" cy="14" r="0.9" fill="#c8f03a" opacity="0.8"/>
+<!-- TOP NAV -->
+<nav id="topnav" aria-label="Ship navigation">
+  <button id="helm-btn" aria-label="Return to bridge">
+    <svg id="helm-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g id="helm-g">
+        <circle cx="24" cy="24" r="20" stroke="#b197fc" stroke-width="1.7" fill="none" opacity=".8"/>
+        <circle cx="24" cy="24" r="14" stroke="#b197fc" stroke-width=".5" fill="none" opacity=".22"/>
+        <!-- 8 spokes -->
+        <line x1="24" y1="4"  x2="24" y2="11" stroke="#b197fc" stroke-width="1.4" opacity=".75"/>
+        <line x1="24" y1="37" x2="24" y2="44" stroke="#b197fc" stroke-width="1.4" opacity=".75"/>
+        <line x1="4"  y1="24" x2="11" y2="24" stroke="#b197fc" stroke-width="1.4" opacity=".75"/>
+        <line x1="37" y1="24" x2="44" y2="24" stroke="#b197fc" stroke-width="1.4" opacity=".75"/>
+        <line x1="8.7"  y1="8.7"  x2="13.5" y2="13.5" stroke="#b197fc" stroke-width="1.1" opacity=".6"/>
+        <line x1="34.5" y1="34.5" x2="39.3" y2="39.3" stroke="#b197fc" stroke-width="1.1" opacity=".6"/>
+        <line x1="39.3" y1="8.7"  x2="34.5" y2="13.5" stroke="#b197fc" stroke-width="1.1" opacity=".6"/>
+        <line x1="13.5" y1="34.5" x2="8.7"  y2="39.3" stroke="#b197fc" stroke-width="1.1" opacity=".6"/>
+        <!-- handles -->
+        <rect x="22"   y="2"    width="4" height="4" rx="1" fill="#06080f" stroke="#b197fc" stroke-width=".9" opacity=".9"/>
+        <rect x="22"   y="42"   width="4" height="4" rx="1" fill="#06080f" stroke="#b197fc" stroke-width=".9" opacity=".9"/>
+        <rect x="2"    y="22"   width="4" height="4" rx="1" fill="#06080f" stroke="#b197fc" stroke-width=".9" opacity=".9"/>
+        <rect x="42"   y="22"   width="4" height="4" rx="1" fill="#06080f" stroke="#b197fc" stroke-width=".9" opacity=".9"/>
+        <rect x="6.5"  y="6.5"  width="3.2" height="3.2" rx=".7" fill="#06080f" stroke="#b197fc" stroke-width=".8" opacity=".8"/>
+        <rect x="38.3" y="38.3" width="3.2" height="3.2" rx=".7" fill="#06080f" stroke="#b197fc" stroke-width=".8" opacity=".8"/>
+        <rect x="38.3" y="6.5"  width="3.2" height="3.2" rx=".7" fill="#06080f" stroke="#b197fc" stroke-width=".8" opacity=".8"/>
+        <rect x="6.5"  y="38.3" width="3.2" height="3.2" rx=".7" fill="#06080f" stroke="#b197fc" stroke-width=".8" opacity=".8"/>
+        <!-- hub -->
+        <circle cx="24" cy="24" r="4.5" fill="#06080f" stroke="#b197fc" stroke-width="1.2" opacity=".95"/>
+        <circle cx="24" cy="24" r="2.2" fill="#c8f03a" opacity=".9"/>
       </g>
-      <!-- cardinal ring -->
-      <circle cx="14" cy="14" r="12.5" stroke="#b197fc" stroke-width="0.4" opacity="0.2"
-              stroke-dasharray="1.5 5"/>
     </svg>
-    <span class="helm-label">bridge</span>
-  </a>
+  </button>
 
-  <!-- VESSEL READOUTS — top right -->
-  <div id="vessel-readouts" aria-hidden="true">
-    <div class="readout-item">
-      <span class="readout-key">Vessel</span>
-      <span class="readout-val">Dagger.15.</span>
-    </div>
-    <div class="readout-item">
-      <span class="readout-key">Status</span>
-      <span class="readout-val">In Transit</span>
-    </div>
-    <div class="readout-item">
-      <span class="readout-key">Coordinates</span>
-      <span class="readout-val">Confidential</span>
-    </div>
-    <div class="readout-item">
-      <span class="readout-key">Cargo</span>
-      <span class="readout-val">Multitudes</span>
-    </div>
+  <div id="vessel-strip" aria-hidden="true">
+    <div class="vs-item"><span class="vs-key">Vessel</span><span class="vs-val">Dagger.15.</span></div>
+    <div class="vs-item"><span class="vs-key">Status</span><span class="vs-val">In Transit</span></div>
+    <div class="vs-item"><span class="vs-key">Coordinates</span><span class="vs-val">Confidential</span></div>
+    <div class="vs-item"><span class="vs-key">Cargo</span><span class="vs-val">Multitudes</span></div>
   </div>
 
-  <!-- HULL READOUT — bottom left -->
-  <div id="hull-readout" aria-hidden="true">
-    <div class="hull-row">
-      <span class="hull-key">Hull</span>
-      <span class="hull-val">Intact</span>
+  <ul class="nav-links">
+    <li><a href="#credentials" data-section="credentials">Capt. Log 001</a></li>
+    <li><a href="#commonplace" data-section="commonplace">Ship Log 002</a></li>
+    <li><a href="#about"       data-section="about">Capt. Log 002</a></li>
+    <li><a href="#contact"     data-section="contact">Ship Log 003</a></li>
+  </ul>
+</nav>
+
+<div id="hull-readout" aria-hidden="true">
+  <div class="hull-row"><span class="hull-key">Hull</span><span class="hull-val">Intact</span></div>
+  <div class="hull-row"><span class="hull-key">Vines</span><span class="hull-val">Thriving</span></div>
+</div>
+
+<!-- cursor -->
+<div id="cursor-wrap" aria-hidden="true">
+  <svg viewBox="0 0 14 38" fill="none">
+    <polygon points="7,0 9.5,16 7,19 4.5,16" fill="#b197fc" opacity=".92"/>
+    <polygon points="7,0 7,19 9.5,16" fill="#fff" opacity=".15"/>
+    <line x1="7" y1="1" x2="7" y2="18" stroke="#fff" stroke-width=".35" opacity=".2" stroke-linecap="round"/>
+    <polygon points="7,19 9.5,22 7,38 4.5,22" fill="#2a1860" opacity=".85"/>
+    <ellipse cx="7" cy="19" rx="2.8" ry="1.4" fill="#1a1035" stroke="#b197fc" stroke-width=".5" opacity=".8"/>
+    <ellipse cx="7" cy="19" rx="1.2" ry=".6" fill="#b197fc" opacity=".5"/>
+    <path d="M7,-2 L7.25,-.5 L8.5,-.8 L7.4,0 L8.5,.8 L7.25,.5 L7,2 L6.75,.5 L5.5,.8 L6.6,0 L5.5,-.8 L6.75,-.5 Z" fill="#fff" opacity=".8"/>
+  </svg>
+</div>
+<div class="cursor-ripple" id="cursor-ripple"></div>
+
+<!-- §1 LANDING -->
+<section id="landing" data-room="landing">
+  <div class="section-inner">
+    <span class="log-id">Ship's Log. 001</span>
+    <div class="captain-register">
+      <span class="register-label">captain on record</span>
+      <span class="name-simran" data-n="Simran">Simran</span>
+      <span class="name-poudel">Poudel<span class="name-period">.</span></span>
     </div>
-    <div class="hull-row">
-      <span class="hull-key">Vines</span>
-      <span class="hull-val">Thriving</span>
+    <div class="poem-wrap">
+      <div class="ship-poem">
+        <div class="poem-stanza">
+          For I am the ship,<br>
+          hence I must claim<br>
+          The captain here, she's quite...<br>
+          <em>un-refrained</em>
+        </div>
+        <div class="poem-stanza">
+          Oh, and, welcome you, I would,<br>
+          <span class="poem-indent">Except... I would deter from my role.</span>
+          As the captain insists on your indulgence;
+        </div>
+        <span class="scroll-nudge">Shall we then, go on a scroll?</span>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- SHIP NAV -->
-  <nav id="ship-nav" aria-label="Ship navigation">
-    <a href="#credentials" class="nav-entry" data-section="credentials">
-      <span class="nav-entry-label"><strong>Captain's Log. 001</strong>credentials</span>
-      <span class="nav-pip"></span>
-    </a>
-    <a href="#commonplace" class="nav-entry" data-section="commonplace">
-      <span class="nav-entry-label"><strong>Ship's Log. 002</strong>the shelf</span>
-      <span class="nav-pip"></span>
-    </a>
-    <a href="#about" class="nav-entry" data-section="about">
-      <span class="nav-entry-label"><strong>Captain's Log. 002</strong>the lounge</span>
-      <span class="nav-pip"></span>
-    </a>
-    <a href="#contact" class="nav-entry" data-section="contact">
-      <span class="nav-entry-label"><strong>Ship's Log. 003</strong>the hatch</span>
-      <span class="nav-pip"></span>
-    </a>
-  </nav>
-
-  <!-- CURSOR -->
-  <div id="cursor-wrap" aria-hidden="true">
-    <svg viewBox="0 0 14 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="7,0 9.5,16 7,19 4.5,16" fill="#b197fc" opacity="0.92"/>
-      <polygon points="7,0 7,19 9.5,16" fill="#ffffff" opacity="0.15"/>
-      <line x1="7" y1="1" x2="7" y2="18" stroke="#ffffff" stroke-width="0.35" opacity="0.2" stroke-linecap="round"/>
-      <polygon points="7,19 9.5,22 7,38 4.5,22" fill="#2a1860" opacity="0.85"/>
-      <polygon points="7,19 7,38 9.5,22" fill="#b197fc" opacity="0.08"/>
-      <ellipse cx="7" cy="19" rx="2.8" ry="1.4" fill="#1a1035" stroke="#b197fc" stroke-width="0.5" opacity="0.8"/>
-      <ellipse cx="7" cy="19" rx="1.2" ry="0.6" fill="#b197fc" opacity="0.5"/>
-      <path d="M7,-2 L7.25,-0.5 L8.5,-0.8 L7.4,0 L8.5,0.8 L7.25,0.5 L7,2 L6.75,0.5 L5.5,0.8 L6.6,0 L5.5,-0.8 L6.75,-0.5 Z" fill="#ffffff" opacity="0.8"/>
-    </svg>
-  </div>
-  <div class="cursor-ripple" id="cursor-ripple"></div>
-
-  <!-- ══ § 1 LANDING ══ -->
-  <section id="landing" data-room="landing">
-    <div class="bridge-inner">
-
-      <span class="log-id">Ship's Log. 001</span>
-
-      <div class="captain-register">
-        <span class="register-label">captain on record</span>
-        <div class="captain-name">
-          <span class="name-simran" data-name="Simran" id="nameSimran">Simran</span>
-          <span class="name-poudel">Poudel<span class="name-period">.</span></span>
-        </div>
-        <span class="rank-stamp">BSc Microbiology · MA English Lit</span>
-      </div>
-
-      <div class="poem-wrap">
-        <div class="ship-poem">
-          <div class="poem-stanza">
-            For I am the ship,<br>
-            hence I must claim<br>
-            The captain here, she's quite...<br>
-            <em>un-refrained</em>
-          </div>
-          <div class="poem-stanza">
-            Oh, and, welcome you, I would,<br>
-            <span class="poem-indent">Except... I would deter from my role.</span>
-            As the captain insists on your indulgence;
-          </div>
-          <span class="scroll-nudge">Shall we then, go on a scroll?</span>
-        </div>
-      </div>
-
+<!-- §2 CREDENTIALS -->
+<section id="credentials" data-room="credentials">
+  <div class="section-inner">
+    <span class="log-id">Captain's Log. 001</span>
+    <h2 class="cred-heading">
+      If Credentials Is What You Seek,<br>
+      <em>With All Formalities I Must Speak...</em>
+    </h2>
+    <div class="cred-body">
+      <p>I completed my BSc in Microbiology from Tri-Chandra Multiple Campus, Tribhuvan University. My undergraduate degree included an independent research project on <strong>"Bacterial Contamination and Prevalence of Pathogens Across Various Establishments in Kathmandu"</strong>. And, I am currently pursuing an MA in English Literature to keep my love for art and science balanced.</p>
     </div>
-  </section>
-
-  <!-- ══ § 2 CREDENTIALS ══ -->
-  <section id="credentials" data-room="credentials">
-    <div class="cred-inner">
-      <span class="log-id">Captain's Log. 001</span>
-      <h2 class="cred-heading">
-        If Credentials Is What You Seek,<br>
-        <em>With All Formalities I Must Speak...</em>
-      </h2>
-      <div class="cred-body">
-        <p>
-          I completed my BSc in Microbiology from Tri-Chandra Multiple Campus, Tribhuvan University.
-          My undergraduate degree included an independent research project on <strong>"Bacterial
-          Contamination and Prevalence of Pathogens Across Various Establishments in Kathmandu"</strong>.
-          And, I am currently pursuing an MA in English Literature to keep my love for art and
-          science balanced.
-        </p>
-      </div>
-      <div class="cred-open">
-        <span class="cred-open-label">Open To: Remote Work</span>
-        <p>
-          In research, science communication, writing, editorial, or adjacent.
-          Specially interested in anything touching <strong>environment and bioremediation</strong>.
-          Prefer organisations where good work and a good life are not in competition.
-        </p>
-      </div>
-      <div class="specimen-row">
-        <a href="YOUR_GOOGLE_DRIVE_CV_LINK" target="_blank" class="specimen-tag">
-          <span class="spec-num">Specimen 001</span>
-          <span class="spec-name">Download CV</span>
-        </a>
-        <a href="YOUR_GOOGLE_DRIVE_THESIS_LINK" target="_blank" class="specimen-tag">
-          <span class="spec-num">Specimen 002</span>
-          <span class="spec-name">Research Project PDF</span>
-        </a>
-      </div>
+    <div class="cred-open">
+      <span class="cred-open-label">Open To: Remote Work</span>
+      <p>In research, science communication, writing, editorial, or adjacent. Specially interested in anything touching <strong>environment and bioremediation</strong>. Prefer organisations where good work and a good life are not in competition.</p>
     </div>
-  </section>
-
-  <!-- ══ § 3 COMMONPLACE ══ -->
-  <section id="commonplace" data-room="commonplace">
-    <div class="common-inner">
-      <span class="log-id">Ship's Log. 002</span>
-      <h2 class="common-heading">
-        Good Evening, Passengers. <span class="common-hi">Hi.</span>
-      </h2>
-      <span class="common-sub-head">Her Mental Sky, Shall We Pry?</span>
-
-      <div class="verse-bridge">
-        On quotes, other travellers, say what may<br>
-        <span class="verse-indent">Some grow roots, however cliché...</span>
-      </div>
-
-      <div class="quotes-field">
-        <div class="quote-float">
-          <blockquote>Everyone is an artist until rent is due.</blockquote>
-          <span class="q-attr">— anonymous.</span>
-        </div>
-        <div class="quote-float">
-          <blockquote>Start where you are. Use what you have. Do what you can.</blockquote>
-          <span class="q-attr">— Arthur Ashe.</span>
-        </div>
-      </div>
-
-      <div class="secrets-verse">
-        Confide in you, about the captain, if I may<br>
-        <span class="verse-indent">Or spill some secrets, while she's away?</span>
-      </div>
-
-      <!-- SECRETS — non-rectangular, sculptural -->
-      <div class="secrets-field">
-
-        <!-- 1: text on an SVG arc -->
-        <div class="secret-1-wrap">
-          <svg class="secret-1-arc" viewBox="0 0 700 120" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <path id="arc1" d="M 30,100 Q 350,-30 670,100"/>
-            </defs>
-            <text>
-              <textPath href="#arc1" startOffset="50%" text-anchor="middle"
-                        font-family="'Playfair Display SC', serif" font-size="22"
-                        font-weight="900" fill="#b197fc" opacity="0.42"
-                        letter-spacing="3">
-                Thinks too much about philosophies beyond her comprehension.
-              </textPath>
-            </text>
-          </svg>
-        </div>
-
-        <!-- 2: diagonal ribbon, right side -->
-        <div class="secret-2">
-          perhaps it would not be my place<br>
-          to mention her inkling towards<br>
-          <strong>sentient spaceships.</strong><br>
-          oh, well.
-        </div>
-
-        <!-- 3: Gochi, left, star marker -->
-        <div class="secret-3">
-          Thought she could conquer the world after learning<br>
-          beginner's level knitting <strong>and</strong> crochet.<br>
-          Said thought lasted very short while, I should add.
-        </div>
-
-        <!-- 4: warped parallelogram, far right -->
-        <div class="secret-4-wrap">
-          <div class="secret-4">
-            Is musically tasteless, except Hozier.
-            Perhaps she might benefit from what you call, a good playlist.
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ § 4 ABOUT ══ -->
-  <section id="about" data-room="about">
-    <div class="about-inner">
-      <span class="about-ghost" aria-hidden="true">multitudes</span>
-      <span class="log-id">Captain's Log. 002</span>
-
-      <h2 class="multitudes-hl">
-        I Contain <span class="multitudes-italic">Multitudes.</span>
-      </h2>
-      <span class="obviously">(Obviously!)</span>
-
-      <div class="about-body">
-        <p>
-          The said multitudes being random ideas yearning to materialise. The same ones,
-          that on second read morph into incoherent, nonsensical scribbles that puzzle me.
-          I also, might or might not contain multitudes of <strong>forced rhymes</strong> on most
-          things I write because my brain has categorised it as a personality trait.
-        </p>
-        <p>
-          The multitudes may extend to metaphors, that are pretentious of course
-          (you know, to match my personality, or is it the other way around?).
-          I enjoy art in multitude forms as well, if you aren't already tired of the word
-          (to consume, not necessarily to create. but you already knew that).
-          And, well, I grew up watching Doraemon.
-        </p>
-      </div>
-
-      <span class="inner-monologue">
-        Inner Monologue: I think, this is authentic enough? Sure. Let's go with it.
-      </span>
-
-      <a href="#credentials" class="unwhimsical-btn">
-        for un-whimsical humans
+    <div class="specimen-row">
+      <a href="YOUR_GOOGLE_DRIVE_CV_LINK" target="_blank" class="specimen-tag">
+        <span class="spec-num">Specimen 001</span>
+        <span class="spec-name">Download CV</span>
       </a>
+      <a href="YOUR_GOOGLE_DRIVE_THESIS_LINK" target="_blank" class="specimen-tag">
+        <span class="spec-num">Specimen 002</span>
+        <span class="spec-name">Research Project PDF</span>
+      </a>
+    </div>
+  </div>
+</section>
 
-      <span class="writing-heading">
-        Not that you asked, but I <em>(kind of, not really, but almost)</em> write...
-      </span>
-      <ul class="writing-list">
-        <li class="writing-item">
-          <a href="YOUR_SUBSTACK_LINK_1" target="_blank" class="writing-link">
-            <span class="w-title">Why I Write</span>
-          </a>
-        </li>
-        <li class="writing-item">
-          <a href="YOUR_SUBSTACK_LINK_2" target="_blank" class="writing-link">
-            <span class="w-title">My Apocalypse Preventing Darling</span>
-          </a>
-        </li>
-        <li class="writing-item">
-          <a href="YOUR_SUBSTACK_LINK_3" target="_blank" class="writing-link">
-            <span class="w-title">Destination</span>
-          </a>
-        </li>
-        <li class="writing-item">
-          <a href="YOUR_SUBSTACK_LINK_4" target="_blank" class="writing-link">
-            <span class="w-title">An Arsonist's Grave Under Snow</span>
-          </a>
-        </li>
-      </ul>
+<!-- §3 COMMONPLACE -->
+<section id="commonplace" data-room="commonplace">
+  <div class="section-inner">
+    <span class="log-id">Ship's Log. 002</span>
+    <h2 class="common-heading">Good Evening, Passengers. <span class="common-hi">Hi.</span></h2>
+    <span class="common-sub-head">Her Mental Sky, Shall We Pry?</span>
 
-      <div class="ticker-wrap">
-        <div class="ticker-track">
-          <span class="ticker-item"><span>✦</span>normalise correcting people's grammar!</span>
-          <span class="ticker-item"><span>✦</span>chamomile tea is genuinely good.</span>
-          <span class="ticker-item"><span>✦</span>what about commas? I like commas.</span>
-          <span class="ticker-item"><span>✦</span>"sentient spaceships" needs to be a genre.</span>
-          <span class="ticker-item"><span>✦</span>as pretentious as geometry; as ambiguous as poetry</span>
-          <span class="ticker-item"><span>✦</span>there was already a head's up about forced rhymes.</span>
-          <span class="ticker-item"><span>✦</span>normalise correcting people's grammar!</span>
-          <span class="ticker-item"><span>✦</span>chamomile tea is genuinely good.</span>
-          <span class="ticker-item"><span>✦</span>what about commas? I like commas.</span>
-          <span class="ticker-item"><span>✦</span>"sentient spaceships" needs to be a genre.</span>
-          <span class="ticker-item"><span>✦</span>as pretentious as geometry; as ambiguous as poetry</span>
-          <span class="ticker-item"><span>✦</span>there was already a head's up about forced rhymes.</span>
-        </div>
+    <div class="verse-bridge">
+      On quotes, other travellers, say what may<br>
+      <span class="verse-indent">Some grow roots, however cliché...</span>
+    </div>
+
+    <div class="quotes-field">
+      <div class="quote-float">
+        <blockquote>Everyone is an artist until rent is due.</blockquote>
+        <span class="q-attr">— anonymous.</span>
+      </div>
+      <div class="quote-float">
+        <blockquote>Start where you are. Use what you have. Do what you can.</blockquote>
+        <span class="q-attr">— Arthur Ashe.</span>
       </div>
     </div>
-  </section>
 
-  <!-- ══ § 5 CONTACT ══ -->
-  <section id="contact" data-room="contact">
-    <div class="contact-inner">
-      <span class="log-id">Ship's Log. 003</span>
-      <span class="contact-subhead">Hello, or Hi, or Whatever You Prefer Preceding Goodbye</span>
-      <h2 class="contact-heading">Contact The<br>Captain?</h2>
-
-      <div class="contact-letter">
-        <p>
-          Dear traveller, you may have a say about her choices, or you are simply eager
-          to suggest her a playlist, perhaps you want to talk Doraemon, poetry,
-          bioremediation, philosophy beyond her understanding, just bacteria,
-          or something else entirely, the captain says you should feel free to contact her.
-        </p>
-        <p>She may respond, she may, also not...</p>
-      </div>
-      <span class="contact-verse">For she gives content and context too much thought</span>
-
-      <div class="contact-links">
-        <a href="YOUR_EMAIL_LINK" class="contact-link-row">
-          <span class="link-platform">Email</span>
-          <span class="link-aside">for all humans</span>
-        </a>
-        <a href="YOUR_LINKEDIN_LINK" target="_blank" class="contact-link-row">
-          <span class="link-platform">LinkedIn</span>
-          <span class="link-aside">for un-whimsical humans</span>
-        </a>
-        <a href="YOUR_SUBSTACK_LINK" target="_blank" class="contact-link-row">
-          <span class="link-platform">Substack</span>
-          <span class="link-aside">for whimsical humans</span>
-        </a>
-      </div>
-
-      <span class="interlude">Brief Interlude... This is the captain, signing off.</span>
-      <span class="contact-signoff">
-        Midst mischief and metaphors,<br>
-        Sim
-      </span>
+    <div class="secrets-verse">
+      Confide in you, about the captain, if I may<br>
+      <span class="verse-indent">Or spill some secrets, while she's away?</span>
     </div>
-  </section>
 
-  <footer>
-    <span class="foot-l">© Simran Poudel</span>
-    <span class="foot-r">made with obsessive vision and excellent life choices</span>
-  </footer>
+    <div class="dossiers">
+      <div class="dossier">
+        <span class="dossier-class">File Ref: PSY-001 · Classified</span>
+        <p class="dossier-body">Subject engages in prolonged philosophical contemplation regarding matters <span class="redact"></span> well beyond her intellectual jurisdiction. Frequency: <strong>daily.</strong> Outcome: unresolved.</p>
+        <span class="dossier-id">Vessel Dagger.15. · Internal Rec.</span>
+        <span class="dossier-stamp">Unresolved</span>
+      </div>
+      <div class="dossier">
+        <span class="dossier-class">File Ref: ENG-004 · Sensitive</span>
+        <p class="dossier-body">Ship's navigator notes a persistent <span class="redact"></span> documented bias toward <strong>sentient spacecraft</strong> as a literary genre. Filed without her knowledge.</p>
+        <span class="dossier-id">Vessel Dagger.15. · Nav. Dept.</span>
+        <span class="dossier-stamp">Need to Know</span>
+      </div>
+      <div class="dossier">
+        <span class="dossier-class">File Ref: OPS-012 · Eyes Only</span>
+        <p class="dossier-body">Captain briefly believed mastery of <strong>knitting and crochet</strong> constituted sufficient qualification for world domination. Duration of belief: <span class="redact"></span>. Status: lapsed.</p>
+        <span class="dossier-id">Vessel Dagger.15. · Ops. Log</span>
+        <span class="dossier-stamp">Lapsed</span>
+      </div>
+      <div class="dossier">
+        <span class="dossier-class">File Ref: AUD-007 · Restricted</span>
+        <p class="dossier-body">Comprehensive musical taste assessment returned results <span class="redact"></span> with one confirmed exception: <strong>Hozier.</strong> Playlist intervention recommended.</p>
+        <span class="dossier-id">Vessel Dagger.15. · Aud. Division</span>
+        <span class="dossier-stamp">Pending</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <script>
-  /* ══ BACKGROUND ══ */
-  (function() {
-    const canvas = document.getElementById('bg-canvas');
-    const ctx    = canvas.getContext('2d');
-    const PAL = [[177,151,252],[200,240,58],[212,201,138]];
-    function rnd(a,b){return a+Math.random()*(b-a);}
-    function pick(){return PAL[Math.floor(Math.random()*PAL.length)];}
-    let W=window.innerWidth, H=window.innerHeight;
+<!-- §4 ABOUT -->
+<section id="about" data-room="about">
+  <div class="section-inner" style="position:relative;">
+    <span class="about-ghost" aria-hidden="true">multitudes</span>
+    <span class="log-id">Captain's Log. 002</span>
+    <h2 class="multitudes-hl">I Contain <span class="multitudes-italic">Multitudes.</span></h2>
+    <span class="obviously">(Obviously!)</span>
+    <div class="about-body">
+      <p>The said multitudes being <span class="m-lime">random ideas</span> yearning to materialise. The same ones, that on second read morph into incoherent, nonsensical scribbles that puzzle me. I also, might or might not contain multitudes of <strong>forced rhymes</strong> on most things I write because my brain has categorised it as a personality trait.</p>
+      <p>The multitudes may extend to <span class="m-cyan">metaphors</span>, that are pretentious of course (you know, to match my personality, or is it the other way around?). I enjoy art in multitude forms as well, if you aren't already tired of the word (to consume, not necessarily to create. but you already knew that). And, well, I grew up watching <span class="m-lav">Doraemon</span>.</p>
+    </div>
+    <span class="inner-monologue">Inner Monologue: I think, this is authentic enough? Sure. Let's go with it.</span>
+    <a href="#credentials" class="unwhimsical-btn">for un-whimsical humans</a>
+    <span class="writing-heading">Not that you asked, but I <em>(kind of, not really, but almost)</em> write...</span>
+    <ul class="writing-list">
+      <li class="writing-item"><a href="YOUR_SUBSTACK_LINK_1" target="_blank" class="writing-link"><span class="w-title">Why I Write</span></a></li>
+      <li class="writing-item"><a href="YOUR_SUBSTACK_LINK_2" target="_blank" class="writing-link"><span class="w-title">My Apocalypse Preventing Darling</span></a></li>
+      <li class="writing-item"><a href="YOUR_SUBSTACK_LINK_3" target="_blank" class="writing-link"><span class="w-title">Destination</span></a></li>
+      <li class="writing-item"><a href="YOUR_SUBSTACK_LINK_4" target="_blank" class="writing-link"><span class="w-title">An Arsonist's Grave Under Snow</span></a></li>
+    </ul>
+    <div class="ticker-wrap">
+      <div class="ticker-track">
+        <span class="ticker-item"><span>✦</span>normalise correcting people's grammar!</span>
+        <span class="ticker-item"><span>✦</span>chamomile tea is genuinely good.</span>
+        <span class="ticker-item"><span>✦</span>what about commas? I like commas.</span>
+        <span class="ticker-item"><span>✦</span>"sentient spaceships" needs to be a genre.</span>
+        <span class="ticker-item"><span>✦</span>as pretentious as geometry; as ambiguous as poetry</span>
+        <span class="ticker-item"><span>✦</span>there was already a head's up about forced rhymes.</span>
+        <span class="ticker-item"><span>✦</span>normalise correcting people's grammar!</span>
+        <span class="ticker-item"><span>✦</span>chamomile tea is genuinely good.</span>
+        <span class="ticker-item"><span>✦</span>what about commas? I like commas.</span>
+        <span class="ticker-item"><span>✦</span>"sentient spaceships" needs to be a genre.</span>
+        <span class="ticker-item"><span>✦</span>as pretentious as geometry; as ambiguous as poetry</span>
+        <span class="ticker-item"><span>✦</span>there was already a head's up about forced rhymes.</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-    class Spore {
-      constructor(init){
-        this.x=rnd(0,W); this.y=init?rnd(0,H):rnd(-80,-5);
-        this.vx=rnd(-0.08,0.08); this.vy=rnd(0.04,0.22);
-        this.col=pick();
-        this.kind=Math.random()<0.5?'oval':Math.random()<0.5?'branch':'trail';
-        this.sz=rnd(0.9,4.2); this.elong=rnd(2.2,6);
-        this.angle=rnd(0,Math.PI*2); this.spin=rnd(-0.005,0.005);
-        this.op=rnd(0.035,0.14);
-        this.ph=rnd(0,Math.PI*2); this.ps=rnd(0.008,0.026);
-        this.trail=[];
-      }
-      step(){
-        if(this.kind==='trail'){this.trail.push({x:this.x,y:this.y});if(this.trail.length>20)this.trail.shift();}
-        this.x+=this.vx; this.y+=this.vy;
-        this.angle+=this.spin; this.ph+=this.ps;
-        if(this.y>H+80){Object.assign(this,new Spore(false));}
-        if(this.x<-80){this.x=W+80;} if(this.x>W+80){this.x=-80;}
-      }
-      draw(){
-        const pulse=0.5+0.5*Math.sin(this.ph);
-        const op=this.op*(0.6+0.4*pulse);
-        const [r,g,b]=this.col;
-        ctx.save(); ctx.translate(this.x,this.y); ctx.rotate(this.angle);
-        if(this.kind==='oval'){
-          ctx.scale(1,this.elong);
-          const gr=ctx.createRadialGradient(0,0,0,0,0,this.sz*2.2);
-          gr.addColorStop(0,`rgba(${r},${g},${b},${op})`);
-          gr.addColorStop(1,`rgba(${r},${g},${b},0)`);
-          ctx.beginPath(); ctx.arc(0,0,this.sz,0,Math.PI*2);
-          ctx.fillStyle=gr; ctx.fill();
-        } else if(this.kind==='branch'){
-          ctx.beginPath(); ctx.arc(0,0,this.sz*0.7,0,Math.PI*2);
-          ctx.fillStyle=`rgba(${r},${g},${b},${op})`; ctx.fill();
-          ctx.strokeStyle=`rgba(${r},${g},${b},${op*0.4})`;
-          ctx.lineWidth=0.5; ctx.lineCap='round';
-          const tl=this.sz*3.5;
-          for(let i=0;i<3;i++){
-            const a=(i/3)*Math.PI*2;
-            ctx.beginPath(); ctx.moveTo(0,0);
-            ctx.quadraticCurveTo(Math.cos(a+0.6)*tl*0.4,Math.sin(a+0.6)*tl*0.4,Math.cos(a)*tl,Math.sin(a)*tl);
-            ctx.stroke();
-          }
-        } else {
-          ctx.restore(); ctx.save();
-          for(let i=0;i<this.trail.length;i++){
-            const t=i/this.trail.length;
-            ctx.beginPath();
-            ctx.arc(this.trail[i].x,this.trail[i].y,this.sz*0.5*t,0,Math.PI*2);
-            ctx.fillStyle=`rgba(${r},${g},${b},${op*t*0.5})`; ctx.fill();
-          }
-          ctx.beginPath(); ctx.arc(this.x,this.y,this.sz*0.8,0,Math.PI*2);
-          ctx.fillStyle=`rgba(${r},${g},${b},${op})`; ctx.fill();
-        }
-        ctx.restore();
-      }
-    }
+<!-- §5 CONTACT -->
+<section id="contact" data-room="contact">
+  <div class="section-inner">
+    <span class="log-id">Ship's Log. 003</span>
+    <span class="contact-subhead">Hello, or Hi, or Whatever You Prefer Preceding Goodbye</span>
+    <h2 class="contact-heading">Contact The<br>Captain?</h2>
+    <div class="contact-letter">
+      <p>Dear traveller, you may have a say about her choices, or you are simply eager to suggest her a playlist, perhaps you want to talk Doraemon, poetry, bioremediation, philosophy beyond her understanding, just bacteria, or something else entirely — the captain says you should feel free to contact her.</p>
+      <p>She may respond, she may, also not...</p>
+    </div>
+    <span class="contact-verse">For she gives content and context too much thought</span>
+    <div class="contact-links">
+      <a href="YOUR_EMAIL_LINK" class="contact-link-row">
+        <span class="link-platform">Email</span>
+        <span class="link-aside">for all humans</span>
+      </a>
+      <a href="YOUR_LINKEDIN_LINK" target="_blank" class="contact-link-row">
+        <span class="link-platform">LinkedIn</span>
+        <span class="link-aside">for un-whimsical humans</span>
+      </a>
+      <a href="YOUR_SUBSTACK_LINK" target="_blank" class="contact-link-row">
+        <span class="link-platform">Substack</span>
+        <span class="link-aside">for whimsical humans</span>
+      </a>
+    </div>
+    <span class="interlude">Brief Interlude... This is the captain, signing off.</span>
+    <span class="contact-signoff">Midst mischief and metaphors,<br>Sim</span>
+  </div>
+</section>
 
-    class Geo {
-      constructor(init){
-        this.x=rnd(0,W); this.y=init?rnd(0,H):rnd(-280,-50);
-        this.vx=rnd(-0.04,0.04); this.vy=rnd(0.01,0.05);
-        this.angle=rnd(0,Math.PI*2); this.spin=rnd(-0.0015,0.0015);
-        this.sides=Math.floor(rnd(5,9)); this.r=rnd(25,95);
-        this.warp=Array.from({length:this.sides},()=>rnd(0.5,1.0));
-        this.col=pick(); this.op=rnd(0.014,0.05);
-        this.ph=rnd(0,Math.PI*2); this.ps=rnd(0.002,0.008);
-      }
-      step(){
-        this.x+=this.vx; this.y+=this.vy;
-        this.angle+=this.spin; this.ph+=this.ps;
-        if(this.y>H+300){Object.assign(this,new Geo(false));}
-        if(this.x<-300){this.x=W+300;} if(this.x>W+300){this.x=-300;}
-      }
-      draw(){
-        const pulse=0.5+0.5*Math.sin(this.ph);
-        const op=this.op*(0.5+0.5*pulse);
-        const [r,g,b]=this.col;
-        ctx.save(); ctx.translate(this.x,this.y); ctx.rotate(this.angle);
-        ctx.beginPath();
-        for(let i=0;i<this.sides;i++){
-          const a=(i/this.sides)*Math.PI*2-Math.PI/2;
-          const rad=this.r*this.warp[i];
-          i===0?ctx.moveTo(Math.cos(a)*rad,Math.sin(a)*rad):ctx.lineTo(Math.cos(a)*rad,Math.sin(a)*rad);
-        }
-        ctx.closePath();
-        ctx.strokeStyle=`rgba(${r},${g},${b},${op})`; ctx.lineWidth=0.7; ctx.stroke();
-        ctx.fillStyle=`rgba(${r},${g},${b},${op*0.1})`; ctx.fill();
-        ctx.restore();
-      }
-    }
+<footer>
+  <span class="foot-l">© Simran Poudel</span>
+  <span class="foot-r">made with obsessive vision and excellent life choices</span>
+</footer>
 
-    let pulseT=0;
-    function drawPulse(){
-      pulseT+=0.004;
-      const cx=W*0.5, cy=H*0.5;
-      const rad=(W*0.35)*(0.8+0.2*Math.sin(pulseT));
-      const gr=ctx.createRadialGradient(cx,cy,0,cx,cy,rad);
-      gr.addColorStop(0,'rgba(177,151,252,0)');
-      gr.addColorStop(0.65,'rgba(177,151,252,0)');
-      gr.addColorStop(0.88,`rgba(177,151,252,${0.01+0.007*Math.sin(pulseT)})`);
-      gr.addColorStop(1,'rgba(177,151,252,0)');
-      ctx.beginPath(); ctx.arc(cx,cy,rad,0,Math.PI*2);
-      ctx.fillStyle=gr; ctx.fill();
-    }
+<script>
+/* ═══ BACKGROUND — hull grid + engine glow + spores ═══ */
+(function(){
+  const canvas=document.getElementById('bg-canvas');
+  const ctx=canvas.getContext('2d');
+  let W,H;
+  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+  resize(); window.addEventListener('resize',resize);
 
-    const spores=Array.from({length:44},()=>new Spore(true));
-    const geos=Array.from({length:13},()=>new Geo(true));
-
-    function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
-    resize(); window.addEventListener('resize',resize);
-
-    function loop(){
-      ctx.clearRect(0,0,W,H);
-      drawPulse();
-      geos.forEach(g=>{g.step();g.draw();});
-      spores.forEach(s=>{s.step();s.draw();});
-      requestAnimationFrame(loop);
-    }
-    loop();
-  })();
-
-  /* ══ NAME GLITCH ══ */
-  (function(){
-    const el = document.getElementById('nameSimran');
-    if(!el) return;
-    const chars = el.textContent.split('');
-    el.innerHTML = chars.map(c=>`<span class="s-char">${c}</span>`).join('');
-    const spans = el.querySelectorAll('.s-char');
-    const lavender = '#b197fc', lime = '#c8f03a', cream = '#f0e8d8';
-
-    function glitch(){
-      const numChars = Math.floor(Math.random()*3)+1;
-      const colors = [lavender, lime];
-      for(let i=0; i<numChars; i++){
-        const idx = Math.floor(Math.random()*spans.length);
-        const col = colors[Math.floor(Math.random()*colors.length)];
-        spans[idx].style.color = col;
-        spans[idx].style.textShadow = `0 0 12px ${col}`;
-        setTimeout(()=>{
-          spans[idx].style.color = '';
-          spans[idx].style.textShadow = '';
-        }, 80+Math.random()*120);
-      }
-      // schedule next glitch
-      setTimeout(glitch, 2800+Math.random()*4000);
-    }
-    // first glitch after 2s
-    setTimeout(glitch, 2000);
-  })();
-
-  /* ══ CURSOR (desktop) ══ */
-  (function(){
-    if(window.matchMedia('(pointer: coarse)').matches) {
-      document.getElementById('cursor-wrap').style.display='none';
-      return;
-    }
-    const wrap=document.getElementById('cursor-wrap');
-    const ripple=document.getElementById('cursor-ripple');
-    let mx=window.innerWidth/2,my=window.innerHeight/2,cx=mx,cy=my;
-    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-    document.addEventListener('click',e=>{
-      ripple.style.left=e.clientX+'px'; ripple.style.top=e.clientY+'px';
-      ripple.style.background='#b197fc';
-      ripple.classList.remove('pop'); void ripple.offsetWidth; ripple.classList.add('pop');
+  function drawGrid(){
+    ctx.save();
+    ctx.strokeStyle='rgba(177,151,252,0.035)'; ctx.lineWidth=0.5;
+    const vS=Math.max(W/14,55);
+    for(let x=0;x<=W;x+=vS){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+    const hS=Math.max(H/10,55);
+    for(let y=0;y<=H;y+=hS){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+    ctx.strokeStyle='rgba(0,217,192,0.02)'; ctx.lineWidth=0.35;
+    [[0,0,W*.28,H],[W,0,W*.72,H],[0,H*.5,W*.12,0],[W,H*.5,W*.88,0]].forEach(([x1,y1,x2,y2])=>{
+      ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
     });
-    (function tick(){
-      cx+=(mx-cx)*0.32; cy+=(my-cy)*0.32;
-      wrap.style.transform=`translate(${cx-7}px,${cy}px)`;
-      requestAnimationFrame(tick);
-    })();
-  })();
+    ctx.restore();
+  }
 
-  /* ══ HELM ══ */
-  document.getElementById('helm').addEventListener('click',e=>{
-    e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'});
-  });
+  let eT=0;
+  function drawGlow(){
+    eT+=0.005;
+    const p=0.5+0.5*Math.sin(eT);
+    // engine bloom bottom
+    const g1=ctx.createRadialGradient(W*.5,H,0,W*.5,H,W*.4);
+    g1.addColorStop(0,`rgba(177,151,252,${.055+.025*p})`);
+    g1.addColorStop(.5,`rgba(177,151,252,${.018+.008*p})`);
+    g1.addColorStop(1,'rgba(177,151,252,0)');
+    ctx.fillStyle=g1; ctx.fillRect(0,0,W,H);
+    // cyan top scanner
+    const g2=ctx.createLinearGradient(0,0,0,H*.22);
+    g2.addColorStop(0,`rgba(0,217,192,${.014+.008*Math.sin(eT*1.3)})`);
+    g2.addColorStop(1,'rgba(0,217,192,0)');
+    ctx.fillStyle=g2; ctx.fillRect(0,0,W,H*.22);
+    // lime left vent
+    const g3=ctx.createLinearGradient(0,0,W*.15,0);
+    g3.addColorStop(0,`rgba(200,240,58,${.018+.008*Math.sin(eT*.9)})`);
+    g3.addColorStop(1,'rgba(200,240,58,0)');
+    ctx.fillStyle=g3; ctx.fillRect(0,0,W*.15,H);
+  }
 
-  /* ══ NAV ACTIVE ══ */
-  (function(){
-    const nodes=document.querySelectorAll('.nav-entry');
-    const sects=document.querySelectorAll('section[data-room]');
-    function update(){
-      let cur='';
-      sects.forEach(s=>{if(s.getBoundingClientRect().top<window.innerHeight*0.6)cur=s.dataset.room;});
-      nodes.forEach(n=>n.classList.toggle('active',n.dataset.section===cur));
+  const PAL=[[177,151,252],[200,240,58],[0,217,192]];
+  function rnd(a,b){return a+Math.random()*(b-a);}
+  function pick(){return PAL[Math.floor(Math.random()*PAL.length)];}
+
+  class Spore{
+    constructor(i){this.rst(i);}
+    rst(i){
+      this.x=rnd(0,W);this.y=i?rnd(0,H):rnd(-60,-5);
+      this.vx=rnd(-.06,.06);this.vy=rnd(.03,.18);
+      this.col=pick();this.kind=Math.random()<.55?'oval':Math.random()<.5?'branch':'trail';
+      this.sz=rnd(.8,3.8);this.elong=rnd(2.2,5.5);
+      this.angle=rnd(0,Math.PI*2);this.spin=rnd(-.005,.005);
+      this.op=rnd(.03,.12);this.ph=rnd(0,Math.PI*2);this.ps=rnd(.008,.025);this.trail=[];
     }
-    window.addEventListener('scroll',update,{passive:true}); update();
-  })();
-  </script>
+    step(){
+      if(this.kind==='trail'){this.trail.push({x:this.x,y:this.y});if(this.trail.length>18)this.trail.shift();}
+      this.x+=this.vx;this.y+=this.vy;this.angle+=this.spin;this.ph+=this.ps;
+      if(this.y>H+70)this.rst(false);
+      if(this.x<-60)this.x=W+60;if(this.x>W+60)this.x=-60;
+    }
+    draw(){
+      const p=.5+.5*Math.sin(this.ph),op=this.op*(.6+.4*p),[r,g,b]=this.col;
+      ctx.save();ctx.translate(this.x,this.y);ctx.rotate(this.angle);
+      if(this.kind==='oval'){
+        ctx.scale(1,this.elong);
+        const gr=ctx.createRadialGradient(0,0,0,0,0,this.sz*2);
+        gr.addColorStop(0,`rgba(${r},${g},${b},${op})`);gr.addColorStop(1,`rgba(${r},${g},${b},0)`);
+        ctx.beginPath();ctx.arc(0,0,this.sz,0,Math.PI*2);ctx.fillStyle=gr;ctx.fill();
+      }else if(this.kind==='branch'){
+        ctx.beginPath();ctx.arc(0,0,this.sz*.7,0,Math.PI*2);ctx.fillStyle=`rgba(${r},${g},${b},${op})`;ctx.fill();
+        ctx.strokeStyle=`rgba(${r},${g},${b},${op*.35})`;ctx.lineWidth=.4;ctx.lineCap='round';
+        const tl=this.sz*3;
+        for(let i=0;i<3;i++){const a=(i/3)*Math.PI*2;ctx.beginPath();ctx.moveTo(0,0);ctx.quadraticCurveTo(Math.cos(a+.6)*tl*.4,Math.sin(a+.6)*tl*.4,Math.cos(a)*tl,Math.sin(a)*tl);ctx.stroke();}
+      }else{
+        ctx.restore();ctx.save();
+        for(let i=0;i<this.trail.length;i++){const t=i/this.trail.length;ctx.beginPath();ctx.arc(this.trail[i].x,this.trail[i].y,this.sz*.5*t,0,Math.PI*2);ctx.fillStyle=`rgba(${r},${g},${b},${op*t*.5})`;ctx.fill();}
+        ctx.beginPath();ctx.arc(this.x,this.y,this.sz*.8,0,Math.PI*2);ctx.fillStyle=`rgba(${r},${g},${b},${op})`;ctx.fill();
+      }
+      ctx.restore();
+    }
+  }
+
+  class Geo{
+    constructor(i){this.rst(i);}
+    rst(i){
+      this.x=rnd(0,W);this.y=i?rnd(0,H):rnd(-250,-40);
+      this.vx=rnd(-.03,.03);this.vy=rnd(.008,.04);
+      this.angle=rnd(0,Math.PI*2);this.spin=rnd(-.001,.001);
+      this.sides=Math.floor(rnd(5,9));this.r=rnd(22,80);
+      this.warp=Array.from({length:this.sides},()=>rnd(.55,1));
+      this.col=pick();this.op=rnd(.012,.042);
+      this.ph=rnd(0,Math.PI*2);this.ps=rnd(.002,.007);
+    }
+    step(){
+      this.x+=this.vx;this.y+=this.vy;this.angle+=this.spin;this.ph+=this.ps;
+      if(this.y>H+280)this.rst(false);
+      if(this.x<-280)this.x=W+280;if(this.x>W+280)this.x=-280;
+    }
+    draw(){
+      const p=.5+.5*Math.sin(this.ph),op=this.op*(.5+.5*p),[r,g,b]=this.col;
+      ctx.save();ctx.translate(this.x,this.y);ctx.rotate(this.angle);
+      ctx.beginPath();
+      for(let i=0;i<this.sides;i++){const a=(i/this.sides)*Math.PI*2-Math.PI/2,rad=this.r*this.warp[i];i===0?ctx.moveTo(Math.cos(a)*rad,Math.sin(a)*rad):ctx.lineTo(Math.cos(a)*rad,Math.sin(a)*rad);}
+      ctx.closePath();
+      ctx.strokeStyle=`rgba(${r},${g},${b},${op})`;ctx.lineWidth=.6;ctx.stroke();
+      ctx.fillStyle=`rgba(${r},${g},${b},${op*.08})`;ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  const spores=Array.from({length:42},()=>new Spore(true));
+  const geos=Array.from({length:11},()=>new Geo(true));
+
+  function loop(){
+    ctx.clearRect(0,0,W,H);
+    drawGrid(); drawGlow();
+    geos.forEach(g=>{g.step();g.draw();});
+    spores.forEach(s=>{s.step();s.draw();});
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+/* ═══ CURSOR ═══ */
+(function(){
+  if(window.matchMedia('(pointer:coarse)').matches)return;
+  const wrap=document.getElementById('cursor-wrap'),ripple=document.getElementById('cursor-ripple');
+  wrap.style.display='block';
+  let mx=window.innerWidth/2,my=200,cx=mx,cy=my;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  document.addEventListener('click',e=>{
+    ripple.style.left=e.clientX+'px';ripple.style.top=e.clientY+'px';
+    ripple.style.background='#b197fc';
+    ripple.classList.remove('pop');void ripple.offsetWidth;ripple.classList.add('pop');
+  });
+  (function tick(){cx+=(mx-cx)*.32;cy+=(my-cy)*.32;wrap.style.transform=`translate(${cx-7}px,${cy}px)`;requestAnimationFrame(tick);})();
+})();
+
+/* ═══ HELM ═══ */
+document.getElementById('helm-btn').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+/* ═══ NAV ACTIVE ═══ */
+(function(){
+  const links=document.querySelectorAll('.nav-links a');
+  const sects=document.querySelectorAll('section[data-room]');
+  function update(){
+    let cur='';
+    sects.forEach(s=>{if(s.getBoundingClientRect().top<window.innerHeight*.6)cur=s.dataset.room;});
+    links.forEach(a=>a.classList.toggle('active',a.dataset.section===cur));
+  }
+  window.addEventListener('scroll',update,{passive:true});update();
+})();
+</script>
 </body>
 </html>
