@@ -47,25 +47,69 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 300;
     height: var(--nav-h);
     display: flex; align-items: center;
-    padding: 0 1.4rem;
+    padding: 0 1.8rem 0 1rem;
     background: linear-gradient(to bottom, rgba(6,8,15,.96) 80%, transparent);
     backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    width: 100%;
+    overflow: hidden;
   }
-  #helm-btn { flex-shrink:0; background:none; border:none; padding:0; margin-right:1.2rem; opacity:.7; transition:opacity .25s; display:flex; align-items:center; width:44px; height:44px; }
+  #helm-btn { flex-shrink:0; background:none; border:none; padding:0; margin-right:.8rem; opacity:.7; transition:opacity .25s; display:flex; align-items:center; width:40px; height:40px; }
   #helm-btn:hover { opacity:1; }
-  #helm-svg { width:44px; height:44px; display:block; overflow:visible; }
+  #helm-svg { width:40px; height:40px; display:block; overflow:visible; }
   #helm-g { transform-origin:22px 22px; animation:helm-osc 7s ease-in-out infinite; }
   @keyframes helm-osc { 0%,100%{transform:rotate(0)} 35%{transform:rotate(11deg)} 70%{transform:rotate(-8deg)} }
-  .nav-links { display:flex; align-items:center; list-style:none; margin-left:auto; }
-  .nav-links a { font-family:'Space Mono',monospace; font-size:.56rem; letter-spacing:.13em; text-transform:uppercase; color:var(--lavender); text-decoration:none; opacity:.4; padding:.45rem .75rem; transition:opacity .25s,color .25s; white-space:nowrap; }
-  .nav-links a:hover,.nav-links a.active { opacity:1; color:var(--lime); }
-  @media (max-width:680px) {
-    #topnav { padding:0 .8rem; }
-    #helm-btn { width:36px; height:36px; margin-right:.7rem; }
-    #helm-svg { width:36px; height:36px; }
-    .nav-links a { font-size:.44rem; padding:.4rem .48rem; letter-spacing:.07em; }
+
+  /* Nav ship name label */
+  .nav-ship-id {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(.38rem, .6vw, .52rem);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    opacity: .45;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
-  @media (max-width:400px) { .nav-links a { font-size:.38rem; padding:.35rem .35rem; } }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin-left: auto;
+    gap: 0;
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(.42rem, .7vw, .65rem);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--lavender);
+    text-decoration: none;
+    opacity: .4;
+    padding: .45rem clamp(.5rem, 1.2vw, 1rem);
+    transition: opacity .25s, color .25s;
+    white-space: nowrap;
+    display: block;
+  }
+  .nav-links a:hover, .nav-links a.active { opacity:1; color:var(--lime); }
+
+  @media (max-width: 700px) {
+    #topnav { padding: 0 .7rem; }
+    #helm-btn { width: 32px; height: 32px; margin-right: .5rem; }
+    #helm-svg { width: 32px; height: 32px; }
+    .nav-ship-id { display: none; }
+    .nav-links { gap: 0; }
+    .nav-links a { font-size: .42rem; padding: .4rem .42rem; letter-spacing: .06em; }
+  }
+  @media (max-width: 420px) {
+    .nav-links a { font-size: .36rem; padding: .35rem .3rem; letter-spacing: .04em; }
+  }
+  @media (max-width: 360px) {
+    .nav-links a { font-size: .32rem; padding: .3rem .25rem; }
+  }
 
   /* hull readout */
   #hull-readout { position:fixed; bottom:1.2rem; left:1.2rem; z-index:200; opacity:.28; pointer-events:none; display:flex; flex-direction:column; gap:.25rem; }
@@ -82,6 +126,178 @@
   .log-id { font-family:'Space Mono',monospace; font-size:.68rem; letter-spacing:.3em; text-transform:uppercase; display:block; margin-bottom:2.5rem; }
   .lid-lav  { color:var(--lavender); text-shadow:0 0 14px rgba(177,151,252,.45); }
   .lid-cyan { color:var(--cyan);     text-shadow:0 0 14px rgba(0,217,192,.4); }
+
+  /* ══════════════════════════════════════
+     DOCKING POPUP
+  ══════════════════════════════════════ */
+  #dock-overlay {
+    position: fixed; inset: 0; z-index: 9000;
+    background: rgba(6,8,15,.55);
+    backdrop-filter: blur(18px) brightness(.7); -webkit-backdrop-filter: blur(18px) brightness(.7);
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
+    transition: opacity .5s ease;
+  }
+  #dock-overlay.fade-out { opacity: 0; pointer-events: none; }
+
+  #dock-panel {
+    position: relative;
+    width: min(680px, 96vw);
+    background: rgba(6,8,15,.97);
+    border: 1px solid rgba(0,217,192,.35);
+    box-shadow:
+      0 0 0 1px rgba(0,217,192,.08),
+      0 0 60px rgba(0,217,192,.14),
+      0 0 140px rgba(177,151,252,.08),
+      inset 0 0 40px rgba(0,217,192,.03);
+    padding: 0;
+    overflow: hidden;
+  }
+
+  /* corner accents */
+  .dp-corner { position:absolute; width:22px; height:22px; pointer-events:none; }
+  .dp-corner.tl { top:-1px; left:-1px; border-top:1.5px solid var(--cyan); border-left:1.5px solid var(--cyan); }
+  .dp-corner.tr { top:-1px; right:-1px; border-top:1.5px solid var(--cyan); border-right:1.5px solid var(--cyan); }
+  .dp-corner.bl { bottom:-1px; left:-1px; border-bottom:1.5px solid var(--cyan); border-left:1.5px solid var(--cyan); }
+  .dp-corner.br { bottom:-1px; right:-1px; border-bottom:1.5px solid var(--cyan); border-right:1.5px solid var(--cyan); }
+
+  /* scan line */
+  .dp-scanline {
+    position: absolute; left:0; right:0; height:1px;
+    background: linear-gradient(to right, transparent, rgba(0,217,192,.4) 30%, rgba(0,217,192,.4) 70%, transparent);
+    pointer-events:none; z-index:3;
+    animation: dp-scan 2.8s ease-in-out infinite;
+    top: 0;
+  }
+  @keyframes dp-scan {
+    0%   { top:0%;   opacity:0; }
+    5%   { opacity:.9; }
+    95%  { opacity:.35; }
+    100% { top:100%; opacity:0; }
+  }
+
+  /* top bar */
+  .dp-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: .5rem 1.1rem .45rem;
+    border-bottom: 1px solid rgba(0,217,192,.18);
+    background: rgba(0,217,192,.05);
+  }
+  .dp-topbar-label {
+    font-family: 'Space Mono', monospace;
+    font-size: .42rem; letter-spacing: .28em; text-transform: uppercase;
+    color: var(--cyan); opacity: .75;
+  }
+  .dp-topbar-dots { display:flex; gap:.38rem; align-items:center; }
+  .dp-dot { width:5px; height:5px; border-radius:50%; background:rgba(0,217,192,.25); }
+  .dp-dot:first-child { background:var(--cyan); animation:blink 1.2s step-end infinite; }
+  .dp-dot:nth-child(2) { background:rgba(200,240,58,.5); animation:blink 1.8s step-end infinite .4s; }
+
+  /* body */
+  .dp-body {
+    padding: 1.8rem 2rem 1.5rem;
+  }
+
+  /* title */
+  .dp-title {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(.7rem, 2.5vw, .95rem);
+    letter-spacing: .3em; text-transform: uppercase;
+    color: var(--lime);
+    text-shadow: 0 0 18px rgba(200,240,58,.45);
+    margin-bottom: 1.8rem;
+    display: block;
+    min-height: 1.4em;
+  }
+
+  /* fields */
+  .dp-fields { display:flex; flex-direction:column; gap:1.1rem; margin-bottom:1.8rem; }
+  .dp-field { display:flex; flex-direction:column; gap:.25rem; }
+  .dp-field-key {
+    font-family: 'Space Mono', monospace;
+    font-size: .42rem; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--cyan); opacity: .55;
+  }
+  .dp-field-val {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(.62rem, 2vw, .8rem); letter-spacing: .18em; text-transform: uppercase;
+    color: var(--cream);
+    min-height: 1.2em;
+  }
+  .dp-field-val .t-blink { display:inline-block; width:.55em; height:.85em; background:var(--cyan); vertical-align:middle; margin-left:.04em; animation:blink .85s step-end infinite; }
+  .dp-field-val .t-blink.off { display:none; }
+  .dp-val-mia { color: rgba(200,240,58,.8); }
+
+  /* the black bar behind REDACTED */
+  .dp-val-redacted-wrap {
+    display: inline-flex; align-items: center; gap: 0;
+    position: relative; vertical-align: middle;
+  }
+  .dp-val-redacted-bar {
+    display: inline-block;
+    background: rgba(177,151,252,.15);
+    border: 1px solid rgba(177,151,252,.22);
+    padding: .08em .5em .06em;
+    position: relative;
+  }
+  .dp-val-redacted-text {
+    font-family: 'Playfair Display SC', serif;
+    font-weight: 700;
+    font-size: clamp(.7rem, 2.2vw, .95rem);
+    letter-spacing: .22em;
+    color: var(--lavender);
+    text-shadow:
+      0 0 12px rgba(177,151,252,.9),
+      0 0 28px rgba(177,151,252,.45);
+    position: relative; z-index: 1;
+  }
+
+  /* separator line */
+  .dp-sep { width:100%; height:1px; background:rgba(0,217,192,.12); margin:.2rem 0; }
+
+  /* board button */
+  .dp-board-btn {
+    display: flex; align-items: center; justify-content: center; gap: .7rem;
+    width: 100%;
+    background: none;
+    border: 1px solid rgba(0,217,192,.4);
+    color: var(--cyan);
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(.5rem, 1.8vw, .68rem);
+    letter-spacing: .3em; text-transform: uppercase;
+    padding: .9rem 1.4rem;
+    cursor: pointer;
+    transition: background .25s, border-color .25s, color .25s, opacity .25s;
+    opacity: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .dp-board-btn::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(0,217,192,.06) 50%, transparent 100%);
+    transform: translateX(-100%);
+    transition: transform .4s ease;
+  }
+  .dp-board-btn:hover::before { transform: translateX(100%); }
+  .dp-board-btn:hover { background:rgba(0,217,192,.08); border-color:var(--cyan); color:var(--lime); }
+  .dp-board-btn.show { opacity: 1; transition: opacity .5s ease, background .25s, border-color .25s, color .25s; }
+  .dp-board-btn-arrow { font-size:1em; opacity:.7; }
+
+  /* bottom bar */
+  .dp-bottombar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: .35rem 1.1rem .38rem;
+    border-top: 1px solid rgba(0,217,192,.1);
+    background: rgba(0,217,192,.02);
+  }
+  .dp-bottombar span {
+    font-family: 'Space Mono', monospace;
+    font-size: .36rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--cyan); opacity: .3;
+  }
+
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
   /* ══════════════════════════════════════
      §1  LANDING
@@ -113,158 +329,195 @@
   .sr-divider { width:36px; height:1px; background:rgba(0,217,192,.25); margin:.3rem 0; }
   @media (max-width: 900px) { .side-readout { display:none; } }
 
-  /* ── NAMEPLATE — the main graphic element ── */
-  .nameplate {
+  /* ── LANDING NAMEPLATE — redesigned ── */
+  .ship-nameplate {
     position: relative;
-    width: min(560px, 92vw);
-    /* no fixed height — let content determine it */
-    padding: 0;
-    margin-bottom: clamp(.8rem, 2vh, 1.4rem);
+    width: min(600px, 94vw);
+    margin-bottom: clamp(.6rem, 1.8vh, 1.2rem);
   }
 
-  /* SVG decorative layer — absolutely positioned, fills nameplate */
-  .nameplate-svg {
-    position: absolute;
-    inset: -18px;          /* bleeds slightly beyond text */
-    width: calc(100% + 36px);
-    height: calc(100% + 36px);
-    pointer-events: none;
-    overflow: visible;
-  }
-
-  /* inner content — name + label stacked */
-  .nameplate-inner {
+  /* outer frame — double border trick */
+  .snp-frame {
     position: relative;
-    z-index: 2;
-    padding: 1.6rem 1.8rem 1.4rem;
+    border: 1px solid rgba(0,217,192,.28);
+    box-shadow:
+      0 0 0 3px rgba(6,8,15,1),
+      0 0 0 4px rgba(0,217,192,.1),
+      0 0 40px rgba(0,217,192,.1),
+      inset 0 0 30px rgba(0,217,192,.025);
+    background: rgba(6,8,15,.92);
+    overflow: hidden;
   }
 
-  .np-log {
+  /* scan line */
+  .snp-scanline {
+    position:absolute; left:0; right:0; height:1px;
+    background:linear-gradient(to right,transparent,rgba(0,217,192,.3) 30%,rgba(0,217,192,.3) 70%,transparent);
+    pointer-events:none; z-index:5;
+    animation:scanline-sweep 4s ease-in-out infinite; top:0;
+  }
+  @keyframes scanline-sweep { 0%{top:0%;opacity:0} 5%{opacity:.7} 95%{opacity:.3} 100%{top:100%;opacity:0} }
+
+  /* top status bar */
+  .snp-statusbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: .38rem 1.1rem .34rem;
+    background: rgba(0,217,192,.055);
+    border-bottom: 1px solid rgba(0,217,192,.18);
+  }
+  .snp-statusbar-left {
+    display: flex; align-items: center; gap: .6rem;
+  }
+  .snp-status-pip {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--cyan);
+    animation: blink 1.8s step-end infinite;
+    flex-shrink: 0;
+  }
+  .snp-statusbar-label {
     font-family: 'Space Mono', monospace;
-    font-size: clamp(.38rem, 1.1vw, .52rem);
-    letter-spacing: .38em; text-transform: uppercase;
-    color: var(--cyan); opacity: .55;
-    display: block; margin-bottom: .5rem;
-  }
-
-  /* name */
-  .np-simran {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3.8rem, 13vw, 8rem);
-    line-height: .82; letter-spacing: .04em;
-    color: var(--cream); display: block;
-    text-shadow: 0 0 40px rgba(0,217,192,.14);
-  }
-  .np-poudel {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2rem, 6.5vw, 4.2rem);
-    line-height: .88; letter-spacing: .1em;
-    color: var(--cyan); display: block;
-    margin-left: clamp(.6rem, 2.5vw, 2rem);
-    opacity: 0; transition: opacity .5s;
-  }
-  .np-poudel.show { opacity: .82; }
-  .name-period { color: var(--lime); }
-
-  /* typing cursor */
-  .t-cur { display:inline-block; width:.055em; height:.78em; background:var(--cyan); vertical-align:middle; margin-left:.04em; animation:blink .85s step-end infinite; }
-  .t-cur.off { display:none; }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-  /* status row below name */
-  .np-status {
-    margin-top: .7rem;
-    display: flex; align-items: center; gap: .7rem;
-    opacity: 0; transition: opacity .5s;
-  }
-  .np-status.show { opacity: 1; }
-  .np-status-dot { width:5px; height:5px; border-radius:50%; background:var(--cyan); animation:blink 1.4s step-end infinite; flex-shrink:0; }
-  .np-status-text {
-    font-family: 'Space Mono', monospace;
-    font-size: clamp(.34rem, 1vw, .48rem);
-    letter-spacing: .22em; text-transform: uppercase;
+    font-size: clamp(.3rem, .85vw, .42rem);
+    letter-spacing: .26em; text-transform: uppercase;
     color: var(--cyan); opacity: .65;
   }
-
-  /* SVG decorative elements — drawn by JS for responsiveness */
-  /* Static CSS-based corners + line accents */
-  .np-corner {
-    position: absolute;
-    width: 18px; height: 18px;
-    pointer-events: none;
-  }
-  .np-corner.tl { top:-1px; left:-1px; border-top:1.5px solid rgba(0,217,192,.7); border-left:1.5px solid rgba(0,217,192,.7); }
-  .np-corner.tr { top:-1px; right:-1px; border-top:1.5px solid rgba(0,217,192,.7); border-right:1.5px solid rgba(0,217,192,.7); }
-  .np-corner.bl { bottom:-1px; left:-1px; border-bottom:1.5px solid rgba(0,217,192,.7); border-left:1.5px solid rgba(0,217,192,.7); }
-  .np-corner.br { bottom:-1px; right:-1px; border-bottom:1.5px solid rgba(0,217,192,.7); border-right:1.5px solid rgba(0,217,192,.7); }
-
-  /* scan line sweeping across the nameplate */
-  .np-scanline {
-    position: absolute; left: 0; right: 0; height: 1px;
-    background: linear-gradient(to right, transparent, rgba(0,217,192,.35) 30%, rgba(0,217,192,.35) 70%, transparent);
-    pointer-events: none; z-index: 3;
-    animation: scanline-sweep 3.5s ease-in-out infinite;
-    top: 0;
-  }
-  @keyframes scanline-sweep {
-    0%   { top: 0%;   opacity: 0; }
-    5%   { opacity: .8; }
-    95%  { opacity: .4; }
-    100% { top: 100%; opacity: 0; }
-  }
-
-  /* horizontal accent lines beside name */
-  .np-accent-l {
-    position: absolute;
-    left: -28px; top: 50%; transform: translateY(-50%);
-    width: 20px; height: 1px;
-    background: linear-gradient(to left, rgba(0,217,192,.5), transparent);
-  }
-  .np-accent-r {
-    position: absolute;
-    right: -28px; top: 50%; transform: translateY(-50%);
-    width: 20px; height: 1px;
-    background: linear-gradient(to right, rgba(0,217,192,.5), transparent);
-  }
-
-  /* border of the nameplate itself */
-  .nameplate {
-    outline: 1px solid rgba(0,217,192,.2);
-    box-shadow:
-      0 0 0 1px rgba(0,217,192,.06),
-      0 0 24px rgba(0,217,192,.07),
-      inset 0 0 20px rgba(0,217,192,.03);
-  }
-
-  /* top micro-bar */
-  .np-topbar {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: .35rem .9rem .3rem;
-    border-bottom: 1px solid rgba(0,217,192,.14);
-    background: rgba(0,217,192,.04);
-  }
-  .np-topbar-label {
+  .snp-statusbar-right {
     font-family: 'Space Mono', monospace;
-    font-size: clamp(.3rem, .9vw, .42rem);
-    letter-spacing: .28em; text-transform: uppercase;
-    color: var(--cyan); opacity: .6;
+    font-size: clamp(.28rem, .8vw, .38rem);
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--cyan); opacity: .35;
   }
-  .np-topbar-dots { display:flex; gap:.35rem; align-items:center; }
-  .np-dot { width:4px; height:4px; border-radius:50%; background:rgba(0,217,192,.3); }
-  .np-dot:first-child { background:rgba(0,217,192,.65); animation:blink 2s step-end infinite; }
 
-  /* bottom micro-bar */
-  .np-bottombar {
+  /* main name body */
+  .snp-body {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: stretch;
+    position: relative; z-index: 2;
+  }
+
+  /* left: the name itself */
+  .snp-name-col {
+    padding: 1.1rem 1.4rem 1rem 1.4rem;
+    display: flex; flex-direction: column; gap: 0;
+    border-right: 1px solid rgba(0,217,192,.1);
+  }
+
+  /* CAPTAIN ON RECORD — micro label */
+  .snp-captain-label {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(.28rem, .82vw, .4rem);
+    letter-spacing: .36em; text-transform: uppercase;
+    color: var(--lavender); opacity: .5;
+    margin-bottom: .38rem;
+    display: flex; align-items: center; gap: .5rem;
+  }
+  .snp-captain-label::before {
+    content: '';
+    display: inline-block;
+    width: 18px; height: 1px;
+    background: rgba(177,151,252,.35);
+    flex-shrink: 0;
+  }
+
+  /* SIMRAN — the big name */
+  .snp-first {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 14vw, 8.2rem);
+    line-height: .82; letter-spacing: .06em;
+    color: var(--cream);
+    display: block;
+    text-shadow: 0 0 50px rgba(0,217,192,.12);
+  }
+
+  /* POUDEL — second name, offset + cyan tint */
+  .snp-last {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.9rem, 6.2vw, 3.8rem);
+    line-height: .9; letter-spacing: .14em;
+    color: var(--cyan);
+    opacity: 0;
+    display: block;
+    margin-left: clamp(.5rem, 2vw, 1.6rem);
+    margin-top: .08rem;
+    transition: opacity .5s;
+  }
+  .snp-last.show { opacity: .82; }
+  .snp-last-period { color: var(--lime); }
+
+  /* typing cursor */
+  .t-cur { display:inline-block; width:.05em; height:.82em; background:var(--cyan); vertical-align:middle; margin-left:.04em; animation:blink .85s step-end infinite; }
+  .t-cur.off { display:none; }
+
+  /* right: vertical data column */
+  .snp-data-col {
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    padding: .9rem .85rem .9rem .85rem;
+    min-width: clamp(80px, 14vw, 130px);
+    gap: .7rem;
+  }
+  .snp-data-item {
+    display: flex; flex-direction: column; gap: .15rem;
+  }
+  .snp-data-key {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(.22rem, .65vw, .33rem);
+    letter-spacing: .28em; text-transform: uppercase;
+    color: var(--cyan); opacity: .45;
+  }
+  .snp-data-val {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(.28rem, .82vw, .42rem);
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--lime); opacity: .75;
+  }
+
+  /* status row (systems thriving) */
+  .snp-status {
+    display: flex; align-items: center; gap: .55rem;
+    opacity: 0; transition: opacity .5s;
+    margin-top: .5rem;
+  }
+  .snp-status.show { opacity: 1; }
+  .snp-status-dot { width:4px; height:4px; border-radius:50%; background:var(--cyan); animation:blink 1.4s step-end infinite; flex-shrink:0; }
+  .snp-status-text {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(.26rem,.75vw,.38rem);
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--cyan); opacity: .55;
+  }
+
+  /* bottom micro bar */
+  .snp-bottombar {
     display: flex; align-items: center; justify-content: space-between;
-    padding: .28rem .9rem .32rem;
+    padding: .3rem 1.1rem .32rem;
     border-top: 1px solid rgba(0,217,192,.1);
     background: rgba(0,217,192,.02);
   }
-  .np-bottombar span {
+  .snp-bottombar span {
     font-family: 'Space Mono', monospace;
-    font-size: clamp(.28rem, .85vw, .4rem);
-    letter-spacing: .2em; text-transform: uppercase;
-    color: var(--cyan); opacity: .35;
+    font-size: clamp(.24rem, .72vw, .36rem);
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--cyan); opacity: .3;
+  }
+
+  /* corner accents on outer frame */
+  .snp-corner { position:absolute; width:18px; height:18px; pointer-events:none; z-index:6; }
+  .snp-corner.tl { top:-1px; left:-1px; border-top:1.5px solid rgba(0,217,192,.75); border-left:1.5px solid rgba(0,217,192,.75); }
+  .snp-corner.tr { top:-1px; right:-1px; border-top:1.5px solid rgba(0,217,192,.75); border-right:1.5px solid rgba(0,217,192,.75); }
+  .snp-corner.bl { bottom:-1px; left:-1px; border-bottom:1.5px solid rgba(0,217,192,.75); border-left:1.5px solid rgba(0,217,192,.75); }
+  .snp-corner.br { bottom:-1px; right:-1px; border-bottom:1.5px solid rgba(0,217,192,.75); border-right:1.5px solid rgba(0,217,192,.75); }
+
+  /* landing log id */
+  .landing-log-id {
+    font-family: 'Space Mono', monospace;
+    font-size: .68rem; letter-spacing: .3em; text-transform: uppercase;
+    display: block;
+    color: var(--cyan);
+    text-shadow: 0 0 14px rgba(0,217,192,.4);
+    margin-bottom: 1rem;
+    align-self: flex-start;
+    width: min(600px, 94vw);
   }
 
   /* ── POEM + NUDGE ── */
@@ -402,6 +655,62 @@
 
 <canvas id="bg-canvas"></canvas>
 
+<!-- ══ DOCKING POPUP ══ -->
+<div id="dock-overlay" role="dialog" aria-modal="true" aria-label="Docking Sequence">
+  <div id="dock-panel">
+    <div class="dp-corner tl"></div>
+    <div class="dp-corner tr"></div>
+    <div class="dp-corner bl"></div>
+    <div class="dp-corner br"></div>
+    <div class="dp-scanline"></div>
+
+    <div class="dp-topbar">
+      <span class="dp-topbar-label">Quari.15. · Auth. Terminal · Airlock C</span>
+      <div class="dp-topbar-dots">
+        <div class="dp-dot"></div>
+        <div class="dp-dot"></div>
+        <div class="dp-dot"></div>
+      </div>
+    </div>
+
+    <div class="dp-body">
+      <span class="dp-title" id="dp-title"><span class="t-blink" id="dp-cur"></span></span>
+
+      <div class="dp-fields" id="dp-fields" style="opacity:0;">
+        <div class="dp-field">
+          <span class="dp-field-key">Vessel</span>
+          <span class="dp-field-val" id="dp-vessel"><span class="t-blink" id="dp-vcur"></span></span>
+        </div>
+        <div class="dp-sep"></div>
+        <div class="dp-field">
+          <span class="dp-field-key">Coordinates</span>
+          <span class="dp-field-val" id="dp-coords"><span class="t-blink" id="dp-ccur"></span></span>
+        </div>
+        <div class="dp-sep"></div>
+        <div class="dp-field">
+          <span class="dp-field-key">Current Command</span>
+          <span class="dp-field-val" id="dp-command"><span class="t-blink" id="dp-cmcur"></span></span>
+        </div>
+        <div class="dp-sep"></div>
+        <div class="dp-field">
+          <span class="dp-field-key">Captain Status</span>
+          <span class="dp-field-val" id="dp-captain"><span class="t-blink" id="dp-capcur"></span></span>
+        </div>
+      </div>
+
+      <button class="dp-board-btn" id="dp-board-btn" onclick="closeDock()">
+        <span>Board Vessel</span>
+        <span class="dp-board-btn-arrow">→</span>
+      </button>
+    </div>
+
+    <div class="dp-bottombar">
+      <span>Quari.15. · Docking Protocol v4.1</span>
+      <span id="dp-time-readout">——</span>
+    </div>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav id="topnav" aria-label="Navigation">
   <button id="helm-btn" aria-label="Return to bridge">
@@ -430,6 +739,7 @@
       </g>
     </svg>
   </button>
+  <span class="nav-ship-id">Quari.15.</span>
   <ul class="nav-links">
     <li><a href="#credentials" data-section="credentials">Credentials</a></li>
     <li><a href="#commonplace" data-section="commonplace">What's This?</a></li>
@@ -460,7 +770,7 @@
 
   <!-- ambient side readouts -->
   <div class="side-readout left" aria-hidden="true">
-    <div class="sr-item"><span class="sr-key">Vessel</span><span class="sr-val">Dagger.15.</span></div>
+    <div class="sr-item"><span class="sr-key">Vessel</span><span class="sr-val">Quari.15.</span></div>
     <div class="sr-divider"></div>
     <div class="sr-item"><span class="sr-key">Status</span><span class="sr-val">In Transit</span></div>
     <div class="sr-divider"></div>
@@ -474,38 +784,63 @@
     <div class="sr-item"><span class="sr-key">Vines</span><span class="sr-val">Thriving</span></div>
   </div>
 
-  <!-- nameplate -->
-  <div class="nameplate" id="nameplate">
-    <div class="np-corner tl"></div>
-    <div class="np-corner tr"></div>
-    <div class="np-corner bl"></div>
-    <div class="np-corner br"></div>
-    <div class="np-accent-l"></div>
-    <div class="np-accent-r"></div>
-    <div class="np-scanline"></div>
+  <!-- landing log id — above nameplate, outside it -->
+  <span class="landing-log-id">Ship's Log. 001</span>
 
-    <div class="np-topbar">
-      <span class="np-topbar-label">Dagger.15. / Nav. Terminal / Bridge</span>
-      <div class="np-topbar-dots">
-        <div class="np-dot"></div>
-        <div class="np-dot"></div>
-        <div class="np-dot"></div>
+  <!-- nameplate — redesigned two-column layout -->
+  <div class="ship-nameplate" id="nameplate">
+    <div class="snp-corner tl"></div>
+    <div class="snp-corner tr"></div>
+    <div class="snp-corner bl"></div>
+    <div class="snp-corner br"></div>
+    <div class="snp-frame">
+      <div class="snp-scanline"></div>
+
+      <div class="snp-statusbar">
+        <div class="snp-statusbar-left">
+          <div class="snp-status-pip"></div>
+          <span class="snp-statusbar-label">Quari.15. · Nav. Terminal · Bridge</span>
+        </div>
+        <span class="snp-statusbar-right" id="snp-ts">——</span>
       </div>
-    </div>
 
-    <div class="nameplate-inner">
-      <span class="np-log" id="np-log"></span>
-      <span class="np-simran" id="np-simran"><span class="t-cur" id="t-cur"></span></span>
-      <span class="np-poudel" id="np-poudel">Poudel<span class="name-period">.</span></span>
-      <div class="np-status" id="np-status">
-        <div class="np-status-dot"></div>
-        <span class="np-status-text">Systems thriving.</span>
+      <div class="snp-body">
+        <!-- name column -->
+        <div class="snp-name-col">
+          <span class="snp-captain-label">Captain on Record</span>
+          <span class="snp-first" id="snp-first"><span class="t-cur" id="t-cur"></span></span>
+          <span class="snp-last" id="snp-last">Poudel<span class="snp-last-period">.</span></span>
+          <div class="snp-status" id="snp-status">
+            <div class="snp-status-dot"></div>
+            <span class="snp-status-text">Systems thriving.</span>
+          </div>
+        </div>
+
+        <!-- data column -->
+        <div class="snp-data-col">
+          <div class="snp-data-item">
+            <span class="snp-data-key">Vessel</span>
+            <span class="snp-data-val">Quari.15.</span>
+          </div>
+          <div class="snp-data-item">
+            <span class="snp-data-key">Status</span>
+            <span class="snp-data-val">In Transit</span>
+          </div>
+          <div class="snp-data-item">
+            <span class="snp-data-key">Cargo</span>
+            <span class="snp-data-val">Multitudes</span>
+          </div>
+          <div class="snp-data-item">
+            <span class="snp-data-key">Hull</span>
+            <span class="snp-data-val">Intact</span>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="np-bottombar">
-      <span>Ship's Log. 001</span>
-      <span id="np-coords-bottom">28.3949° N · Confidential</span>
+      <div class="snp-bottombar">
+        <span>28.3949° N · Coordinates: Confidential</span>
+        <span>Class-Γ · Long Haul</span>
+      </div>
     </div>
   </div>
 
@@ -528,7 +863,7 @@
 <!-- ══ §2 CREDENTIALS ══ -->
 <section id="credentials" data-room="credentials">
   <div class="s-inner">
-    <span class="log-id lid-lav">Captain's Log. 001</span>
+    <span class="log-id lid-lav">Ship's Log. 002</span>
     <h2 class="cred-heading">If Credentials Is What You Seek,<br><em>With All Formalities I Must Speak...</em></h2>
     <div class="cred-body">
       <p>I completed my BSc in Microbiology from Tri-Chandra Multiple Campus, Tribhuvan University. My undergraduate degree included an independent research project on <strong>"Bacterial Contamination and Prevalence of Pathogens Across Various Establishments in Kathmandu"</strong>. And, I am currently pursuing an MA in English Literature to keep my love for art and science balanced.</p>
@@ -551,7 +886,7 @@
 <!-- ══ §3 WHAT'S THIS? ══ -->
 <section id="commonplace" data-room="commonplace">
   <div class="s-inner">
-    <span class="log-id lid-cyan">Ship's Log. 002</span>
+    <span class="log-id lid-cyan">Ship's Log. 003</span>
     <h2 class="common-heading">Good Evening, Passengers. <span class="common-hi">Hi.</span></h2>
     <span class="common-sub">Her Mental Sky, Shall We Pry?</span>
     <div class="verse-bridge">On quotes, other travellers, say what may<br><span class="verse-indent">Some grow roots, however cliché...</span></div>
@@ -564,25 +899,25 @@
       <div class="dossier">
         <span class="dossier-class">File Ref: PSY-001 · Classified</span>
         <p class="dossier-body">Subject engages in prolonged philosophical contemplation regarding matters <span class="redact"></span> well beyond her intellectual jurisdiction. Frequency: <strong>daily.</strong> Outcome: unresolved.</p>
-        <span class="dossier-id">Vessel Dagger.15. · Internal Rec.</span>
+        <span class="dossier-id">Vessel Quari.15. · Internal Rec.</span>
         <span class="dossier-stamp">Unresolved</span>
       </div>
       <div class="dossier">
         <span class="dossier-class">File Ref: ENG-004 · Sensitive</span>
         <p class="dossier-body">Ship's navigator notes persistent <span class="redact"></span> documented bias toward <strong>sentient spacecraft</strong> as literary genre. Filed without her knowledge.</p>
-        <span class="dossier-id">Vessel Dagger.15. · Nav. Dept.</span>
+        <span class="dossier-id">Vessel Quari.15. · Nav. Dept.</span>
         <span class="dossier-stamp">Need to Know</span>
       </div>
       <div class="dossier">
         <span class="dossier-class">File Ref: OPS-012 · Eyes Only</span>
         <p class="dossier-body">Captain briefly believed mastery of <strong>knitting and crochet</strong> constituted qualification for world domination. Duration: <span class="redact"></span>. Status: lapsed.</p>
-        <span class="dossier-id">Vessel Dagger.15. · Ops. Log</span>
+        <span class="dossier-id">Vessel Quari.15. · Ops. Log</span>
         <span class="dossier-stamp">Lapsed</span>
       </div>
       <div class="dossier">
         <span class="dossier-class">File Ref: AUD-007 · Restricted</span>
         <p class="dossier-body">Musical taste assessment returned results <span class="redact"></span> with one confirmed exception: <strong>Hozier.</strong> Playlist intervention recommended.</p>
-        <span class="dossier-id">Vessel Dagger.15. · Aud. Division</span>
+        <span class="dossier-id">Vessel Quari.15. · Aud. Division</span>
         <span class="dossier-stamp">Pending</span>
       </div>
     </div>
@@ -593,7 +928,7 @@
 <section id="about" data-room="about">
   <div class="s-inner" style="position:relative;">
     <span class="about-ghost" aria-hidden="true">multitudes</span>
-    <span class="log-id lid-lav">Captain's Log. 002</span>
+    <span class="log-id lid-lav">Ship's Log. 004</span>
     <h2 class="multitudes-hl">I Contain <span class="multitudes-italic">Multitudes.</span></h2>
     <span class="obviously">(Obviously!)</span>
     <div class="about-body">
@@ -631,7 +966,7 @@
 <!-- ══ §5 HELLO OR HI ══ -->
 <section id="contact" data-room="contact">
   <div class="s-inner">
-    <span class="log-id lid-cyan">Ship's Log. 003</span>
+    <span class="log-id lid-cyan">Ship's Log. 005</span>
     <span class="contact-subhead">Hello, or Hi, or Whatever You Prefer Preceding Goodbye</span>
     <h2 class="contact-heading">Contact The<br>Captain?</h2>
     <div class="contact-letter">
@@ -656,7 +991,7 @@
 </section>
 
 <footer>
-  <span class="foot-l">© Simran Poudel</span>
+  <span class="foot-l">© Simran Poudel · Quari.15.</span>
   <span class="foot-r">made with obsessive vision and excellent life choices</span>
 </footer>
 
@@ -724,35 +1059,156 @@
   (function loop(){ctx.clearRect(0,0,W,H);drawGrid();drawGlow();geos.forEach(g=>{g.step();g.draw();});spores.forEach(s=>{s.step();s.draw();});requestAnimationFrame(loop);})();
 })();
 
-/* ═══ TYPING SEQUENCE ═══ */
+/* ═══ DOCKING POPUP ═══ */
+function closeDock() {
+  const overlay = document.getElementById('dock-overlay');
+  overlay.classList.add('fade-out');
+  setTimeout(() => { overlay.style.display = 'none'; }, 650);
+}
+
 (function(){
-  const delay=ms=>new Promise(r=>setTimeout(r,ms));
-  async function type(el,text,spd){for(const ch of text){el.textContent+=ch;await delay(spd+Math.random()*20);}}
+  const delay = ms => new Promise(r => setTimeout(r, ms));
 
-  async function run(){
-    await delay(400);
-    await type(document.getElementById('np-log'),'captain on record',40);
-    await delay(180);
-
-    const simEl=document.getElementById('np-simran');
-    const cur=document.getElementById('t-cur');
-    simEl.textContent=''; simEl.appendChild(cur);
-    for(const ch of 'Simran'){
-      simEl.insertBefore(document.createTextNode(ch),cur);
-      await delay(88+Math.random()*40);
+  async function typeInto(el, text, speed, cursorEl) {
+    for (const ch of text) {
+      // insert before cursor if cursor exists, else append
+      if (cursorEl && cursorEl.parentNode === el) {
+        el.insertBefore(document.createTextNode(ch), cursorEl);
+      } else {
+        el.textContent += ch;
+      }
+      await delay(speed + Math.random() * 25);
     }
+  }
+
+  async function runDock() {
     await delay(300);
 
-    const pouEl=document.getElementById('np-poudel');
-    pouEl.classList.add('show');
-    const txt=pouEl.textContent; pouEl.textContent='';
-    for(const ch of txt){pouEl.textContent+=ch;await delay(65+Math.random()*25);}
+    // type title
+    const titleEl = document.getElementById('dp-title');
+    const titleCur = document.getElementById('dp-cur');
+    await typeInto(titleEl, 'Docking Sequence Initiated', 55, titleCur);
     await delay(350);
+    titleCur.classList.add('off');
+
+    // show fields
+    const fieldsEl = document.getElementById('dp-fields');
+    fieldsEl.style.transition = 'opacity .4s';
+    fieldsEl.style.opacity = '1';
+    await delay(200);
+
+    // vessel
+    const vEl = document.getElementById('dp-vessel');
+    const vCur = document.getElementById('dp-vcur');
+    await typeInto(vEl, 'Quari. 15.', 70, vCur);
+    vCur.classList.add('off');
+    await delay(280);
+
+    // coordinates
+    const cEl = document.getElementById('dp-coords');
+    const cCur = document.getElementById('dp-ccur');
+    await typeInto(cEl, 'Confidential', 65, cCur);
+    cCur.classList.add('off');
+    await delay(280);
+
+    // current command
+    const cmEl = document.getElementById('dp-command');
+    const cmCur = document.getElementById('dp-cmcur');
+    await typeInto(cmEl, 'Ship', 80, cmCur);
+    cmCur.classList.add('off');
+    await delay(280);
+
+    // captain status — M.I.A. first
+    const capEl = document.getElementById('dp-captain');
+    const capCur = document.getElementById('dp-capcur');
+    capEl.classList.add('dp-val-mia');
+    await typeInto(capEl, 'M.I.A.', 70, capCur);
+    await delay(1000);
+
+    // wipe to redacted bar then type REDACTED
+    while (capEl.firstChild && capEl.firstChild !== capCur) {
+      capEl.removeChild(capEl.firstChild);
+    }
+    capEl.classList.remove('dp-val-mia');
+    await delay(160);
+
+    // insert the redacted bar + text
+    const redactWrap = document.createElement('span');
+    redactWrap.className = 'dp-val-redacted-wrap';
+    const redactBar = document.createElement('span');
+    redactBar.className = 'dp-val-redacted-bar';
+    const redactTxt = document.createElement('span');
+    redactTxt.className = 'dp-val-redacted-text';
+    redactTxt.textContent = 'Redacted';
+    redactBar.appendChild(redactTxt);
+    redactWrap.appendChild(redactBar);
+    capEl.insertBefore(redactWrap, capCur);
+    capCur.classList.add('off');
+    await delay(500);
+
+    // show board button
+    const btn = document.getElementById('dp-board-btn');
+    btn.classList.add('show');
+
+    // auto-close after 7s from when button appears
+    setTimeout(() => {
+      if (document.getElementById('dock-overlay').style.display !== 'none') {
+        closeDock();
+      }
+    }, 7000);
+  }
+
+  runDock();
+
+  // clock readout in dock
+  function updateDockTime() {
+    const el = document.getElementById('dp-time-readout');
+    if (!el) return;
+    const now = new Date();
+    const h = String(now.getHours()).padStart(2,'0');
+    const m = String(now.getMinutes()).padStart(2,'0');
+    const s = String(now.getSeconds()).padStart(2,'0');
+    el.textContent = `${h}:${m}:${s} UTC`;
+  }
+  updateDockTime();
+  setInterval(updateDockTime, 1000);
+})();
+
+/* ═══ LANDING TYPING SEQUENCE ═══ */
+(function(){
+  const delay=ms=>new Promise(r=>setTimeout(r,ms));
+
+  // live timestamp in nameplate
+  function updateTS() {
+    const el = document.getElementById('snp-ts');
+    if (!el) return;
+    const now = new Date();
+    el.textContent = String(now.getHours()).padStart(2,'0') + ':' +
+                     String(now.getMinutes()).padStart(2,'0') + ':' +
+                     String(now.getSeconds()).padStart(2,'0');
+  }
+  updateTS(); setInterval(updateTS, 1000);
+
+  async function run(){
+    await delay(200);
+
+    const firstEl = document.getElementById('snp-first');
+    const cur = document.getElementById('t-cur');
+    firstEl.textContent = ''; firstEl.appendChild(cur);
+    for (const ch of 'Simran') {
+      firstEl.insertBefore(document.createTextNode(ch), cur);
+      await delay(95 + Math.random() * 45);
+    }
+    await delay(320);
+
+    const lastEl = document.getElementById('snp-last');
+    lastEl.classList.add('show');
+    await delay(380);
 
     cur.classList.add('off');
-    document.getElementById('np-status').classList.add('show');
+    document.getElementById('snp-status').classList.add('show');
 
-    await delay(480);
+    await delay(520);
     document.getElementById('scroll-nudge').classList.add('visible');
   }
   run();
