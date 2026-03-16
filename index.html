@@ -8,9 +8,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Gochi+Hand&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@1,300;1,400;1,600;1,700&family=Source+Code+Pro:wght@700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
   :root {
-    --bg:       #080716;
-    --cream:    #f6f6fc;
-    --magenta:  #e040a0;
+    --bg:       #0e0e1afd;
+    --cream:    #f7f7ff;
+    --magenta:  #ff49a6;
     --lime:     #c8f03a;
     --cyan:     #00d9c0;
     --lavender: #d8b4fe;    --nav-h:    54px;
@@ -94,9 +94,18 @@
      SECTION DIVIDERS
   ══════════════════════════════════════ */
   .ship-divider { position:relative; z-index:2; width:100%; padding:2.4rem 2rem; display:flex; align-items:center; justify-content:center; }
-  .ship-divider-inner { font-family:'Space Mono',monospace; font-size:clamp(.44rem,.92vw,.58rem); letter-spacing:.28em; text-transform:uppercase; color:var(--cyan); opacity:.5; text-align:center; display:flex; align-items:center; gap:1rem; flex-wrap:wrap; justify-content:center; }
+  .ship-divider-inner { overflow:hidden; width:100%; }
+.ship-divider-track { display:flex; width:max-content; animation:div-scroll 30s linear infinite; gap:1rem; align-items:center; font-family:'Space Mono',monospace; font-size:clamp(.44rem,.92vw,.58rem); letter-spacing:.28em; text-transform:uppercase; color:var(--cyan); opacity:.8; white-space:nowrap; }
+@keyframes div-scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
   .sdiv-dot { width:5px; height:5px; border-radius:50%; background:var(--cyan); flex-shrink:0; display:inline-block; box-shadow: 0 0 8px rgba(0,217,192,.6); }
-  .sdiv-mia { color:rgba(200,240,58,.75); display:inline; }
+  .sdiv-magenta { color:var(--magenta); }
+.sdiv-magenta .sdiv-dot { background:var(--magenta); box-shadow:0 0 8px rgba(232,64,154,.6); }
+.sdiv-lime { color:var(--lime); }
+.sdiv-lime .sdiv-dot { background:var(--lime); box-shadow:0 0 8px rgba(200,240,58,.6); }
+.sdiv-lavender { color:var(--lavender); }
+.sdiv-lavender .sdiv-dot { background:var(--lavender); box-shadow:0 0 8px rgba(216,180,254,.6); }
+  .sdiv-mia { color:rgba(200,240,58,.75); display:inline; animation: blink 1.2s step-end infinite;}
   .sdiv-redact-bar { display:inline-block; background:rgba(6,8,15,.95); width:4em; height:.85em; vertical-align:middle; margin:0 .15em; border-bottom:1.5px solid rgba(0,217,192,.4); opacity:0; transition:opacity .4s; }
   .sdiv-redact-bar.show { opacity:1; }
 
@@ -268,11 +277,12 @@
     transform: translateY(clamp(45px,7vh,85px));
   }
   @media (max-width:860px) {
-    .landing-stage { flex-direction:column; align-items:center; gap:2rem; padding:0 1rem; }
-    .landing-left { transform:none; width:100%; }
-    .landing-right { transform:none; align-items:center; width:100%; min-width:0; }
-    .landing-log-wrap { padding:0 1rem; }
-  }
+  .landing-stage { flex-direction:column; align-items:center; gap:2rem; padding:0 1rem; }
+  .landing-left { transform:none; width:100%; }
+  .landing-right { transform:none; align-items:center; width:100%; min-width:0; }
+  .landing-log-wrap { padding:0 1rem; }
+  .scroll-nudge { align-self:center; text-align:center !important; }
+}
 
   .name-block {
     position: relative;
@@ -368,7 +378,11 @@
   .poem-block { width:100%; text-align:left; }
   .poem-block .poem-stanza:first-child { text-align:right; }
   .poem-block .poem-stanza:last-child { text-align:right; }
-  @media (max-width:860px) { .poem-block { text-align:center; } .poem-block .poem-stanza:first-child { text-align:center; } .poem-block .poem-stanza:last-child { text-align:center; } }
+  @media (max-width:860px) { 
+    .poem-block { text-align:center; } 
+    .poem-block .poem-stanza:first-child { text-align:center; } 
+    .poem-block .poem-stanza:last-child { text-align:center; } 
+  }
 
   .poem-stanza {
     font-family:'EB Garamond',serif; font-style:italic;
@@ -399,16 +413,16 @@
      §2  CREDENTIALS — LIME scheme
   ══════════════════════════════════════ */
   #credentials { min-height:100vh; }
-  .cred-heading { font-family:'Playfair Display SC',serif; font-weight:400; font-size:clamp(2rem,6vw,4rem); line-height:.95; color:var(--cream); letter-spacing:-.02em; margin-bottom:3.5rem; }
+  .cred-heading { font-family:'Playfair Display SC',serif; font-weight:400; font-size:clamp(2rem,6vw,4rem); line-height:.95; color:var(--cream); letter-spacing:-.02em; margin-bottom:3.5rem; max-width:640px; margin-left:auto; margin-right:auto; }
   .cred-heading em { font-family:'EB Garamond',serif; font-style:italic; color:rgba(200,240,58,.65); font-size:.9em; font-weight:400; }
-  .cred-body { font-family:'EB Garamond',serif; font-size:clamp(1.05rem,1.5vw,1.2rem); line-height:2; color:var(--cream); opacity:.78; max-width:640px; margin-bottom:2.5rem; }
+  .cred-body { font-family:'EB Garamond',serif; font-size:clamp(1.05rem,1.5vw,1.2rem); line-height:2; color:var(--cream); opacity:.78; max-width:640px; margin-bottom:2.5rem; text-align:justify; margin-left:auto; margin-right:auto; }
   .cred-body p { margin-bottom:1.5em; }
   .cred-body strong { font-weight:500; color:var(--lime); font-style:normal; }
-  .cred-open { font-family:'EB Garamond',serif; font-size:clamp(1.05rem,1.5vw,1.2rem); line-height:2; color:var(--cream); opacity:.78; max-width:640px; margin-bottom:3.5rem; }
+  .cred-open { font-family:'EB Garamond',serif; font-size:clamp(1.05rem,1.5vw,1.2rem); line-height:2; color:var(--cream); opacity:.78; max-width:640px; margin-bottom:3.5rem; text-align:justify; margin-left:auto; margin-right:auto; }
   .cred-open-label { font-family: 'Rajdhani', sans-serif; font-weight: bold; letter-spacing:.24em; text-transform:uppercase; color:var(--lime); opacity:1; display:block; margin-bottom:.8rem; }
   .cred-open p { margin-bottom:.8em; }
   .cred-open strong { font-weight:500; color:var(--lime); font-style:normal; }
-  .specimen-row { display:flex; flex-wrap:wrap; gap:1.4rem; }
+  .specimen-row { display:flex; flex-wrap:wrap; gap:1.4rem; justify-content:space-evenly;}
   .specimen-tag { display:inline-flex; flex-direction:column; gap:.3rem; text-decoration:none; position:relative; padding:1rem 1.4rem .9rem; border:1px solid rgba(200,240,58,.28); background:rgba(200,240,58,.03); transition:border-color .3s,background .3s; }
   .specimen-tag::before { content:''; position:absolute; top:-8px; left:50%; transform:translateX(-50%); width:14px; height:8px; background:rgba(200,240,58,.14); border:1px solid rgba(200,240,58,.28); border-radius:1px; }
   .specimen-tag:hover { border-color:rgba(200,240,58,.65); background:rgba(200,240,58,.07); }
@@ -453,24 +467,25 @@
     flex-shrink:0;
   }
 
-  .verse-bridge { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1rem,1.5vw,1.14rem); color:var(--cream); opacity:.5; line-height:2; margin-bottom:3rem; }
-  .verse-indent { padding-left:2.5em; display:block; }
+  .verse-bridge { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1.6rem,2.2vw,1.9rem); color:var(--lavender); opacity:1; line-height:2; margin-bottom:3rem; text-align: center;}
+  .verse-indent { padding-left:1.5em; display:block; }
   .quotes-field { margin-bottom:4.5rem; }
   .quote-float { margin-bottom:2.5rem; }
-  .quote-float:nth-child(2) { margin-left:clamp(1.5rem,8vw,6rem); }
-  .quote-float blockquote { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1.15rem,1.9vw,1.48rem); line-height:1.65; color:var(--cream); opacity:.7; max-width:540px; }
-  .q-attr { font-family:'Space Mono',monospace; font-size:.52rem; letter-spacing:.18em; text-transform:uppercase; color:var(--magenta); opacity:.55; margin-top:.7rem; display:block; }
+  .quote-float:nth-child(1) { margin-left:clamp(1.5rem,8vw,6rem); }
+  .quote-float:nth-child(2) { display:flex; flex-direction:column; align-items:flex-end; }
+  .quote-float blockquote { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1.15rem,1.9vw,1.48rem); line-height:1.65; color:var(--cream); opacity:.8; max-width:540px; }
+  .q-attr { font-family:'Space Mono',monospace; font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--magenta); opacity:.75; margin-top:.7rem; display:block; }
   .secrets-verse { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1rem,1.5vw,1.14rem); color:var(--cream); opacity:.5; line-height:2; margin-bottom:3.5rem; }
   .dossiers { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:5rem; }
   @media (max-width:560px) { .dossiers { grid-template-columns:1fr; gap:1.1rem; } }
-  .dossier { position:relative; background:rgba(232,64,154,.03); border:1px solid rgba(232,64,154,.18); padding:1.2rem 1.2rem 1rem; clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%); }
+  .dossier { position:relative; background:rgba(232,64,154,.03); border:1px solid rgba(232,64,154,.32); padding:1.2rem 1.2rem 1rem; clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%); }
   .dossier::before { content:''; position:absolute; top:0; right:0; width:0; height:0; border-style:solid; border-width:0 16px 16px 0; border-color:transparent rgba(232,64,154,.3) transparent transparent; }
-  .dossier-class { font-family:'Space Mono',monospace; font-size:.44rem; letter-spacing:.26em; text-transform:uppercase; color:var(--magenta); opacity:.68; display:block; border-bottom:1px solid rgba(232,64,154,.14); padding-bottom:.5rem; margin-bottom:.85rem; }
+  .dossier-class { font-family:'Space Mono',monospace; font-size:.68rem; letter-spacing:.26em; text-transform:uppercase; color:var(--magenta); opacity:.98; display:block; border-bottom:1px solid rgba(232,64,154,.14); padding-bottom:.5rem; margin-bottom:.85rem; }
   .redact { display:inline-block; background:rgba(232,64,154,.14); border-bottom:2px solid rgba(232,64,154,.45); height:1em; width:4.5em; vertical-align:middle; margin:0 .2em; }
   .dossier-body { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(.95rem,1.4vw,1.08rem); line-height:1.8; color:var(--cream); opacity:.7; }
   .dossier-body strong { font-style:normal; color:var(--magenta); font-weight:500; }
-  .dossier-id { font-family:'Space Mono',monospace; font-size:.38rem; letter-spacing:.2em; text-transform:uppercase; color:var(--magenta); opacity:.28; display:block; margin-top:.85rem; }
-  .dossier-stamp { position:absolute; bottom:.85rem; right:1rem; font-family:'Space Mono',monospace; font-size:.44rem; letter-spacing:.2em; text-transform:uppercase; color:var(--magenta); opacity:.22; border:1px solid rgba(232,64,154,.2); padding:.2rem .42rem; transform:rotate(-3.5deg); }
+  .dossier-id { font-family:'Space Mono',monospace; font-size:.42rem; letter-spacing:.2em; text-transform:uppercase; color:var(--magenta); opacity:.48; display:block; margin-top:.85rem; }
+  .dossier-stamp { position:absolute; bottom:.85rem; right:1rem; font-family:'Space Mono',monospace; font-size:.50rem; letter-spacing:.2em; text-transform:uppercase; color:var(--magenta); opacity:.62; border:1px solid rgba(232,64,154,.6); padding:.2rem .42rem; transform:rotate(-3.5deg); }
 
   /* ══════════════════════════════════════
      §4  WAIT, WHO? — mixed, warm
@@ -508,18 +523,26 @@
   ══════════════════════════════════════ */
   #contact { min-height:100vh; display:flex; align-items:center; }
   .contact-heading { font-family:'Playfair Display SC',serif; font-weight:400; font-size:clamp(2rem,6vw,4rem); line-height:.95; color:var(--cream); margin-bottom:.4rem; letter-spacing:-.02em; }
-  .contact-subhead { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(.98rem,1.6vw,1.22rem); color:var(--lime); opacity:.44; display:block; margin-bottom:3rem; }
-  .contact-letter { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1rem,1.4vw,1.16rem); line-height:2; color:var(--cream); opacity:.65; max-width:520px; margin-bottom:.4rem; }
+  .contact-subhead { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(.98rem,1.6vw,1.22rem); color:var(--lime); opacity:.84; display:block; margin-bottom:3rem; }
+  .contact-letter { font-family:'EB Garamond',serif; font-style:normal; font-size:clamp(1rem,1.4vw,1.16rem); line-height:2; color:var(--cream); opacity:.65; max-width:520px; margin-bottom:.4rem; }
   .contact-letter p { margin-bottom:.6em; }
-  .contact-verse { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(.95rem,1.4vw,1.08rem); color:var(--lime); opacity:.44; display:block; margin-bottom:3.5rem; line-height:2; }
+  .contact-verse { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(.95rem,1.4vw,1.08rem); color:var(--lavender); opacity:.65; display:block; margin-bottom:3.5rem; line-height:2; }
   .contact-links { display:flex; flex-direction:column; margin-bottom:4.5rem; }
   .contact-link-row { display:flex; align-items:center; justify-content:space-between; padding:1.3rem 0; border-bottom:1px solid rgba(200,240,58,.12); text-decoration:none; transition:padding-left .25s; gap:1rem; }
   .contact-link-row:first-child { border-top:1px solid rgba(200,240,58,.12); }
   .contact-link-row:hover { padding-left:.5rem; }
   .link-platform { font-family:'Playfair Display SC',serif; font-size:clamp(1.7rem,4.5vw,3rem); color:var(--cream); opacity:.85; line-height:1; transition:color .25s,opacity .25s; }
   .contact-link-row:hover .link-platform { color:var(--lime); opacity:1; }
-  .link-aside { font-family:'Gochi Hand',cursive; font-size:.84rem; letter-spacing:.16em; color:var(--lime); opacity:.5; white-space:nowrap; }
-  @media (max-width:440px) { .link-aside { display:none; } }
+
+.contact-link-row:nth-child(1) .link-aside { color:var(--magenta); opacity:.77; }
+.contact-link-row:nth-child(2) .link-aside { color:var(--cyan); opacity:.77; }
+.contact-link-row:nth-child(3) .link-aside { color:var(--lime); opacity:.77; }
+
+.contact-link-row:nth-child(1):hover .link-platform { color:var(--magenta); opacity:1; }
+.contact-link-row:nth-child(2):hover .link-platform { color:var(--cyan); opacity:1; }
+.contact-link-row:nth-child(3):hover .link-platform { color:var(--lime); opacity:1; }
+
+  .link-aside { font-family:'Gochi Hand',cursive; font-size:.88rem; letter-spacing:.16em; color:var(--lime); opacity:.5; white-space:nowrap; }
   .interlude { font-family:'Space Mono',monospace; font-size:.6rem; letter-spacing:.26em; text-transform:uppercase; color:var(--lime); opacity: 0.8; display:block; margin-bottom:.9rem; }
   .contact-signoff { font-family:'Gochi Hand',cursive; font-size:clamp(1.2rem,2.2vw,1.85rem); color:var(--lime); opacity:.65; transform:rotate(1.2deg); line-height:1.7; display:block; }
 
@@ -688,7 +711,7 @@
 
   <div class="landing-log-wrap">
     <div class="landing-log-row">
-      <span class="landing-log-id">Ship's Log. 001</span>
+      <span class="log-id lid-cyan" style="color:var(--cyan);text-shadow:0 0 24px rgba(0,217,192,.4);">Ship's Log. 001</span>
     </div>
     <span class="landing-directive"><strong>Primary Directive: Locate Captain</strong></span>
   </div>
@@ -735,14 +758,36 @@
 <!-- DIVIDER 1 -->
 <div class="ship-divider" aria-hidden="true">
   <div class="ship-divider-inner">
-    <span class="sdiv-dot"></span>Accessing Personnel Files<span class="sdiv-dot"></span>Hull: Intact<span class="sdiv-dot"></span>Shields: Engaged<span class="sdiv-dot"></span>
+  <div class="ship-divider-track sdiv-lime">
+    <span class="sdiv-dot"></span>Visitor Access: Granted
+    <span class="sdiv-dot"></span>Captain's Record: Available
+    <span class="sdiv-dot"></span>Life Support: Engaged
+    <span class="sdiv-dot"></span>Systems Core: Functional
+  
+    <span class="sdiv-dot"></span>Visitor Access: Granted
+    <span class="sdiv-dot"></span>Captain's Record: Available
+    <span class="sdiv-dot"></span>Life Support: Engaged
+    <span class="sdiv-dot"></span>Systems Core: Functional
+
+    <span class="sdiv-dot"></span>Visitor Access: Granted
+    <span class="sdiv-dot"></span>Captain's Record: Available
+    <span class="sdiv-dot"></span>Life Support: Engaged
+    <span class="sdiv-dot"></span>Systems Core: Functional
+   
+    <span class="sdiv-dot"></span>Visitor Access: Granted
+    <span class="sdiv-dot"></span>Captain's Record: Available
+    <span class="sdiv-dot"></span>Life Support: Engaged
+    <span class="sdiv-dot"></span>Systems Core: Functional
+
+    <span class="sdiv-dot"></span>
   </div>
+</div>
 </div>
 
 <!-- ══ §2 CREDENTIALS ══ -->
 <section id="credentials" data-room="credentials">
   <div class="s-inner">
-    <span class="log-id lid-lime">Ship's Log. 002</span>
+    <span class="log-id lid-lime" style="color:var(--lime);text-shadow:0 0 24px rgba(200,240,58,.4);">Ship's Log. 002</span>
     <h2 class="cred-heading">The Credentials...</h2>
     <div class="cred-body">
       <p>Completed BSc in Microbiology from Tri-Chandra Multiple Campus, Tribhuvan University. Undergraduate degree included an independent research project on <strong>"Bacterial Contamination and Prevalence of Pathogens Across Various Establishments in Kathmandu"</strong>. And, currently pursuing an MA in English Literature to keep the love for art and science balanced.</p>
@@ -765,14 +810,36 @@
 <!-- DIVIDER 2 -->
 <div class="ship-divider" aria-hidden="true">
   <div class="ship-divider-inner">
-    <span class="sdiv-dot"></span>Atmospheric Pressure: Nominal<span class="sdiv-dot"></span>Entering Sector 03<span class="sdiv-dot"></span>Life Support: Online<span class="sdiv-dot"></span>
+  <div class="ship-divider-track sdiv-magenta">
+    <span class="sdiv-dot"></span>File Restriction: Failed
+    <span class="sdiv-dot"></span>Privacy: Compromised
+    <span class="sdiv-dot"></span>Security Breach: Partial
+    <span class="sdiv-dot"></span>Alert Captain: Active
+   
+    <span class="sdiv-dot"></span>File Restriction: Failed
+    <span class="sdiv-dot"></span>Privacy: Compromised
+    <span class="sdiv-dot"></span>Security Breach: Partial
+    <span class="sdiv-dot"></span>Alert Captain: Active
+
+    <span class="sdiv-dot"></span>File Restriction: Failed
+    <span class="sdiv-dot"></span>Privacy: Compromised
+    <span class="sdiv-dot"></span>Security Breach: Partial
+    <span class="sdiv-dot"></span>Alert Captain: Active
+
+    <span class="sdiv-dot"></span>File Restriction: Failed
+    <span class="sdiv-dot"></span>Privacy: Compromised
+    <span class="sdiv-dot"></span>Security Breach: Partial
+    <span class="sdiv-dot"></span>Alert Captain: Active
+
+    <span class="sdiv-dot"></span>
   </div>
+</div>
 </div>
 
 <!-- ══ §3 WHAT'S THIS? ══ -->
 <section id="commonplace" data-room="commonplace">
   <div class="s-inner">
-    <span class="log-id lid-mag">Ship's Log. 003</span>
+    <span class="log-id lid-mag" style="color:var(--magenta);text-shadow:0 0 24px rgba(255,73,166,.4);">Ship's Log. 003</span>
     <h2 class="common-heading">Captain's Quarters</h2>
 
     <!-- blinking warning — right aligned -->
@@ -822,15 +889,38 @@
 <!-- DIVIDER 3 -->
 <div class="ship-divider" aria-hidden="true">
   <div class="ship-divider-inner">
-    <span class="sdiv-dot"></span>Navigation: Autopilot<span class="sdiv-dot"></span>Cargo Bay: Secured<span class="sdiv-dot"></span>Sensors: Active<span class="sdiv-dot"></span>
+  <div class="ship-divider-track sdiv-lavender">
+    <span class="sdiv-dot"></span>Source: The Captain
+    <span class="sdiv-dot"></span>Cargo: Multitudes
+    <span class="sdiv-dot"></span>Containment Protocol: Rejected
+    <span class="sdiv-dot"></span>Radar: Scanning
+    
+
+    <span class="sdiv-dot"></span>Source: The Captain
+    <span class="sdiv-dot"></span>Cargo: Multitudes
+    <span class="sdiv-dot"></span>Containment Protocol: Rejected
+    <span class="sdiv-dot"></span>Radar: Scanning
+
+    <span class="sdiv-dot"></span>Source: The Captain
+    <span class="sdiv-dot"></span>Cargo: Multitudes
+    <span class="sdiv-dot"></span>Containment Protocol: Rejected
+    <span class="sdiv-dot"></span>Radar: Scanning
+
+    <span class="sdiv-dot"></span>Source: The Captain
+    <span class="sdiv-dot"></span>Cargo: Multitudes
+    <span class="sdiv-dot"></span>Containment Protocol: Rejected
+    <span class="sdiv-dot"></span>Radar: Scanning
+
+    <span class="sdiv-dot"></span>
   </div>
+</div>
 </div>
 
 <!-- ══ §4 WAIT, WHO? ══ -->
 <section id="about" data-room="about">
   <div class="s-inner" style="position:relative;">
     <span class="about-ghost" aria-hidden="true">multitudes</span>
-    <span class="log-id lid-mag" style="color:var(--lime);text-shadow:0 0 24px rgba(200,240,58,.4);">Ship's Log. 004</span>
+    <span class="log-id lid-lav" style="color:var(--lavender);text-shadow:0 0 24px rgba(216,180,254,.4);">Ship's Log. 004</span>
     <h2 class="multitudes-hl">She Contains <span class="multitudes-italic">Multitudes.</span></h2>
     <span class="obviously">(Obviously!)</span>
     <div class="about-body">
@@ -870,21 +960,46 @@
 <!-- DIVIDER 4 — MIA sequence -->
 <div class="ship-divider pre-contact" aria-hidden="true">
   <div class="ship-divider-inner">
-    <span class="sdiv-dot"></span>Preparing Hailing Frequencies<span class="sdiv-dot"></span>Captain's Status:&nbsp;<span class="sdiv-mia" id="sdiv-mia-text"></span><span class="sdiv-redact-bar" id="sdiv-rbar"></span><span class="sdiv-dot"></span>
+    <div class="ship-divider-track sdiv-cyan">
+      <span class="sdiv-dot"></span>Captain Status:&nbsp;
+  <span class="sdiv-mia sdiv-mia-all">M.I.A.</span>
+  <span class="sdiv-dot"></span>Hailing Frequencies: Online
+  <span class="sdiv-dot"></span>Last Known Position: Classified
+  <span class="sdiv-dot"></span>Emergency Protocol: Standby
+  
+  <span class="sdiv-dot"></span>Captain Status:&nbsp;
+  <span class="sdiv-mia sdiv-mia-all">M.I.A.</span>
+  <span class="sdiv-dot"></span>Hailing Frequencies: Online
+  <span class="sdiv-dot"></span>Last Known Position: Classified
+  <span class="sdiv-dot"></span>Emergency Protocol: Standby
+
+  <span class="sdiv-dot"></span>Captain Status:&nbsp;
+  <span class="sdiv-mia sdiv-mia-all">M.I.A.</span>
+  <span class="sdiv-dot"></span>Hailing Frequencies: Online
+  <span class="sdiv-dot"></span>Last Known Position: Classified
+  <span class="sdiv-dot"></span>Emergency Protocol: Standby
+
+ <span class="sdiv-dot"></span>Captain Status:&nbsp;
+  <span class="sdiv-mia sdiv-mia-all">M.I.A.</span>
+  <span class="sdiv-dot"></span>Hailing Frequencies: Online
+  <span class="sdiv-dot"></span>Last Known Position: Classified
+  <span class="sdiv-dot"></span>Emergency Protocol: Standby
+  
+  <span class="sdiv-dot"></span>
+</div>
   </div>
 </div>
 
 <!-- ══ §5 HELLO OR HI ══ -->
 <section id="contact" data-room="contact">
   <div class="s-inner">
-    <span class="log-id lid-lime">Ship's Log. 005</span>
+    <span class="log-id lid-cyan" style="color:var(--cyan);text-shadow:0 0 24px rgba(0,217,192,.4);">Ship's Log. 005</span>
     <span class="contact-subhead">Hello, or Hi, <br> or Whatever You Prefer Preceding Goodbye</span>
-    <h2 class="contact-heading">Ping The <br>Captain?</h2>
+    <h2 class="contact-heading">Ping The Captain?</h2>
     <div class="contact-letter">
       <p>Dearest visitor, <br> You may have a say about her choices, or you are simply eager to suggest her a playlist, perhaps you want to talk Doraemon, poetry, bioremediation, philosophy beyond her understanding, just bacteria, or something else entirely — the captain says you should feel free to contact her.</p>
-      <p>She may respond, she may, also not...</p>
     </div>
-    <span class="contact-verse">For she gives content and context too much thought</span>
+    <span class="contact-verse">She may respond, she may, also not... <br> For she gives content and context too much thought</span>
     <div class="contact-links">
       <a href="YOUR_EMAIL_LINK" class="contact-link-row">
         <span class="link-platform">Email</span><span class="link-aside">(for all visitors)</span>
@@ -896,7 +1011,7 @@
         <span class="link-platform">Substack</span><span class="link-aside">(for whimsical visitors)</span>
       </a>
     </div>
-    <span class="interlude">Displaying Captain's Note...</span>
+    <span class="interlude">Displaying Captain's Message...</span>
     <span class="contact-signoff">Midst mischief and metaphors,<br>Sim</span>
   </div>
 </section>
@@ -1159,24 +1274,7 @@ document.getElementById('dock-overlay').addEventListener('click', function(e){
   run();
 })();
 
-/* ═══ PRE-CONTACT DIVIDER MIA ═══ */
-(function(){
-  const delay=ms=>new Promise(r=>setTimeout(r,ms));
-  let triggered=false;
-  async function runMIA(){
-    if(triggered)return; triggered=true;
-    await delay(300);
-    const miaEl=document.getElementById('sdiv-mia-text');
-    for(const ch of 'M.I.A.'){miaEl.textContent+=ch;await delay(75+Math.random()*35);}
-    await delay(850);
-    document.getElementById('sdiv-rbar').classList.add('show');
-  }
-  const target=document.querySelector('.ship-divider.pre-contact');
-  if(target){
-    const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)runMIA();});},{threshold:0.5});
-    obs.observe(target);
-  }
-})();
+
 
 /* ═══ CURSOR ═══ */
 (function(){
@@ -1196,8 +1294,10 @@ document.getElementById('helm-btn').addEventListener('click',()=>window.scrollTo
 (function(){
   const links=document.querySelectorAll('.nav-links a');
   const sects=document.querySelectorAll('section[data-room]');
-  function update(){let cur='';sects.forEach(s=>{if(s.getBoundingClientRect().top<window.innerHeight*.6)cur=s.dataset.room;});links.forEach(a=>a.classList.toggle('active',a.dataset.section===cur));}
-  window.addEventListener('scroll',update,{passive:true});update();
+  function update(){let cur='';sects.forEach(s=>{if(s.getBoundingClientRect().top<window.innerHeight*.6)cur=s.dataset.room;});links.forEach(a=>{a.classList.remove('active');if(a.dataset.section===cur)a.classList.add('active');});}
+window.addEventListener('scroll',update,{passive:true});
+links.forEach(a=>a.addEventListener('click',()=>setTimeout(update,50)));
+update();
 })();
 </script>
 </body>
