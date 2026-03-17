@@ -8,12 +8,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Gochi+Hand&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@1,300;1,400;1,600;1,700&family=Source+Code+Pro:wght@700;900&family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
   :root {
-    --bg:       #0e0e1afd;
+    --bg:       #07071dfd;
     --cream:    #f7f7ff;
     --magenta:  #ff49a6;
     --lime:     #c8f03a;
     --cyan:     #00d9c0;
-    --lavender: #d8b4fe;    --nav-h:    54px;
+    --lavender: #d8b4fe; 
+    --icy:      #95c0ff;
+    --yellow:   #fbffbc;  
+    --nav-h:    54px;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -519,15 +522,15 @@
   .ticker-wrap { overflow:hidden; width:100%; max-width:100%; border-top:1px solid rgba(200,240,58,.07); border-bottom:1px solid rgba(232,64,154,.07); padding:.85rem 0; margin-top:3.5rem; }
   .ticker-track { display:flex; width:max-content; animation:tick-scroll 40s linear infinite; }
   @keyframes tick-scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-  .ticker-item { font-family:'Space Mono',monospace; font-size:.52rem; letter-spacing:.18em; text-transform:uppercase; color:var(--magenta); opacity:.38; padding:0 2.5rem; white-space:nowrap; }
-  .ticker-item span { color:var(--lime); opacity:.7; margin-right:2rem; }
+  .ticker-item { font-family:'Space Mono',monospace; font-size:.42rem; letter-spacing:.18em; text-transform:uppercase; color:var(--icy); opacity:.85; padding:0 2.5rem; white-space:nowrap; }
+  .ticker-item span { color:var(--yellow); opacity:.7; margin-right:2rem; }
 
   /* ══════════════════════════════════════
      §5  HELLO OR HI — LIME scheme
   ══════════════════════════════════════ */
   #contact { min-height:100vh; display:flex; align-items:center; }
   .contact-heading { font-family:'Playfair Display SC',serif; font-weight:400; font-size:clamp(2rem,6vw,4rem); line-height:.95; color:var(--cream); margin-bottom:.4rem; letter-spacing:-.02em; }
-  .contact-subhead { font-family:'Space Mono',monospace; font-style:italic; letter-spacing: .08em; font-size:clamp(.98rem,1.6vw,1.22rem); color:var(--lavender); opacity: 1; font-weight: 500; font-size: 1em; display:block; margin-bottom:3rem; }
+  .contact-subhead { font-family:'Space Mono',monospace; font-style:normal; letter-spacing: .08em; font-size:clamp(.98rem,1.6vw,1.22rem); color:var(--lavender); opacity: 1; font-weight: 500; font-size: 1em; display:block; margin-bottom:3rem; }
   .contact-letter { font-family:'Exo 2',sans-serif; font-style:normal; font-size:clamp(1rem,1.4vw,1.16rem); line-height:2; color:var(--cream); opacity:.85; max-width:520px; margin-bottom:.4rem; }
   .contact-letter p { margin-bottom:.6em; }
   .contact-verse { font-family:'Exo 2',sans-serif; font-style:italic; font-size:clamp(.95rem,1.4vw,1.08rem); color:var(--cyan); opacity:.55; display:block; margin-bottom:3.5rem; line-height:2; }
@@ -928,35 +931,17 @@
     <span class="obviously">(Obviously!)</span>
     <div class="about-body">
       <p>The said multitudes being <span class="m-cyan">random ideas</span> yearning to materialise. The same ones, that on second read morph into incoherent, nonsensical scribbles that puzzle her. She also, might or might not, contain multitudes of <span class="m-cyan">forced rhymes</span> on most things she writes because her brain has categorised it as a personality trait.</p>
-      <p>The multitudes may extend to <span class="m-cyan">metaphors</span>, that are pretentious of course (you know, to match her personality, or is it the other way around?). She enjoys art in multitude forms as well, if you aren't already tired of the word (to consume, not necessarily to create. but you already knew that). And, well, she grew up watching Doraemon.</p>
+      <p>The multitudes may extend to <span class="m-cyan">metaphors</span>, that are pretentious (naturally, to match her personality, or is it the other way around?). She enjoys art in multitude forms as well (to consume, not necessarily to create. though it is my assumption that you already knew that). I should stop here as my system tells me you are tired of the word. Oh, and, before I file it as tangential, she grew up watching Doraemon.</p>
     </div>
-    <span class="inner-monologue"> I believe I have translated her authenticity here (but that is, of course, irrelevant). </span>
+    <span class="inner-monologue"> I believe I have translated her singularity here (still that is, of course, irrelevant). </span>
     <a href="#credentials" class="unwhimsical-btn">for un-whimsical visitors</a>
-    <span class="writing-heading">Not that you asked, but she <em>(kind of, not really, but almost)</em> writes...</span>
+    <span class="writing-heading">You may not have enquired, however, she <em>—not truly, yet almost—</em> writes...</span>
     <ul class="writing-list">
       <li class="writing-item"><a href="https://inbetweeninkstains.substack.com/p/why-i-write" target="_blank" class="writing-link"><span class="w-title">"Why I Write"</span></a></li>
       <li class="writing-item"><a href="https://inbetweeninkstains.substack.com/p/my-apocalypse-preventing-darling" target="_blank" class="writing-link"><span class="w-title">"My Apocalypse Preventing Darling"</span></a></li>
       <li class="writing-item"><a href="https://inbetweeninkstains.substack.com/p/destination" target="_blank" class="writing-link"><span class="w-title">"Destination"</span></a></li>
       <li class="writing-item"><a href="https://inbetweeninkstains.substack.com/p/an-arsonists-grave-under-snow" target="_blank" class="writing-link"><span class="w-title">"An Arsonist's Grave Under Snow"</span></a></li>
     </ul>
-    <div class="ticker-wrap">
-      <div class="ticker-track">
-        <span class="ticker-item"><span>✦</span>normalise correcting people's grammar!</span>
-        <span class="ticker-item"><span>✦</span>chamomile tea is genuinely good.</span>
-        <span class="ticker-item"><span>✦</span>what about commas? I like commas.</span>
-        <span class="ticker-item"><span>✦</span>"sentient spaceships" needs to be a genre.</span>
-        <span class="ticker-item"><span>✦</span>as pretentious as geometry; as ambiguous as poetry</span>
-        <span class="ticker-item"><span>✦</span>there was already a head's up about forced rhymes.</span>
-        <span class="ticker-item"><span>✦</span>unfinished knitting projects: several</span>
-        <span class="ticker-item"><span>✦</span>normalise correcting people's grammar!</span>
-        <span class="ticker-item"><span>✦</span>chamomile tea is genuinely good.</span>
-        <span class="ticker-item"><span>✦</span>what about commas? I like commas.</span>
-        <span class="ticker-item"><span>✦</span>"sentient spaceships" needs to be a genre.</span>
-        <span class="ticker-item"><span>✦</span>as pretentious as geometry; as ambiguous as poetry</span>
-        <span class="ticker-item"><span>✦</span>there was already a head's up about forced rhymes.</span>
-        <span class="ticker-item"><span>✦</span>unfinished knitting projects: several</span>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -997,13 +982,16 @@
 <section id="contact" data-room="contact">
   <div class="s-inner">
     <span class="log-id lid-cyan" style="color:var(--cyan);text-shadow:0 0 24px rgba(0,217,192,.4);">Ship's Log. 005</span>
-    <span class="contact-subhead">hello, or hi!, <br> or whatever you prefer</span>
+    <span class="contact-subhead">hello, or hi!, <br> or [your preference]</span>
     <h2 class="contact-heading">Ping The Captain?</h2>
     <div class="contact-letter">
       <p style="margin-bottom:1.5em; margin-top: 1.5em; color: var(--cyan); opacity: 1; font-weight: 500;"> Dearest visitor, </p>
         <p style="padding-left: 1.5em; text-align: justify;"> You may have a say about her choices, or you are simply eager to suggest her a playlist, perhaps you want to talk Doraemon, poetry, bioremediation, philosophy beyond her understanding, just bacteria, or something else entirely — the captain says you should feel free to contact her.</p>
     </div>
     <span class="contact-verse">She may respond, she may, also not... <br> For she gives content and context too much thought</span>
+
+    
+
     <div class="contact-links">
       <a href="YOUR_EMAIL_LINK" class="contact-link-row">
         <span class="link-platform">Email</span><span class="link-aside">(for all visitors)</span>
@@ -1015,10 +1003,30 @@
         <span class="link-platform">Substack</span><span class="link-aside">(for whimsical visitors)</span>
       </a>
     </div>
-    <span class="interlude">Displaying Captain's Message...</span>
+    <span class="interlude">Captain's Last Recorded Message...</span>
     <span class="contact-signoff">Midst mischief and metaphors,<br>Sim</span>
   </div>
 </section>
+<div class="ticker-wrap">
+      <div class="ticker-track">
+        <span class="ticker-item"><span>✦</span>normalise correcting people's grammar!</span>
+        <span class="ticker-item"><span>✦</span>chamomile tea is genuinely good.</span>
+        <span class="ticker-item"><span>✦</span>what about commas? I like commas.</span>
+        <span class="ticker-item"><span>✦</span>"sentient spaceships" needs to be a genre.</span>
+        <span class="ticker-item"><span>✦</span>as pretentious as geometry; as ambiguous as poetry</span>
+        <span class="ticker-item"><span>✦</span>there was already a head's up about forced rhymes.</span>
+        <span class="ticker-item"><span>✦</span>unfinished knitting projects: several</span>
+        <span class="ticker-item"><span>✦</span>normalise correcting people's grammar!</span>
+        <span class="ticker-item"><span>✦</span>chamomile tea is genuinely good.</span>
+        <span class="ticker-item"><span>✦</span>what about commas? I like commas.</span>
+        <span class="ticker-item"><span>✦</span>"sentient spaceships" needs to be a genre.</span>
+        <span class="ticker-item"><span>✦</span>as pretentious as geometry; as ambiguous as poetry</span>
+        <span class="ticker-item"><span>✦</span>there was already a head's up about forced rhymes.</span>
+        <span class="ticker-item"><span>✦</span>unfinished knitting projects: several</span>
+      </div>
+    </div>
+    <br>
+
 
 <footer>
   <span class="foot-l"><span style="font: size 1.4em;">©</span> Simran Poudel · 2026.</span>
