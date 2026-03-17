@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
   <title>Someone's Spaceship, Apparently</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Gochi+Hand&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@1,300;1,400;1,600;1,700&family=Source+Code+Pro:wght@700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Gochi+Hand&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@1,300;1,400;1,600;1,700&family=Source+Code+Pro:wght@700;900&family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
   :root {
     --bg:       #0e0e1afd;
@@ -31,7 +31,7 @@
   #bg-canvas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
 
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-  @keyframes blink-warn { 0%,100%{opacity:1} 49%{opacity:1} 50%{opacity:0} 99%{opacity:0} }
+  @keyframes blink-warn { 0%,100%{opacity:.65} 49%{opacity:1} 50%{opacity:0} 99%{opacity:0} }
   @keyframes spin-slow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
   @keyframes spin-rev  { from{transform:rotate(0deg)} to{transform:rotate(-360deg)} }
   @keyframes pulse-ring { 0%,100%{opacity:.18} 50%{opacity:.38} }
@@ -95,7 +95,7 @@
   ══════════════════════════════════════ */
   .ship-divider { position:relative; z-index:2; width:100%; padding:2.4rem 2rem; display:flex; align-items:center; justify-content:center; }
   .ship-divider-inner { overflow:hidden; width:100%; }
-.ship-divider-track { display:flex; width:max-content; animation:div-scroll 30s linear infinite; gap:1rem; align-items:center; font-family:'Space Mono',monospace; font-size:clamp(.44rem,.92vw,.58rem); letter-spacing:.28em; text-transform:uppercase; color:var(--cyan); opacity:.8; white-space:nowrap; }
+.ship-divider-track { display:flex; width:max-content; animation:div-scroll 45s linear infinite; gap:1rem; align-items:center; font-family:'Space Mono',monospace; font-size:clamp(.44rem,.92vw,.58rem); letter-spacing:.28em; text-transform:uppercase; color:var(--cyan); opacity:.8; white-space:nowrap; }
 @keyframes div-scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
   .sdiv-dot { width:5px; height:5px; border-radius:50%; background:var(--cyan); flex-shrink:0; display:inline-block; box-shadow: 0 0 8px rgba(0,217,192,.6); }
@@ -389,8 +389,9 @@
     font-size: clamp(1.05rem, 1.95vw, 1.4rem);
     line-height: 2.2;
     color: var(--cream);
-    opacity: .72;
-    letter-spacing: .02em;
+    font-weight: 100;
+    opacity: .85;
+    letter-spacing: .04em;
     margin-bottom: 1.3rem;
   }
   .poem-line { display:block; white-space:nowrap; }
@@ -400,13 +401,13 @@
 
   .scroll-nudge {
     display:block; font-family:'EB Garamond',serif; font-style:italic;
-    font-size:clamp(.95rem,1.8vw,1.25rem); font-weight:500;
-    color:var(--cyan); letter-spacing:.05em;
+    font-size:clamp(.95rem,1.8vw,1.25rem); font-weight:200;
+    color:var(--cyan); letter-spacing:.07em;
     opacity:0; transition:opacity .6s;
     animation:nudge-bob 3s ease-in-out infinite; animation-play-state:paused;
     margin-top:.9rem; text-align:left; width:100%;
   }
-  .scroll-nudge.visible { opacity:.88; animation-play-state:running; }
+  .scroll-nudge.visible { opacity:1; animation-play-state:running; }
   @keyframes nudge-bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
 
   /* ══════════════════════════════════════
@@ -415,11 +416,11 @@
   #credentials { min-height:100vh; }
   .cred-heading { font-family:'Playfair Display SC',serif; font-weight:400; font-size:clamp(2rem,6vw,4rem); line-height:.95; color:var(--cream); letter-spacing:-.02em; margin-bottom:3.5rem; max-width:640px; margin-left:auto; margin-right:auto; }
   .cred-heading em { font-family:'EB Garamond',serif; font-style:italic; color:rgba(200,240,58,.65); font-size:.9em; font-weight:400; }
-  .cred-body { font-family:'EB Garamond',serif; font-size:clamp(1.05rem,1.5vw,1.2rem); line-height:2; color:var(--cream); opacity:.78; max-width:640px; margin-bottom:2.5rem; text-align:justify; margin-left:auto; margin-right:auto; }
+  .cred-body { font-family:'Exo 2',sans-serif; font-size:clamp(1.05rem,1.5vw,1.2rem); line-height:2; color:var(--cream); opacity:.78; max-width:640px; margin-bottom:2.5rem; text-align:justify; margin-left:auto; margin-right:auto; }
   .cred-body p { margin-bottom:1.5em; }
   .cred-body strong { font-weight:500; color:var(--lime); font-style:normal; }
-  .cred-open { font-family:'EB Garamond',serif; font-size:clamp(1.05rem,1.5vw,1.2rem); line-height:2; color:var(--cream); opacity:.78; max-width:640px; margin-bottom:3.5rem; text-align:justify; margin-left:auto; margin-right:auto; }
-  .cred-open-label { font-family: 'Rajdhani', sans-serif; font-weight: bold; letter-spacing:.24em; text-transform:uppercase; color:var(--lime); opacity:1; display:block; margin-bottom:.8rem; }
+  .cred-open { font-family:'Exo 2',sans-serif; font-size:clamp(1.05rem,1.5vw,1.2rem); line-height:2; color:var(--cream); opacity:.78; max-width:640px; margin-bottom:3.5rem; text-align:justify; margin-left:auto; margin-right:auto; }
+  .cred-open-label { font-family: 'Exo 2', sans-serif; font-weight: bold; letter-spacing:.24em; text-transform:uppercase; color:var(--lime); opacity:1; display:block; margin-bottom:.8rem; }
   .cred-open p { margin-bottom:.8em; }
   .cred-open strong { font-weight:500; color:var(--lime); font-style:normal; }
   .specimen-row { display:flex; flex-wrap:wrap; gap:1.4rem; justify-content:space-evenly;}
@@ -427,7 +428,7 @@
   .specimen-tag::before { content:''; position:absolute; top:-8px; left:50%; transform:translateX(-50%); width:14px; height:8px; background:rgba(200,240,58,.14); border:1px solid rgba(200,240,58,.28); border-radius:1px; }
   .specimen-tag:hover { border-color:rgba(200,240,58,.65); background:rgba(200,240,58,.07); }
   .spec-num { font-family:'Space Mono',monospace; font-size:.52rem; letter-spacing:.28em; text-transform:uppercase; color:var(--lime); opacity:.65; }
-  .spec-name { font-family:'EB Garamond',serif; font-size:1.05rem; color:var(--cream); opacity:.85; }
+  .spec-name { font-family:'Exo 2',sans-serif; font-size:1.05rem; color:var(--cream); opacity:.85; }
 
   /* ══════════════════════════════════════
      §3  WHAT'S THIS? — MAGENTA scheme
@@ -452,27 +453,30 @@
     font-size: clamp(.7rem, 1.4vw, .88rem);
     letter-spacing:.2em; text-transform:uppercase;
     color:var(--magenta);
-    border:1.5px solid rgba(232,64,154,.7);
+    border:1.5px solid rgba(232,64,154,.4);
     padding:.65rem 1.1rem;
-    background:rgba(232,64,154,.07);
+    background:rgba(232,64,154,.04);
     display:inline-flex; align-items:center; gap:.65rem;
-    animation: blink-warn 3s step-end infinite;
-    font-weight: 700;
+    animation: blink-warn 2s step-end infinite;
+    font-weight: 500;
+    opacity: .65;
   }
   .warn-excl {
     font-family:'Space Mono',monospace;
     color:var(--magenta);
     font-size:1.1em;
-    opacity:.85;
+    opacity:.65;
     flex-shrink:0;
   }
 
-  .verse-bridge { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1.6rem,2.2vw,1.9rem); color:var(--lavender); opacity:1; line-height:2; margin-bottom:3rem; text-align: center;}
+  .verse-bridge { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1.62rem,2.5vw,1.95rem); color:var(--magenta); opacity:1; line-height:2; margin-bottom:3rem; text-align: center; font-weight: 550;}
   .verse-indent { padding-left:1.5em; display:block; }
   .quotes-field { margin-bottom:4.5rem; }
   .quote-float { margin-bottom:2.5rem; }
   .quote-float:nth-child(1) { margin-left:clamp(1.5rem,8vw,6rem); }
-  .quote-float:nth-child(2) { display:flex; flex-direction:column; align-items:flex-end; }
+  .quote-float:nth-child(1) blockquote { font-size:clamp(1.3rem,1.9vw,1.6rem); }
+  .quote-float:nth-child(2) { display:flex; flex-direction:column; align-items:flex-end;}
+  .quote-float:nth-child(2) blockquote { font-size:clamp(1.3rem,1.9vw,1.6rem); }
   .quote-float blockquote { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1.15rem,1.9vw,1.48rem); line-height:1.65; color:var(--cream); opacity:.8; max-width:540px; }
   .q-attr { font-family:'Space Mono',monospace; font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--magenta); opacity:.75; margin-top:.7rem; display:block; }
   .secrets-verse { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1rem,1.5vw,1.14rem); color:var(--cream); opacity:.5; line-height:2; margin-bottom:3.5rem; }
@@ -498,20 +502,20 @@
   .m-lime{color:var(--lime);} .m-cyan{color:var(--cyan);} .m-mag{color:var(--magenta);}
   .obviously { font-family:'Gochi Hand',cursive; font-size:clamp(1.5rem,2.8vw,2.2rem); color:var(--magenta); opacity:.98; display:block; transform:rotate(-1deg); margin-bottom:3.5rem; }
   .about-body { max-width:650px; margin-bottom:2rem; }
-  .about-body p { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1.05rem,1.5vw,1.2rem); line-height:2; color:var(--cream); opacity:.76; margin-bottom:1.5rem; }
+  .about-body p { font-family:'Exo 2',sans-serif; font-style:normal; font-size:clamp(1.05rem,1.5vw,1.2rem); line-height:2; color:var(--cream); opacity:.76; margin-bottom:1.5rem; text-align: justify; }
   .about-body p strong { font-style:normal; font-weight:500; color:var(--lime); }
-  .about-body p:first-child::first-letter { font-family:'Playfair Display SC',serif; font-size:3.2rem; font-weight:900; float:left; line-height:.78; margin:.1em .14em 0 0; color:var(--magenta); }
-  .inner-monologue { font-family:'Gochi Hand',cursive; font-size:1rem; color:var(--cyan); opacity:.36; display:block; transform:rotate(-.5deg); margin-bottom:3rem; line-height:1.7; }
-  .unwhimsical-btn { display:inline-flex; align-items:center; text-decoration:none; font-family:'Space Mono',monospace; font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:var(--magenta); border:1px solid rgba(232,64,154,.3); padding:.85rem 1.4rem; opacity:.7; transition:opacity .2s,border-color .2s; margin-bottom:4.5rem; }
-  .unwhimsical-btn:hover { opacity:1; border-color:rgba(232,64,154,.65); }
-  .writing-heading { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1.2rem,2vw,1.6rem); color:var(--lime); opacity:.7; display:block; margin-bottom:2rem; }
-  .writing-heading em { color:var(--magenta); font-style:italic; }
+  .about-body p:first-child::first-letter { font-family:'Playfair Display SC',serif; font-size:3rem; font-weight:700; float:left; line-height:.78; margin:.1em .14em 0 0; color:var(--cyan); }
+  .inner-monologue { font-family:'Gochi Hand',cursive; font-size:1.1rem; color:var(--cyan); opacity:.66; display:block; transform:rotate(-.5deg); margin-bottom:3rem; line-height:1.7; }
+  .unwhimsical-btn { display:inline-flex; align-items:center; text-decoration:none; font-family:'Space Mono',monospace; font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:var(--lavender); border:1px solid rgba(216,180,254,.6) ; padding:.85rem 1.4rem; opacity:.7; transition:opacity .2s,border-color .2s; margin-bottom:4.5rem; }
+  .unwhimsical-btn:hover { opacity:1; border-color:rgba(216,180,254,.6) }
+  .writing-heading { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1.2rem,2vw,1.6rem); color:var(--lavender); opacity:1; display:block; margin-bottom:2rem; }
+  .writing-heading em { color:var(--lavender); font-style:italic; }
   .writing-list { list-style:none; max-width:600px; margin-bottom:2.5rem; }
   .writing-item { border-bottom:1px solid rgba(200,240,58,.08); }
   .writing-link { display:block; text-decoration:none; padding:1rem 0; transition:padding-left .25s; }
   .writing-link:hover { padding-left:.5rem; }
-  .w-title { font-family:'EB Garamond',serif; font-size:clamp(1.05rem,1.5vw,1.18rem); color:var(--cream); opacity:.78; display:block; }
-  .writing-link:hover .w-title { color:var(--lime); opacity:1; }
+  .w-title { font-family:'Exo 2',sans-serif; font-size:clamp(1.05rem,1.5vw,1.18rem); color:var(--cream); opacity:.78; display:block; padding-left: 1.6em; letter-spacing: .03em; }
+  .writing-link:hover .w-title { color:var(--lavender); opacity:1; }
   .ticker-wrap { overflow:hidden; width:100%; max-width:100%; border-top:1px solid rgba(200,240,58,.07); border-bottom:1px solid rgba(232,64,154,.07); padding:.85rem 0; margin-top:3.5rem; }
   .ticker-track { display:flex; width:max-content; animation:tick-scroll 40s linear infinite; }
   @keyframes tick-scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
@@ -523,15 +527,15 @@
   ══════════════════════════════════════ */
   #contact { min-height:100vh; display:flex; align-items:center; }
   .contact-heading { font-family:'Playfair Display SC',serif; font-weight:400; font-size:clamp(2rem,6vw,4rem); line-height:.95; color:var(--cream); margin-bottom:.4rem; letter-spacing:-.02em; }
-  .contact-subhead { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(.98rem,1.6vw,1.22rem); color:var(--lime); opacity:.84; display:block; margin-bottom:3rem; }
-  .contact-letter { font-family:'EB Garamond',serif; font-style:normal; font-size:clamp(1rem,1.4vw,1.16rem); line-height:2; color:var(--cream); opacity:.65; max-width:520px; margin-bottom:.4rem; }
+  .contact-subhead { font-family:'Space Mono',monospace; font-style:italic; letter-spacing: .08em; font-size:clamp(.98rem,1.6vw,1.22rem); color:var(--lavender); opacity: 1; font-weight: 500; font-size: 1em; display:block; margin-bottom:3rem; }
+  .contact-letter { font-family:'Exo 2',sans-serif; font-style:normal; font-size:clamp(1rem,1.4vw,1.16rem); line-height:2; color:var(--cream); opacity:.85; max-width:520px; margin-bottom:.4rem; }
   .contact-letter p { margin-bottom:.6em; }
-  .contact-verse { font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(.95rem,1.4vw,1.08rem); color:var(--lavender); opacity:.65; display:block; margin-bottom:3.5rem; line-height:2; }
+  .contact-verse { font-family:'Exo 2',sans-serif; font-style:italic; font-size:clamp(.95rem,1.4vw,1.08rem); color:var(--cyan); opacity:.55; display:block; margin-bottom:3.5rem; line-height:2; }
   .contact-links { display:flex; flex-direction:column; margin-bottom:4.5rem; }
   .contact-link-row { display:flex; align-items:center; justify-content:space-between; padding:1.3rem 0; border-bottom:1px solid rgba(200,240,58,.12); text-decoration:none; transition:padding-left .25s; gap:1rem; }
   .contact-link-row:first-child { border-top:1px solid rgba(200,240,58,.12); }
   .contact-link-row:hover { padding-left:.5rem; }
-  .link-platform { font-family:'Playfair Display SC',serif; font-size:clamp(1.7rem,4.5vw,3rem); color:var(--cream); opacity:.85; line-height:1; transition:color .25s,opacity .25s; }
+  .link-platform { font-family:'Playfair Display SC',serif; font-size:clamp(1.4rem,4.1vw,2.8rem); text-transform: uppercase; color:var(--cream); opacity:.85; line-height:1; transition:color .25s,opacity .25s; }
   .contact-link-row:hover .link-platform { color:var(--lime); opacity:1; }
 
 .contact-link-row:nth-child(1) .link-aside { color:var(--magenta); opacity:.77; }
@@ -543,13 +547,13 @@
 .contact-link-row:nth-child(3):hover .link-platform { color:var(--lime); opacity:1; }
 
   .link-aside { font-family:'Gochi Hand',cursive; font-size:.88rem; letter-spacing:.16em; color:var(--lime); opacity:.5; white-space:nowrap; }
-  .interlude { font-family:'Space Mono',monospace; font-size:.6rem; letter-spacing:.26em; text-transform:uppercase; color:var(--lime); opacity: 0.8; display:block; margin-bottom:.9rem; }
-  .contact-signoff { font-family:'Gochi Hand',cursive; font-size:clamp(1.2rem,2.2vw,1.85rem); color:var(--lime); opacity:.65; transform:rotate(1.2deg); line-height:1.7; display:block; }
+  .interlude { font-family:'Exo 2',sans-serif; font-size:.6rem; letter-spacing:.26em; text-transform:uppercase; color:var(--cyan); opacity: 0.8; display:block; margin-bottom:.9rem; }
+  .contact-signoff { font-family:'Gochi Hand',cursive; font-size:clamp(1.2rem,2.2vw,1.85rem); color:var(--cream); opacity:.95; transform:rotate(1.2deg); line-height:1.7; display:block; }
 
   footer { position:relative; z-index:2; padding:1.5rem 2rem; border-top:1px solid rgba(232,64,154,.07); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; }
-  .foot-l,.foot-r { font-family:'Space Mono',monospace; font-size:.55rem; letter-spacing:.13em; text-transform:uppercase; }
-  .foot-l { color:rgba(200,240,58,.35); }
-  .foot-r { color:rgba(200,240,58,.35); }
+  .foot-l,.foot-r { font-family:'Space Mono',monospace; letter-spacing:.16em; text-transform:uppercase; }
+  .foot-l { color:var(--lavender); opacity: 75; font-size: .48rem;}
+  .foot-r { color:var(--lavender); opacity: 75; font-size: .43rem; }
   @media (max-width:480px) { footer { flex-direction:column; align-items:flex-start; } }
   </style>
 </head>
@@ -851,10 +855,10 @@
       </span>
     </div>
 
-    <div class="verse-bridge">On quotes, other travellers, say what may<br><span class="verse-indent">Some grow roots, however cliché...</span></div>
+    <div class="verse-bridge">On quotes, <br> other travellers, say what may<br><span class="verse-indent">Some grow roots, however cliché...</span></div>
     <div class="quotes-field">
       <div class="quote-float"><blockquote>Everyone is an artist until rent is due.</blockquote><span class="q-attr">— anonymous.</span></div>
-      <div class="quote-float"><blockquote>Start where you are. Use what you have. Do what you can.</blockquote><span class="q-attr">— Arthur Ashe.</span></div>
+      <div class="quote-float"><blockquote>Start where you are. Use what you have. <br> Do what you can.</blockquote><span class="q-attr">— Arthur Ashe.</span></div>
     </div>
     <div class="secrets-verse">Confide in you, about the captain, if I may<br><span class="verse-indent">Or spill some secrets, while she's away?</span></div>
     <div class="dossiers">
@@ -890,26 +894,25 @@
 <div class="ship-divider" aria-hidden="true">
   <div class="ship-divider-inner">
   <div class="ship-divider-track sdiv-lavender">
-    <span class="sdiv-dot"></span>Source: The Captain
+    <span class="sdiv-dot"></span>Captain Response: Negative
+    <span class="sdiv-dot"></span>Horizon: Expanding
     <span class="sdiv-dot"></span>Cargo: Multitudes
     <span class="sdiv-dot"></span>Containment Protocol: Rejected
-    <span class="sdiv-dot"></span>Radar: Scanning
-    
 
-    <span class="sdiv-dot"></span>Source: The Captain
+    <span class="sdiv-dot"></span>Captain Response: Negative
+    <span class="sdiv-dot"></span>Horizon: Expanding
     <span class="sdiv-dot"></span>Cargo: Multitudes
     <span class="sdiv-dot"></span>Containment Protocol: Rejected
-    <span class="sdiv-dot"></span>Radar: Scanning
 
-    <span class="sdiv-dot"></span>Source: The Captain
+    <span class="sdiv-dot"></span>Captain Response: Negative
+    <span class="sdiv-dot"></span>Horizon: Expanding
     <span class="sdiv-dot"></span>Cargo: Multitudes
     <span class="sdiv-dot"></span>Containment Protocol: Rejected
-    <span class="sdiv-dot"></span>Radar: Scanning
 
-    <span class="sdiv-dot"></span>Source: The Captain
+    <span class="sdiv-dot"></span>Captain Response: Negative
+    <span class="sdiv-dot"></span>Horizon: Expanding
     <span class="sdiv-dot"></span>Cargo: Multitudes
     <span class="sdiv-dot"></span>Containment Protocol: Rejected
-    <span class="sdiv-dot"></span>Radar: Scanning
 
     <span class="sdiv-dot"></span>
   </div>
@@ -924,7 +927,7 @@
     <h2 class="multitudes-hl">She Contains <span class="multitudes-italic">Multitudes.</span></h2>
     <span class="obviously">(Obviously!)</span>
     <div class="about-body">
-      <p>The said multitudes being <span class="m-lime">random ideas</span> yearning to materialise. The same ones, that on second read morph into incoherent, nonsensical scribbles that puzzle her. She also, might or might not, contain multitudes of <strong>forced rhymes</strong> on most things she writes because her brain has categorised it as a personality trait.</p>
+      <p>The said multitudes being <span class="m-cyan">random ideas</span> yearning to materialise. The same ones, that on second read morph into incoherent, nonsensical scribbles that puzzle her. She also, might or might not, contain multitudes of <span class="m-cyan">forced rhymes</span> on most things she writes because her brain has categorised it as a personality trait.</p>
       <p>The multitudes may extend to <span class="m-cyan">metaphors</span>, that are pretentious of course (you know, to match her personality, or is it the other way around?). She enjoys art in multitude forms as well, if you aren't already tired of the word (to consume, not necessarily to create. but you already knew that). And, well, she grew up watching Doraemon.</p>
     </div>
     <span class="inner-monologue"> I believe I have translated her authenticity here (but that is, of course, irrelevant). </span>
@@ -994,10 +997,11 @@
 <section id="contact" data-room="contact">
   <div class="s-inner">
     <span class="log-id lid-cyan" style="color:var(--cyan);text-shadow:0 0 24px rgba(0,217,192,.4);">Ship's Log. 005</span>
-    <span class="contact-subhead">Hello, or Hi, <br> or Whatever You Prefer Preceding Goodbye</span>
+    <span class="contact-subhead">hello, or hi!, <br> or whatever you prefer preceding goodbye</span>
     <h2 class="contact-heading">Ping The Captain?</h2>
     <div class="contact-letter">
-      <p>Dearest visitor, <br> You may have a say about her choices, or you are simply eager to suggest her a playlist, perhaps you want to talk Doraemon, poetry, bioremediation, philosophy beyond her understanding, just bacteria, or something else entirely — the captain says you should feel free to contact her.</p>
+      <p style="margin-bottom:1.5em; margin-top: 1.5em; color: var(--cyan); opacity: 1; font-weight: 500;"> Dearest visitor, </p>
+        <p style="padding-left: 1.5em; text-align: justify;"> You may have a say about her choices, or you are simply eager to suggest her a playlist, perhaps you want to talk Doraemon, poetry, bioremediation, philosophy beyond her understanding, just bacteria, or something else entirely — the captain says you should feel free to contact her.</p>
     </div>
     <span class="contact-verse">She may respond, she may, also not... <br> For she gives content and context too much thought</span>
     <div class="contact-links">
@@ -1017,7 +1021,7 @@
 </section>
 
 <footer>
-  <span class="foot-l">© Simran Poudel · 2026.</span>
+  <span class="foot-l"><span style="font: size 1.4em;">©</span> Simran Poudel · 2026.</span>
   <span class="foot-r">made with obsessive vision and excellent life choices</span>
 </footer>
 
