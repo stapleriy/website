@@ -71,10 +71,9 @@
 
 .nav-ship-id { font-family:'Space Mono',monospace; font-size:clamp(.65rem,.9vw,.8rem); letter-spacing:.2em; text-transform:uppercase; color:var(--lavender); opacity:.8; white-space:nowrap; flex-shrink:0; font-weight:300; }
   .nav-links { display:flex; align-items:center; list-style:none; margin-left:auto; gap:0; flex-shrink:1; min-width:0; overflow:hidden; }
-  .nav-links a { font-family:'Space Mono',monospace; font-size:clamp(.58rem,.9vw,.74rem); letter-spacing:.14em; text-transform:uppercase; color:var(--lavender); text-decoration:none; opacity:.8; padding:.5rem clamp(.6rem,1.4vw,1.1rem); transition:opacity .25s,color .25s; white-space:nowrap; display:block; font-weight:300; }
+  .nav-links a { font-family:'Space Mono',monospace; font-size:clamp(.58rem,.9vw,.74rem); letter-spacing:.14em; text-transform:uppercase; color:var(--lavender); text-decoration:none; opacity:.8; padding:.5rem clamp(.6rem,1.4vw,1.1rem); transition:opacity .25s,color .25s; white-space:nowrap; display:block; font-weight:300; -webkit-tap-highlight-color: transparent;}
   .nav-links a:hover, .nav-links a.active { opacity:1; color:var(--cyan); }
 .nav-links a:focus, .nav-links a:focus-visible { outline:none; color:var(--lavender); opacity:.8; }
-.nav-links a { -webkit-tap-highlight-color: transparent; }
 
   @media (max-width:700px) {
     #topnav { padding:0 .8rem; }
@@ -889,7 +888,7 @@
       <div class="quote-float"><blockquote>Everyone is an artist until rent is due.</blockquote><span class="q-attr">— anonymous.</span></div>
       <div class="quote-float"><blockquote>Start where you are. Use what you have. <br> Do what you can.</blockquote><span class="q-attr">— Arthur Ashe.</span></div>
     </div>
-    <div class="secrets-verse">From captain's eyes, these reports, must remain forever concealed<br>On her very quarters then, I must bury — fully sealed...</div>
+    <div class="secrets-verse">From captain's eyes, these reports must remain forever concealed<br>On her very quarters then, I must bury — fully sealed...</div>
 
     <div class="dossiers">
       <div class="dossier">
@@ -1348,8 +1347,9 @@ document.getElementById('helm-btn').addEventListener('click',()=>window.scrollTo
   }
   update();
 },{passive:true});
-  links.forEach(a=>a.addEventListener('click',()=>{
+  links.forEach(a=>a.addEventListener('click',(e)=>{
     links.forEach(l=>l.classList.remove('active'));
+    e.currentTarget.blur();
     setTimeout(update,50);
   }));
   update();
