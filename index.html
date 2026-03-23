@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-  <title>Someone's Spaceship, Apparently</title>
+  <title>Technically, A Website</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Gochi+Hand&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@1,300;1,400;1,600;1,700&family=Source+Code+Pro:wght@700;900&family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
   :root {
-    --bg:       #01010efd;
+    --bg:       #03000ffd;
     --cream:    #f7f7ff;
     --magenta:  #ff49a6;
     --lime:     #c8f03a;
@@ -72,10 +72,10 @@
 .nav-ship-id { font-family:'Space Mono',monospace; font-size:clamp(.65rem,.9vw,.8rem); letter-spacing:.2em; text-transform:uppercase; color:var(--lavender); opacity:.8; white-space:nowrap; flex-shrink:0; font-weight:300; }
   .nav-links { display:flex; align-items:center; list-style:none; margin-left:auto; gap:0; flex-shrink:1; min-width:0; overflow:hidden; }
   .nav-links a { font-family:'Space Mono',monospace; font-size:clamp(.58rem,.9vw,.74rem); letter-spacing:.14em; text-transform:uppercase; color:var(--lavender); text-decoration:none; opacity:.8; padding:.5rem clamp(.6rem,1.4vw,1.1rem); transition:opacity .25s,color .25s; white-space:nowrap; display:block; font-weight:300; }
-  .nav-links a:hover, .nav-links a.active { opacity:1; color:var(--cyan); 
-  .nav-links a:focus { outline:none; }
-  .nav-links a:focus-visible { color:var(--lavender); opacity:.8; }
-}
+  .nav-links a:hover, .nav-links a.active { opacity:1; color:var(--cyan); }
+.nav-links a:focus { outline:none; }
+.nav-links a:focus-visible { color:var(--lavender); opacity:.8; }
+.nav-links a:active { color:var(--lavender); opacity:.8; }
 
   @media (max-width:700px) {
     #topnav { padding:0 .8rem; }
@@ -677,9 +677,9 @@
   <span class="nav-ship-id" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer;">Quari.15.</span>
   <ul class="nav-links">
     <li><a href="#credentials" data-section="credentials">Credentials</a></li>
-    <li><a href="#commonplace" data-section="commonplace">What's This?</a></li>
-    <li><a href="#about"       data-section="about">Wait, Who?</a></li>
-    <li><a href="#contact"     data-section="contact">Hello or Hi.</a></li>
+    <li><a href="#commonplace" data-section="commonplace">Restricted</a></li>
+    <li><a href="#about"       data-section="about">Who's Who</a></li>
+    <li><a href="#contact"     data-section="contact">Hello. or Hi!</a></li>
   </ul>
 </nav>
 
