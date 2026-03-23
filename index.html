@@ -1336,11 +1336,11 @@ document.getElementById('helm-btn').addEventListener('click',()=>window.scrollTo
   
   function update(){
     let cur='';
+    links.forEach(a=>a.classList.remove('active'));
     sects.forEach(s=>{
       if(s.getBoundingClientRect().top<window.innerHeight*.6) cur=s.dataset.room;
     });
     links.forEach(a=>{
-      a.classList.remove('active');
       if(a.dataset.section===cur) a.classList.add('active');
     });
   }
