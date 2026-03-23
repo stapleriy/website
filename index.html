@@ -72,15 +72,17 @@
 .nav-ship-id { font-family:'Space Mono',monospace; font-size:clamp(.65rem,.9vw,.8rem); letter-spacing:.2em; text-transform:uppercase; color:var(--lavender); opacity:.8; white-space:nowrap; flex-shrink:0; font-weight:300; }
   .nav-links { display:flex; align-items:center; list-style:none; margin-left:auto; gap:0; flex-shrink:1; min-width:0; overflow:hidden; }
   .nav-links a { font-family:'Space Mono',monospace; font-size:clamp(.58rem,.9vw,.74rem); letter-spacing:.14em; text-transform:uppercase; color:var(--lavender); text-decoration:none; opacity:.8; padding:.5rem clamp(.6rem,1.4vw,1.1rem); transition:opacity .25s,color .25s; white-space:nowrap; display:block; font-weight:300; -webkit-tap-highlight-color: transparent;}
+  @media (hover: hover) {
   .nav-links a:hover, .nav-links a.active { opacity:1; color:var(--cyan); }
+}
 .nav-links a:focus, .nav-links a:focus-visible { outline:none; color:var(--lavender); opacity:.8; }
 @media (hover: none) {
   .nav-links a:focus,
   .nav-links a:focus-visible,
-  .nav-links a:active {
-    color: var(--lavender) !important;
-    opacity: .8 !important;
-  }
+  .nav-links a.active {
+      color: var(--lavender) !important;
+      opacity: .8 !important;
+    }
 }
 
   @media (max-width:700px) {
