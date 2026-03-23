@@ -72,7 +72,10 @@
 .nav-ship-id { font-family:'Space Mono',monospace; font-size:clamp(.65rem,.9vw,.8rem); letter-spacing:.2em; text-transform:uppercase; color:var(--lavender); opacity:.8; white-space:nowrap; flex-shrink:0; font-weight:300; }
   .nav-links { display:flex; align-items:center; list-style:none; margin-left:auto; gap:0; flex-shrink:1; min-width:0; overflow:hidden; }
   .nav-links a { font-family:'Space Mono',monospace; font-size:clamp(.58rem,.9vw,.74rem); letter-spacing:.14em; text-transform:uppercase; color:var(--lavender); text-decoration:none; opacity:.8; padding:.5rem clamp(.6rem,1.4vw,1.1rem); transition:opacity .25s,color .25s; white-space:nowrap; display:block; font-weight:300; }
-  .nav-links a:hover, .nav-links a.active { opacity:1; color:var(--cyan); }
+  .nav-links a:hover, .nav-links a.active { opacity:1; color:var(--cyan); 
+  .nav-links a:focus { outline:none; }
+  .nav-links a:focus-visible { color:var(--lavender); opacity:.8; }
+}
 
   @media (max-width:700px) {
     #topnav { padding:0 .8rem; }
@@ -1179,9 +1182,6 @@ document.getElementById('dock-overlay').addEventListener('click', function(e){
   const canvas = document.getElementById('bg-canvas');
   const landing = document.getElementById('landing');
   let px=0, py=0, tx=0, ty=0;
-  document.addEventListener('mousemove',e=>{
-    wrap.style.transform=`translate(${e.clientX-7}px,${e.clientY}px)`;
-  }, {passive:true});
   (function drift(){
     px += (tx-px)*.06; py += (ty-py)*.06;
     canvas.style.transform = `translate(${px.toFixed(2)}px,${py.toFixed(2)}px) scale(1.05)`;
@@ -1334,12 +1334,12 @@ document.getElementById('helm-btn').addEventListener('click',()=>window.scrollTo
   const links=document.querySelectorAll('.nav-links a');
   const sects=document.querySelectorAll('section[data-room]');
   function update(){let cur='';sects.forEach(s=>{if(s.getBoundingClientRect().top<window.innerHeight*.6)cur=s.dataset.room;});links.forEach(a=>{a.classList.remove('active');if(a.dataset.section===cur)a.classList.add('active');});}
-window.addEventListener('scroll',update,{passive:true});
-links.forEach(a=>a.addEventListener('click',()=>{
-  links.forEach(l=>l.classList.remove('active'));
-  setTimeout(update,50);
-}));
-update();
+  window.addEventListener('scroll',update,{passive:true});
+  links.forEach(a=>a.addEventListener('click',()=>{
+    links.forEach(l=>l.classList.remove('active'));
+    setTimeout(update,50);
+  }));
+  update();
 })();
 </script>
 </body>
