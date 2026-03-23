@@ -1355,14 +1355,18 @@ document.getElementById('helm-btn').addEventListener('click',()=>window.scrollTo
   }
   update();
 },{passive:true});
-  links.forEach(a=>a.addEventListener('click',(e)=>{
-    links.forEach(l=>l.classList.remove('active'));
-    e.currentTarget.blur();
-    setTimeout(update,50);
-  }));
+  links.forEach(a=>{
+    a.addEventListener('click',(e)=>{
+      links.forEach(l=>l.classList.remove('active'));
+      e.currentTarget.blur();
+      setTimeout(update,50);
+    });
+    a.addEventListener('touchend',(e)=>{
+      setTimeout(()=>e.currentTarget.blur(), 50);
+    });
+  });
   update();
 })();
 </script>
 </body>
 </html>
-
