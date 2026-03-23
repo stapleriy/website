@@ -74,6 +74,14 @@
   .nav-links a { font-family:'Space Mono',monospace; font-size:clamp(.58rem,.9vw,.74rem); letter-spacing:.14em; text-transform:uppercase; color:var(--lavender); text-decoration:none; opacity:.8; padding:.5rem clamp(.6rem,1.4vw,1.1rem); transition:opacity .25s,color .25s; white-space:nowrap; display:block; font-weight:300; -webkit-tap-highlight-color: transparent;}
   .nav-links a:hover, .nav-links a.active { opacity:1; color:var(--cyan); }
 .nav-links a:focus, .nav-links a:focus-visible { outline:none; color:var(--lavender); opacity:.8; }
+@media (hover: none) {
+  .nav-links a:focus,
+  .nav-links a:focus-visible,
+  .nav-links a:active {
+    color: var(--lavender) !important;
+    opacity: .8 !important;
+  }
+}
 
   @media (max-width:700px) {
     #topnav { padding:0 .8rem; }
@@ -1357,3 +1365,4 @@ document.getElementById('helm-btn').addEventListener('click',()=>window.scrollTo
 </script>
 </body>
 </html>
+
