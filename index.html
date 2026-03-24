@@ -649,7 +649,7 @@
       </div>
     </div>
     <div class="dp-body">
-      <span class="dp-title" style="margin-bottom:1.4rem;">Go On Then · Simran Poudel</span>
+      <span class="dp-title" style="margin-bottom:1.4rem;">Simran Poudel, Somewhere</span>
       <div id="cf-form">
         <div class="dp-fields" style="opacity:1; margin-bottom:1.4rem;">
           <div class="dp-field">
@@ -1444,8 +1444,9 @@ async function submitContactForm(){
       body:JSON.stringify({access_key:'f009340c-db46-45c9-ae09-e4ae37bfe431',name,email,message:msg})
     });
     document.getElementById('cf-form').style.display='none';
-    document.getElementById('cf-success').style.display='block';
-    setTimeout(closeContactForm,3500);
+document.getElementById('cf-success').style.display='block';
+document.querySelector('#contact-panel .dp-title').style.display='none';
+setTimeout(closeContactForm,5000);
   }catch(err){
     btn.style.opacity='1';btn.style.pointerEvents='auto';
     errEl.textContent='— Transmission failed. Try again. —';
