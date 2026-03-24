@@ -596,7 +596,34 @@
   .link-aside { font-family:'Gochi Hand',cursive; font-size:.88rem; letter-spacing:.16em; color:var(--lime); opacity:.5; white-space:nowrap; }
   .interlude { font-family:'Exo 2',sans-serif; font-size:.6rem; letter-spacing:.26em; text-transform:uppercase; color:var(--cyan); opacity: 0.8; display:block; margin-bottom:.9rem; }
   .contact-signoff { font-family:'Gochi Hand',cursive; font-size:clamp(1.2rem,2.2vw,1.85rem); color:var(--cream); opacity:.95; transform:rotate(1.2deg); line-height:1.7; display:block; }
-
+#contact-overlay {
+  position:fixed;inset:0;z-index:9000;
+  background:rgba(6,8,15,.55);
+  backdrop-filter:blur(18px) brightness(.7);-webkit-backdrop-filter:blur(18px) brightness(.7);
+  align-items:center;justify-content:center;padding:1rem;
+}
+#contact-panel {
+  position:relative;width:min(580px,96vw);
+  background:rgba(6,8,15,.97);border:1px solid rgba(0,217,192,.35);
+  box-shadow:0 0 0 1px rgba(0,217,192,.08),0 0 60px rgba(0,217,192,.14),inset 0 0 40px rgba(0,217,192,.03);
+  overflow:hidden;
+}
+#cf-name, #cf-email, #cf-msg {
+  background: rgba(0,217,192,.04) !important;
+  border: 1px solid rgba(0,217,192,.25) !important;
+  border-radius: 2px;
+  padding: .6rem .8rem !important;
+  margin-top: .25rem;
+  width: 100%;
+}
+#cf-name:focus, #cf-email:focus, #cf-msg:focus {
+  border-color: rgba(0,217,192,.6) !important;
+  background: rgba(0,217,192,.07) !important;
+}
+#cf-name::placeholder, #cf-email::placeholder, #cf-msg::placeholder {
+  color: rgba(247,247,255,.2);
+  font-style: normal;
+}
   footer { position:relative; z-index:2; padding:1.5rem 2rem; border-top:1px solid rgba(232,64,154,.07); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; }
   .foot-l,.foot-r { font-family:'Space Mono',monospace; letter-spacing:.16em; text-transform:uppercase; }
   .foot-l { color:var(--lavender); opacity: 75; font-size: .48rem;}
@@ -607,6 +634,57 @@
 <body>
 
 <canvas id="bg-canvas"></canvas>
+<!-- ══ CONTACT FORM POPUP ══ -->
+<div id="contact-overlay" style="display:none;" onclick="if(event.target===this)closeContactForm()">
+  <div id="contact-panel">
+    <div class="dp-corner tl"></div><div class="dp-corner tr"></div>
+    <div class="dp-corner bl"></div><div class="dp-corner br"></div>
+    <div class="dp-scanline"></div>
+    <div class="dp-topbar">
+      <span class="dp-topbar-label">Quari.15. · Hailing Frequency · Open Channel</span>
+      <div class="dp-topbar-dots" onclick="closeContactForm()" title="close">
+        <div class="dp-dot"></div>
+        <div class="dp-dot"></div>
+        <div class="dp-dot"></div>
+      </div>
+    </div>
+    <div class="dp-body">
+      <span class="dp-title" style="margin-bottom:1.4rem;">Not Unreachable · Simran Poudel</span>
+      <div id="cf-form">
+        <div class="dp-fields" style="opacity:1; margin-bottom:1.4rem;">
+          <div class="dp-field">
+            <label class="dp-field-key" for="cf-name">Name</label>
+            <input id="cf-name" type="text" placeholder="Your Name" autocomplete="off"
+              style="background:none;border:none;border-bottom:1px solid rgba(0,217,192,.25);color:var(--cream);font-family:'Exo 2',sans-serif;font-size:clamp(.7rem,2vw,.88rem);letter-spacing:.12em;padding:.3rem 0;width:100%;outline:none;"/>
+          </div>
+          <div class="dp-sep"></div>
+          <div class="dp-field">
+            <label class="dp-field-key" for="cf-email">Email</label>
+            <input id="cf-email" type="email" placeholder="youremail@example.com" autocomplete="off"
+              style="background:none;border:none;border-bottom:1px solid rgba(0,217,192,.25);color:var(--cream);font-family:'Exo 2',sans-serif;font-size:clamp(.7rem,2vw,.88rem);letter-spacing:.12em;padding:.3rem 0;width:100%;outline:none;"/>
+          </div>
+          <div class="dp-sep"></div>
+          <div class="dp-field">
+            <label class="dp-field-key" for="cf-msg">Message</label>
+            <textarea id="cf-msg" placeholder="Write a message..." rows="4" autocomplete="off"
+              style="background:none;border:none;border-bottom:1px solid rgba(0,217,192,.25);color:var(--cream);font-family:'Exo 2',sans-serif;font-weight:300;font-size:clamp(.7rem,2vw,.88rem);letter-spacing:.12em;padding:.3rem 0;width:100%;outline:none;resize:none;line-height:1.7;"></textarea>
+          </div>
+        </div>
+        <span id="cf-error" style="display:none;font-family:'Space Mono',monospace;font-size:.75rem;letter-spacing:.16em;color:var(--magenta);margin-bottom:.8rem;display:none;">— ALL FIELDS REQUIRED —</span>
+        <button class="dp-board-btn show" id="cf-submit" onclick="submitContactForm()">
+          <span>Transmit Message</span><span class="dp-board-btn-arrow">→</span>
+        </button>
+      </div>
+      <div id="cf-success" style="display:none;text-align:center;padding:1.5rem 0;">
+        <span style="font-family:'Space Mono',monospace;font-size:clamp(.6rem,1.4vw,.75rem);letter-spacing:.22em;text-transform:uppercase;color:var(--lime);">Message received. Captain will be notified.</span>
+      </div>
+    </div>
+    <div class="dp-bottombar">
+      <span>Quari.15. · Transmission Protocol v1.0</span>
+      <span>Encrypted</span>
+    </div>
+  </div>
+</div>
 
 <!-- ══ DOCKING POPUP ══ -->
 <div id="dock-overlay" role="dialog" aria-modal="true" aria-label="Docking Sequence">
@@ -1037,7 +1115,7 @@
     
 
     <div class="contact-links">
-      <a href="YOUR_EMAIL_LINK" class="contact-link-row">
+      <a href="#" class="contact-link-row" onclick="openContactForm(event)">
         <span class="link-platform">Email</span><span class="link-aside">(for all visitors)</span>
       </a>
       <a href="https://www.linkedin.com/in/simranpoudel/" target="_blank" class="contact-link-row">
@@ -1341,6 +1419,39 @@ document.getElementById('dock-overlay').addEventListener('click', function(e){
   });
   document.addEventListener('click',e=>{rip.style.left=e.clientX+'px';rip.style.top=e.clientY+'px';rip.style.background='#b197fc';rip.classList.remove('pop');void rip.offsetWidth;rip.classList.add('pop');});
 })();
+
+/* ═══ CONTACT FORM ═══ */
+function openContactForm(e){
+  e.preventDefault();
+  document.getElementById('contact-overlay').style.display='flex';
+}
+function closeContactForm(){
+  document.getElementById('contact-overlay').style.display='none';
+}
+async function submitContactForm(){
+  const name=document.getElementById('cf-name').value.trim();
+  const email=document.getElementById('cf-email').value.trim();
+  const msg=document.getElementById('cf-msg').value.trim();
+  const errEl=document.getElementById('cf-error');
+  if(!name||!email||!msg){errEl.style.display='block';return;}
+  errEl.style.display='none';
+  const btn=document.getElementById('cf-submit');
+  btn.style.opacity='.5';btn.style.pointerEvents='none';
+  try{
+    await fetch('https://api.web3forms.com/submit',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({access_key:'f009340c-db46-45c9-ae09-e4ae37bfe431',name,email,message:msg})
+    });
+    document.getElementById('cf-form').style.display='none';
+    document.getElementById('cf-success').style.display='block';
+    setTimeout(closeContactForm,3500);
+  }catch(err){
+    btn.style.opacity='1';btn.style.pointerEvents='auto';
+    errEl.textContent='— Transmission failed. Try again. —';
+    errEl.style.display='block';
+  }
+}
 
 /* ═══ HELM ═══ */
 document.getElementById('helm-btn').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
